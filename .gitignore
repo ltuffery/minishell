@@ -49,4 +49,7 @@
 modules.order
 Module.symvers
 Mkfile.old
-dkms.conf
+5kms.conf
+
+# Custom
+*.swp
