@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/16 13:54:35 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/17 13:01:40 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ void	listen(int sig, siginfo_t *info, void *unused)
 	(void)info;
 	(void)unused;
 	if (sig == SIGINT)
-	{
 		write(0, "\nminishoul>", 11);
-	}
+	else if (sig == SIGQUIT)
+		return ;
 }
 
 int	main(int argc, char **argv, char **env)
@@ -59,6 +59,7 @@ int	main(int argc, char **argv, char **env)
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = listen;
 	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 	while (1)
 		call_promt();
 }
