@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/17 13:47:25 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/03/17 15:36:06 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,5 +55,10 @@ fclean: clean
 	@echo "\033[4;35m--- all creations have been deleted ---\n\033[0m"
 
 re: fclean all
+
+test:
+	@clang tests/$(FILE).c src/builtins/$(FILE).c
+	@./a.out
+	@rm a.out
 
 .PHONY: all clean fclean re bonus

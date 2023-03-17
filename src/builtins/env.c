@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 14:59:03 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/03/17 15:36:37 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/03/17 15:44:22 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
+#include <stdio.h>
 
-typedef enum e_boolean
+void	env_builtins(const char **env)
 {
-	FALSE = 0,
-	TRUE = 1,
-}	t_boolean;
+	int	i;
 
-#endif
+	i = 0;
+	while (env[i] != NULL)
+	{
+		printf("%s\n", env[i]);
+		i++;
+	}
+}

@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 14:59:03 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/03/17 15:11:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-typedef enum e_boolean
+void	exit_builtins(void)
 {
-	FALSE = 0,
-	TRUE = 1,
-}	t_boolean;
-
-#endif
+	printf("exit\n");
+	exit(0);
+}
