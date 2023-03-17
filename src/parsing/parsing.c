@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 14:53:18 by njegat           ###   ########.fr       */
+/*   Created: 2023/03/17 10:36:00 by njegat            #+#    #+#             */
+/*   Updated: 2023/03/17 16:06:46 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-# include "parsing.h"
+#include "../../include/parsing.h"
 
-#endif
+int	parsing_handler(char *prompt)
+{
+	if (check_quote(prompt))
+		return (1);
+	if (check_pipe(prompt))
+		return (1);
+	return (0);
+}
