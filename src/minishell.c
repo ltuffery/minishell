@@ -6,29 +6,21 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 16:12:09 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/17 16:14:28 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishel.h"
 #include <bits/types/siginfo_t.h>
+#include <readline/readline.h>
 #include <signal.h>
 #include <stdlib.h>
 
-static void	call_promt(void)
+static void	call_promt(char *line)
 {
-	char	*line;
-
-	line = NULL;
-	if (line)
-	{
-		free(line);
-		line = NULL;
-	}
-	line = readline("minishoul>");
 	if (line == NULL)
 	{
-		printf("\n");
+		printf("exit\n");
 		exit(0);
 	}
 	if (line && *line)
@@ -41,13 +33,18 @@ void	listen(int sig, siginfo_t *info, void *unused)
 	(void)unused;
 	if (sig == SIGINT)
 	{
-		write(0, "\nminishoul>", 11);
+		write(2, "\n", 1);
+		rl_on_new_line();
+		rl_redisplay();
 	}
+	else if (sig == SIGQUIT)
+		return ;
 }
 
 int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	act;
+	char				*line;
 
 	(void)argv;
 	(void)env;
@@ -58,7 +55,12 @@ int	main(int argc, char **argv, char **env)
 	}
 	act.sa_flags = SA_SIGINFO;
 	act.sa_sigaction = listen;
+	sigemptyset(&act.sa_mask);
 	sigaction(SIGINT, &act, NULL);
+	sigaction(SIGQUIT, &act, NULL);
 	while (1)
-		call_promt();
+	{
+		line = readline("minishoul>");
+		call_promt(line);
+	}
 }

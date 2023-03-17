@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/17 16:08:20 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/17 16:14:57 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = minishell
 
 CC = clang
 
-FLAGS = -Werror -Wextra -Wall
+FLAGS = -Werror -Wextra -Wall -g
 
 RLFLAGS = -L/usr/local/lib -I/usr/local/include -lreadline
 
