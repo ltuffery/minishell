@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 12:45:12 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 13:30:21 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,12 @@ static t_data	*split_cmd(t_data *data, char *cmd)
 
 	add = malloc(sizeof(t_data));
 	add->cmdx = ft_split(cmd, ' ');
+	free(cmd);
 	add->next = NULL;
+	//en attandant
+	add->infile = NULL;
+	add->outfile = NULL;
+	//fin 
 	if (data)
 	{
 		tmp = data;
@@ -37,7 +42,7 @@ static t_data	*add_cmd(t_data *data, int start, int end, char *prompt)
 	char	*cmd;
 	int		i;
 
-	cmd = malloc(((end - start) + 12) * sizeof(char));
+	cmd = malloc(((end - start) + 2) * sizeof(char));
 	i = 0;
 	while (start + i < end)
 	{

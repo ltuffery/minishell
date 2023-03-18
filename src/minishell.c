@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 12:48:29 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 13:25:27 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,18 @@ static void	call_promt(char *line)
 		data = NULL;
 		lexer_handler(&data, line, NULL);
 		tmp = data;
-		while (tmp)
-		{
-			int i = 0;
-			while (tmp->cmdx[i])
-			{
-				printf("%s - ", tmp->cmdx[i]);
-				i++;
-			}
-			printf("\n");
-			tmp = tmp->next;
-		}
+		// while (tmp)
+		// {
+		// 	int i = 0;
+		// 	while (tmp->cmdx[i])
+		// 	{
+		// 		printf("%s - ", tmp->cmdx[i]);
+		// 		i++;
+		// 	}
+		// 	printf("\n");
+		// 	tmp = tmp->next;
+		// }
+		free_struct(&data);
 		add_history(line);
 	}
 }

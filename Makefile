@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/18 12:45:38 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/18 13:17:02 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ LINK_LIB = libft/
 NAME_LIB = libft.a
 
 SRC = src/minishell.c \
+		src/free_struct.c \
 		src/parsing/parsing.c \
 		src/parsing/check_quote.c \
 		src/parsing/check_pipe.c \

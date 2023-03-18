@@ -1,31 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   free_struct.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 13:25:21 by njegat           ###   ########.fr       */
+/*   Created: 2023/03/18 13:09:01 by njegat            #+#    #+#             */
+/*   Updated: 2023/03/18 13:28:24 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-# include "parsing.h"
-# include "lexer.h"
+#include "../include/minishel.h"
 
-typedef enum e_boolean
+void	free_struct(t_data **data)
 {
-	FALSE = 0,
-	TRUE = 1,
-}	t_boolean;
-
-void	free_struct(t_data **data);
-
-#endif
+	t_data	*tmp;
+	
+	while (*data)
+	{
+		ft_double_free((*data)->cmdx);
+		if ((*data)->infile)
+			free((*data)->infile);
+		if ((*data)->outfile)
+			free((*data)->outfile);
+		tmp = (*data);
+		*data = (*data)->next;
+		free(tmp);
+	}
+}
