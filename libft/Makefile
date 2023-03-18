@@ -40,7 +40,8 @@ SRC =	ft_bzero.c \
 		ft_double_free.c \
 		ft_strcmp.c \
 		ft_strfind.c \
-		ft_get_line.c
+		ft_get_line.c \
+		ft_strappend.c
 
 BSRC =	ft_lstnew.c \
 		ft_lstadd_front.c \
