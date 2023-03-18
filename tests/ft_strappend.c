@@ -5,13 +5,17 @@
 int	main(void)
 {
 	char	*add;
-	char	**arr;
+	char	**arr = NULL;
 
 	add = malloc(sizeof(char) * 4);
 	add[0] = 'o';
 	add[1] = 'u';
 	add[2] = 'i';
 	add[3] = 0;
-	arr = ft_strappend(add, NULL);
-	printf("%s | %s", arr[0], arr[1]);
+	arr = ft_strappend(add, arr);
+	arr = ft_strappend(add, arr);
+	for (int i = 0; arr[i] != NULL; i++)
+		printf("%s\n", arr[i]);
+	ft_double_free(arr);
+	free(add);
 }

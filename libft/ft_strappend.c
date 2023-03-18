@@ -30,8 +30,7 @@ char	**ft_strappend(char *add, char **in)
 	i = 0;
 	while (in[i] != NULL)
 	{
-		new_tab[i] = ft_strdup(in[i]);
-		free(in[i]);
+		new_tab[i] = in[i];
 		i++;
 	}
 	new_tab[i] = ft_strdup(add);
