@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 14:29:51 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 15:31:18 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,12 @@ static void	input_handler(char *line, char **env)
 			printf("%s - ", tmp->cmdx[i]);
 			i++;
 		}
-		printf("%s - ", tmp->infile);
-		printf("%s - ", tmp->outfile);
+		if (tmp->infile)
+		{for (int j=0; tmp->infile[j] != NULL; j++)
+			printf("%s - ", tmp->infile[j]);}
+		if (tmp->outfile)
+		{for (int j=0; tmp->outfile[j] != NULL; j++)
+			printf("%s - ", tmp->outfile[j]);}
 		printf("\n");
 		tmp = tmp->next;
 	}

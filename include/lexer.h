@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 12:44:48 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 15:11:42 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
 typedef struct s_data
 {
 	char			**cmdx;
-	char			*infile;
-	char			*outfile;
+	char			**infile;
+	char			**outfile;
 	pid_t			child;
 	struct s_data	*next;
 }	t_data;
