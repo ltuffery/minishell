@@ -13,7 +13,7 @@
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-void	echo_builtins(const int argc, const char **argv, const t_boolean flag);
+void	echo_builtins(const char **argv);
 void	cd_builtins(const char *path);
 void	env_builtins(const char **env);
 void	exit_builtins(void);

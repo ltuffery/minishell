@@ -12,18 +12,38 @@
 
 #include "../../include/minishel.h"
 
-void	echo_builtins(const int argc, const char **argv, const t_boolean flag)
+static t_boolean	is_flag(const char *str)
 {
 	int	i;
 
-	i = 0;
-	while (i < argc)
+	i = 1;
+	if (str[0] != '-')
+		return (FALSE);
+	while (str[i] != '\0')
+	{
+		if (str[i] != 'n')
+			return (FALSE);
+		i++;
+	}
+	return (TRUE);
+}
+
+void	echo_builtins(const char **argv)
+{
+	int			i;
+	t_boolean	has_flag;
+
+	i = 2;
+	has_flag = is_flag(argv[1]);
+	if (has_flag == FALSE)
+		i = 1;
+	while (argv[i] != NULL)
 	{
 		printf("%s", argv[i]);
-		if (i != argc - 1)
+		if (argv[i + 1] != NULL)
 			printf(" ");
 		i++;
 	}
-	if (flag == FALSE)
+	if (has_flag == FALSE)
 		printf("\n");
 }

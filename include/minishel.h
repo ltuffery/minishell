@@ -19,6 +19,7 @@
 # include "../libft/libft.h"
 # include "parsing.h"
 # include "lexer.h"
+# include "builtins.h"
 
 typedef enum e_boolean
 {

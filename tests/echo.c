@@ -14,8 +14,11 @@
 
 int	main(void)
 {
-	char	*argv[] = {"oui", "non", "test"};
+	const char	*argv1[] = {"echo", "oui", "non", "test", NULL};
+	const char	*argv2[] = {"echo", "--nnn", "oui", "non", "test", NULL};
+	const char	*argv3[] = {"echo", "-nnn", "oui", "non", "test", NULL};
 
-	echo_builtins(3, argv, FALSE);
-	echo_builtins(3, argv, TRUE);
+	echo_builtins(argv1);
+	echo_builtins(argv2);
+	echo_builtins(argv3);
 }
