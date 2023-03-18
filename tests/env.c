@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:43:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/17 15:43:50 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:06:02 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/builtins.h"
+#include "../include/minishel.h"
 
 int	main(int ac, char **av, const char **env)
 {

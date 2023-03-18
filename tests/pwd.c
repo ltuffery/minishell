@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:44:01 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/17 15:44:01 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/17 18:05:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/builtins.h"
+#include "../include/minishel.h"
 
 int	main(void)
 {

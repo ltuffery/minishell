@@ -1,29 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishel.h                                         :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 19:58:11 by njegat           ###   ########.fr       */
+/*   Created: 2023/03/17 18:39:07 by njegat            #+#    #+#             */
+/*   Updated: 2023/03/18 12:46:35 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHEL_H
-# define MINISHEL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-# include "parsing.h"
-# include "lexer.h"
+#include "../../include/lexer.h"
 
-typedef enum e_boolean
+void	lexer_handler(t_data **data, char *prompt, char **env)
 {
-	FALSE = 0,
-	TRUE = 1,
-}	t_boolean;
-
-#endif
+	(void)env;
+	*data = cut_prompt(*data, prompt);
+}

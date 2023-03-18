@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 16:14:28 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 12:48:29 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,32 @@
 
 static void	call_promt(char *line)
 {
+	t_data	*data;
+	t_data	*tmp;
+
 	if (line == NULL)
 	{
 		printf("exit\n");
 		exit(0);
 	}
 	if (line && *line)
+	{
+		data = NULL;
+		lexer_handler(&data, line, NULL);
+		tmp = data;
+		while (tmp)
+		{
+			int i = 0;
+			while (tmp->cmdx[i])
+			{
+				printf("%s - ", tmp->cmdx[i]);
+				i++;
+			}
+			printf("\n");
+			tmp = tmp->next;
+		}
 		add_history(line);
+	}
 }
 
 void	listen(int sig, siginfo_t *info, void *unused)
