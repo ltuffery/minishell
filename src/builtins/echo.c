@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishel.h"
+#include "../../include/minishell.h"
 
 static t_boolean	is_flag(const char *str)
 {

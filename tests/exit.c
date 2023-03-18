@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishel.h"
+#include "../include/minishell.h"
 
 int	main(void)
 {

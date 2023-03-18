@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishel.h"
+#include "../include/minishell.h"
 #include <bits/types/siginfo_t.h>
 #include <readline/readline.h>
 #include <signal.h>

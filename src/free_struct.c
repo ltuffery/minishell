@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishel.h"
+#include "../include/minishell.h"
 
 void	free_struct(t_data **data)
 {
