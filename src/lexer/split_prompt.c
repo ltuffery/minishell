@@ -6,11 +6,83 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 13:30:21 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/18 14:46:58 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
+
+static void	get_infile(t_data *add, char *cmd, int start)
+{
+	int	i;
+
+	if (add->infile)
+		return ;
+	start++;
+	while (cmd[start] == ' ')
+		start++;
+	i = 0;
+	while (cmd[start + i] != ' ' && cmd[start + i])
+		i++;
+	add->infile = malloc((i + 2) * sizeof(char));
+	i = 0;
+	while (cmd[start + i] != ' ' && cmd[start + i])
+	{
+		add->infile[i] = cmd[start + i];
+		i++;
+	}
+}
+
+static void	get_outfile(t_data *add, char *cmd, int start)
+{
+	int	i;
+
+	if (add->outfile)
+		return ;
+	start++;
+	while (cmd[start] == ' ')
+		start++;
+	i = 0;
+	while (cmd[start + i] != ' ' && cmd[start + i])
+		i++;
+	add->outfile = malloc((i + 2) * sizeof(char));
+	i = 0;
+	while (cmd[start + i] != ' ' && cmd[start + i])
+	{
+		add->outfile[i] = cmd[start + i];
+		i++;
+	}
+}
+
+static void	get_redirect(t_data *add, char *cmd)
+{
+	int	i;
+	int	s_quote;
+	int	d_quote;
+
+	i = ft_strlen(cmd);
+	s_quote = 0;
+	d_quote = 0;
+	while (i)
+	{
+		if (cmd[i] == '"' && (s_quote % 2) == 0)
+			d_quote++;
+		if (cmd[i] == '\'' && (d_quote % 2) == 0)
+			s_quote++;
+		if (cmd[i] == '<' && !(d_quote % 2) && !(s_quote % 2))
+			get_infile(add, cmd, i);
+		if (cmd[i] == '>' && !(d_quote % 2) && !(s_quote % 2))
+			get_outfile(add, cmd, i);
+		i--;
+	}
+}
+
+char	*get_file(t_data *add, char *cmd)
+{
+	get_redirect(add, cmd);
+	// cut_redirect();
+	return (cmd);
+}
 
 static t_data	*split_cmd(t_data *data, char *cmd)
 {
@@ -18,13 +90,12 @@ static t_data	*split_cmd(t_data *data, char *cmd)
 	t_data	*add;
 
 	add = malloc(sizeof(t_data));
-	add->cmdx = ft_split(cmd, ' ');
-	free(cmd);
 	add->next = NULL;
-	//en attandant
 	add->infile = NULL;
 	add->outfile = NULL;
-	//fin 
+	cmd = get_file(add, cmd);
+	add->cmdx = ft_split(cmd, ' ');
+	free(cmd);
 	if (data)
 	{
 		tmp = data;
