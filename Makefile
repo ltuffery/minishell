@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
+#    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/18 13:17:02 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/20 12:47:04 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,10 @@ fclean: clean
 re: fclean all
 
 test:
-	@clang tests/$(FILE).c src/builtins/$(FILE).c
-	@./a.out
+	@make -s -C libft
+	@clang tests/$(FILE).c src/builtins/$(FILE).c libft/libft.a
+	@valgrind ./a.out
 	@rm a.out
+	@make fclean -s -C libft 
 
 .PHONY: all clean fclean re bonus
