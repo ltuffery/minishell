@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 18:43:45 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/20 19:19:07 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,10 @@ void	get_cmd(t_data *data, char *cmd)
 		
 	}
 	tmp[j] = 0;
-	if (tmp[0])
+	j = 0;
+	while (tmp[i] == ' ')
+		i++;
+	if (tmp[j])
 		data->cmdx = ft_strappend(tmp, data->cmdx);
 	free(tmp);
 }
