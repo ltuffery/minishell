@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 15:11:42 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/20 11:36:37 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,25 @@
 # include <stdlib.h>
 # include "../libft/libft.h"
 
+typedef enum e_type_file
+{
+	INFILE = 1, //<
+	HERE_DOC = 2, //<<
+	OUTFILE = 3, //>
+	APPEND = 4, //>>
+}	t_type_file;
+
+typedef struct s_file
+{
+	t_type_file		type;
+	char			*name;
+	struct s_file	*next;
+}	t_file;
+
 typedef struct s_data
 {
 	char			**cmdx;
-	char			**infile;
-	char			**outfile;
+	t_file			*file;
 	pid_t			child;
 	struct s_data	*next;
 }	t_data;

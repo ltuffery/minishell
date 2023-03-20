@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/18 15:31:18 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/20 14:10:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,35 @@
 #include <readline/readline.h>
 #include <signal.h>
 #include <stdlib.h>
+
+/*!------------------------ Fonction de Debug --------------------------!*/
+void	print_struct(t_data *data)
+{
+	t_data	*tmp;
+	tmp = data;
+	while (tmp)
+	{
+		printf("\nData:------------------------\n");
+		__builtin_dump_struct(tmp, &printf);
+		int i = 0;
+		printf("\nCmdx:------------------------\n");
+		while (tmp->cmdx[i])
+		{
+			printf("%s - ", tmp->cmdx[i]);
+			i++;
+		}
+		printf("\n");
+		while (tmp->file)
+		{
+			printf("\nFile:--------%p--------\n", tmp->file);
+			__builtin_dump_struct(tmp->file, &printf);
+			tmp->file = tmp->file->next;
+		}
+		tmp = tmp->next;
+		printf("\n---------------------------------------------\n\n");
+	}
+}
+/*!------------------------------ End ----------------------------------!*/
 
 static void	input_handler(char *line, char **env)
 {
@@ -25,29 +54,7 @@ static void	input_handler(char *line, char **env)
 	{
 		lexer_handler(&data, line, env);
 	}
-
-/*----------------------- Debug ------------------------*/
-	t_data	*tmp;
-	tmp = data;
-	while (tmp)
-	{
-		int i = 0;
-		while (tmp->cmdx[i])
-		{
-			printf("%s - ", tmp->cmdx[i]);
-			i++;
-		}
-		if (tmp->infile)
-		{for (int j=0; tmp->infile[j] != NULL; j++)
-			printf("%s - ", tmp->infile[j]);}
-		if (tmp->outfile)
-		{for (int j=0; tmp->outfile[j] != NULL; j++)
-			printf("%s - ", tmp->outfile[j]);}
-		printf("\n");
-		tmp = tmp->next;
-	}
-/*------------------------- End -------------------------*/
-
+	print_struct(data); // --> Debug - remove for push
 	free_struct(&data);
 }
 
