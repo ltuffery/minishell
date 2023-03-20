@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+         #
+#    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/20 12:47:04 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/03/20 16:54:14 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC = src/minishell.c \
 		src/parsing/check_quote.c \
 		src/parsing/check_pipe.c \
 		src/lexer/lexer.c \
-		src/lexer/split_prompt.c
+		src/lexer/split_prompt.c \
+		src/lexer/get_redirect.c
 
 BSRC = 
 

@@ -6,142 +6,73 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 14:19:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/20 18:43:45 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-void	add_file(t_data *add, t_file *file)
+void	get_cmd(t_data *data, char *cmd)
 {
-	t_data	*tmp;
-
-	if (add->file)
-	{
-		tmp = add;
-		while (tmp->file->next)
-			tmp->file = tmp->file->next;
-		tmp->file->next = file;
-	}
-	else
-		add->file = file;
-}
-
-static void	get_infile(t_data *add, char *cmd, int *start)
-{
-	int		i;
-	char	*tmp;
-	t_file	*file;
-
-	file = malloc(sizeof(t_file));
-	(*start)++;
-	if (cmd[*start] == '<')
-	{
-		file->type = HERE_DOC;
-		(*start)++;
-	}
-	else
-		file->type = INFILE;
-	while (cmd[*start] == ' ')
-		(*start)++;
-	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
-		i++;
-	tmp = malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
-	{
-		tmp[i] = cmd[*start + i];
-		i++;
-	}
-	tmp[i] = 0;
-	file->name = tmp;
-	file->next = NULL;
-	add_file(add, file);
-	//add->infile = ft_strappend(tmp, add->infile);
-	//free(tmp);
-}
-
-static void	get_outfile(t_data *add, char *cmd, int *start)
-{
-	int		i;
-	char	*tmp;
-	t_file	*file;
-
-	file = malloc(sizeof(t_file));
-	(*start)++;
-	if (cmd[*start] == '>')
-	{
-		file->type = APPEND;
-		(*start)++;
-	}
-	else
-		file->type = OUTFILE;
-	while (cmd[*start] == ' ')
-		(*start)++;
-	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
-		i++;
-	tmp = malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
-	{
-		tmp[i] = cmd[*start + i];
-		i++;
-	}
-	tmp[i] = 0;
-	file->name = tmp;
-	file->next = NULL;
-	add_file(add, file);
-}
-
-void	get_redirect(t_data *add, char *cmd)
-{
-	(void)add;
 	int	i;
+	int	j;
 	int	s_quote;
 	int	d_quote;
+	char	*tmp;
 
 	i = 0;
+	j = 0;
 	s_quote = 0;
 	d_quote = 0;
+	tmp = malloc(ft_strlen(cmd) * sizeof(char));
+	while (cmd[i] == ' ')
+		i++;
 	while (cmd[i])
 	{
 		if (cmd[i] == '"' && (s_quote % 2) == 0)
+		{
 			d_quote++;
+			i++;
+			continue ;
+		}
 		if (cmd[i] == '\'' && (d_quote % 2) == 0)
+		{
 			s_quote++;
-		if (cmd[i] == '<' && !(d_quote % 2) && !(s_quote % 2))
-			get_infile(add, cmd, &i);
-		if (cmd[i] == '>' && !(d_quote % 2) && !(s_quote % 2))
-			get_outfile(add, cmd, &i);
-		i++;
+			i++;
+			continue ;
+		}
+		if ((cmd[i] == '>' || cmd[i] == '<')  && !(s_quote % 2) && !(d_quote % 2))
+		{
+			while (cmd[i] == '>' || cmd[i] == '<')
+				i++;
+			while (cmd[i] == ' ')
+				i++;
+			while (cmd[i] != ' ')
+				i++;
+			while (cmd[i] == ' ')
+				i++;
+		}
+		else if (cmd[i] == ' ' && !(s_quote % 2) && !(d_quote % 2))
+		{
+			tmp[j] = 0;
+			data->cmdx = ft_strappend(tmp, data->cmdx);
+			j = 0;
+			while (cmd[i] == ' ')
+				i++;
+		}
+		else
+		{
+			tmp[j] = cmd[i];
+			j++;
+			i++;
+		}
+		
 	}
+	tmp[j] = 0;
+	if (tmp[0])
+		data->cmdx = ft_strappend(tmp, data->cmdx);
+	free(tmp);
 }
-
-// char	*cut_cmd(char *cmd)
-// {
-// 	int	i;
-// 	int	s_quote;
-// 	int	d_quote;
-// 	char	*tmp;
-
-// 	i = 0;
-// 	s_quote = 0;
-// 	d_quote = 0;
-// 	while (cmd[i])
-// 	{
-// 		if (cmd[i] == '"' && (s_quote % 2) == 0)
-// 			d_quote++;
-// 		if (cmd[i] == '\'' && (d_quote % 2) == 0)
-// 			s_quote++;
-// 		if (cmd[i] == '<' && !(d_quote % 2) && !(s_quote % 2))
-// 			get_infile(add, cmd, i);
-// 		if (cmd[i] == '>' && !(d_quote % 2) && !(s_quote % 2))
-// 			get_outfile(add, cmd, i);
-// 		i++;
-// 	}
-// }
 
 static t_data	*add_cmd(t_data *data, char *cmd)
 {
@@ -152,7 +83,9 @@ static t_data	*add_cmd(t_data *data, char *cmd)
 	add->next = NULL;
 	add->file = NULL;
 	get_redirect(add, cmd);
-	add->cmdx = ft_split(cmd, ' ');
+	add->cmdx = NULL;
+	get_cmd(add, cmd);
+	//add->cmdx = ft_split(cmd, ' ');
 	free(cmd);
 	if (data)
 	{
