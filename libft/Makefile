@@ -43,22 +43,9 @@ SRC =	ft_bzero.c \
 		ft_get_line.c \
 		ft_strappend.c
 
-BSRC =	ft_lstnew.c \
-		ft_lstadd_front.c \
-		ft_lstsize.c \
-		ft_lstlast.c \
-		ft_lstadd_back.c \
-		ft_lstdelone.c \
-		ft_lstclear.c \
-		ft_lstiter.c \
-		ft_lstmap.c \
-		$(SRC)
-
 HEADER = libft.h
 
 OBJ = $(SRC:%.c=%.o)
-
-BOBJ = $(BSRC:%.c=%.o)
 
 FLAGS = -Wall -Werror -Wextra
 
@@ -66,9 +53,6 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 	@ar rc $(NAME) $(OBJ) $(HEADER)
-
-bonus: $(BOBJ)
-	@ar rc $(NAME) $(BOBJ) $(HEADER)
 
 %.o: %.c
 	$(GCC) $(FLAGS) -c -o $@ $<
