@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins.h                                         :+:      :+:    :+:   */
+/*   ft_count.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/21 16:23:31 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/03/21 16:08:54 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/03/21 16:11:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUILTINS_H
-# define BUILTINS_H
+#include "../libft/libft.h"
+#include <stddef.h>
+#include <stdio.h>
 
-# include <stddef.h>
-
-typedef struct s_env
+int	main(int ac, char **av, char **env)
 {
-	char	**base;
-	char	**total;
-}	t_env;
+	size_t	i;
 
-void	echo_builtins(const char **argv);
-void	cd_builtins(const char *path);
-void	env_builtins(const char **env);
-void	exit_builtins(void);
-void	pwd_builtins(void);
-void    export_builtins(char *arg, t_env *env);
-
-#endif
+	(void) ac;
+	(void) av;
+	i = ft_count(env);
+	printf("\n%zu\n", i);
+}

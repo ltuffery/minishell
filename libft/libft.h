@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/26 15:55:59 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 14:42:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/21 15:44:18 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,7 @@ void		ft_double_free(char **str);
 int			ft_strcmp(char *str1, char *str2);
 int			ft_strfind(const char *s, int c);
 char		*ft_get_line(int fd);
+
+size_t		ft_count(char **arr);
 
 #endif

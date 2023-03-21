@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/20 16:54:14 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/21 16:04:11 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,7 +65,7 @@ re: fclean all
 
 test:
 	@make -s -C libft
-	@clang tests/$(FILE).c src/builtins/$(FILE).c libft/libft.a
+	@clang tests/$(FILE).c src/builtins/$(FILE).c libft/libft.a -g
 	@valgrind ./a.out
 	@rm a.out
 	@make fclean -s -C libft 
