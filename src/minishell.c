@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 16:35:03 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/21 14:32:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(int argc, char **argv, char **env)
 	sigaction(SIGQUIT, &act, NULL);
 	while (1)
 	{
-		line = readline("minishoul>");
+		line = readline("minishoul> ");
 		call_promt(line, env);
 	}
 }
