@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 19:19:07 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/21 15:06:37 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	get_cmd(t_data *data, char *cmd)
 {
-	int	i;
+	size_t	i;
 	int	j;
 	int	s_quote;
 	int	d_quote;
@@ -47,12 +47,13 @@ void	get_cmd(t_data *data, char *cmd)
 				i++;
 			while (cmd[i] == ' ')
 				i++;
-			while (cmd[i] != ' ')
+			while (cmd[i] != ' ' && cmd[i])
 				i++;
 			while (cmd[i] == ' ')
 				i++;
+			continue ;
 		}
-		else if (cmd[i] == ' ' && !(s_quote % 2) && !(d_quote % 2))
+		if (cmd[i] == ' ' && !(s_quote % 2) && !(d_quote % 2))
 		{
 			tmp[j] = 0;
 			data->cmdx = ft_strappend(tmp, data->cmdx);
@@ -70,8 +71,8 @@ void	get_cmd(t_data *data, char *cmd)
 	}
 	tmp[j] = 0;
 	j = 0;
-	while (tmp[i] == ' ')
-		i++;
+	while (tmp[j] == ' ')
+		j++;
 	if (tmp[j])
 		data->cmdx = ft_strappend(tmp, data->cmdx);
 	free(tmp);
