@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 17:43:40 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/21 17:56:44 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ void	get_redirect(t_data *add, char *cmd)
 			d_quote++;
 		if (cmd[i] == '\'' && (d_quote % 2) == 0)
 			s_quote++;
-		if ((cmd[i] == '<' || cmd[i] == '>') && !(d_quote % 2) && !(s_quote % 2))
-			get_file(add, cmd, &i);
+		if ((cmd[i] == '<' || cmd[i] == '>'))
+			if (!(d_quote % 2) && !(s_quote % 2))
+				get_file(add, cmd, &i);
 		i++;
 	}
 }

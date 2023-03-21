@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 17:51:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/21 17:52:45 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
-
 
 //	INFILE = "<"
 //	HERE_DOC = "<<"
