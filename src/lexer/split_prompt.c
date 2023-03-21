@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 17:00:18 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/21 20:31:31 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static int	skip_redirect(char *cmd, int pos)
 		pos++;
 	while (cmd[pos] != ' ' && cmd[pos])
 		pos++;
-	// while (cmd[pos] == ' ')
-	// 	pos++;
 	return (pos);
 }
 
@@ -46,11 +44,25 @@ static int	is_quote(char *cmd, int pos)
 			s_quote = 0;
 		else
 			s_quote = 1;
-		if (cmd[pos + 1] == '$')
-			return (0);
+		// if (cmd[pos + 1] == '$')
+		// 	return (0);
 		return (1);
 	}
 	return (0);
+}
+
+static void	add_unit(t_data *data, char *add, int *pos)
+{
+	int	i;
+
+	i = *pos;
+	add[i] = 0;
+	i = 0;
+	while (add[i] == ' ')
+		i++;
+	if (add[i])
+		data->cmdx = ft_strappend(add, data->cmdx);
+	*pos = 0;
 }
 
 void	get_cmd(t_data *data, char *cmd)
@@ -72,26 +84,14 @@ void	get_cmd(t_data *data, char *cmd)
 			i = skip_redirect(cmd, i);
 		else if (cmd[i] == ' ' && !is_quote(NULL, -1))
 		{
-			tmp[j] = 0;
-			j = 0;
-			while (tmp[j] == ' ')
-				j++;
-			if (tmp[j])
-				data->cmdx = ft_strappend(tmp, data->cmdx);
-			j = 0;
+			add_unit(data, tmp, &j);
 			while (cmd[i] == ' ')
 				i++;
 		}
 		else
-		{
-			tmp[j] = cmd[i];
-			j++;
-			i++;
-		}
+			tmp[j++] = cmd[i++];
 	}
-	tmp[j] = 0;
-	if (tmp[0])
-		data->cmdx = ft_strappend(tmp, data->cmdx);
+	add_unit(data, tmp, &j);
 	free(tmp);
 }
 
@@ -106,7 +106,6 @@ static t_data	*add_cmd(t_data *data, char *cmd)
 	get_redirect(add, cmd);
 	add->cmdx = NULL;
 	get_cmd(add, cmd);
-	//add->cmdx = ft_split(cmd, ' ');
 	free(cmd);
 	if (data)
 	{
