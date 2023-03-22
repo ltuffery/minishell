@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/22 13:26:20 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/22 14:15:00 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,7 @@ static void	add_unit(t_data *data, char *add, int *pos)
 	i = *pos;
 	add[i] = 0;
 	i = 0;
-	while (add[i] == ' ')
-		i++;
+	i = skip_set(add, " ");
 	if (add[i])
 		data->cmdx = ft_strappend(add, data->cmdx);
 	*pos = 0;
@@ -74,8 +73,7 @@ void	get_cmd(t_data *data, char *cmd)
 	i = 0;
 	j = 0;
 	tmp = malloc(ft_strlen(cmd) * sizeof(char));
-	while (cmd[i] == ' ')
-		i++;
+	i += skip_set(cmd + i, " ");
 	while (cmd[i])
 	{
 		if (is_quote(cmd, i))
@@ -85,8 +83,7 @@ void	get_cmd(t_data *data, char *cmd)
 		else if (cmd[i] == ' ' && !is_quote(NULL, -1))
 		{
 			add_unit(data, tmp, &j);
-			while (cmd[i] == ' ')
-				i++;
+			i += skip_set(cmd + i, " ");
 		}
 		else
 			tmp[j++] = cmd[i++];
