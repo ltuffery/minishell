@@ -41,7 +41,8 @@ SRC =	ft_bzero.c \
 		ft_strcmp.c \
 		ft_strfind.c \
 		ft_get_line.c \
-		ft_strappend.c
+		ft_strappend.c \
+		ft_count.c
 
 HEADER = libft.h
 
