@@ -6,94 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 20:31:31 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/22 13:00:01 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
-
-static int	skip_redirect(char *cmd, int pos)
-{
-	while (cmd[pos] == '>' || cmd[pos] == '<')
-		pos++;
-	while (cmd[pos] == ' ')
-		pos++;
-	while (cmd[pos] != ' ' && cmd[pos])
-		pos++;
-	return (pos);
-}
-
-static int	is_quote(char *cmd, int pos)
-{
-	static int	s_quote;
-	static int	d_quote;
-
-	if (pos == -1)
-		return ((s_quote + d_quote) % 2);
-	if (cmd[pos] == '"' && (s_quote) == 0)
-	{
-		if (d_quote)
-			d_quote = 0;
-		else
-			d_quote = 1;
-		return (1);
-	}
-	else if (cmd[pos] == '\'' && (d_quote) == 0)
-	{
-		if (s_quote)
-			s_quote = 0;
-		else
-			s_quote = 1;
-		// if (cmd[pos + 1] == '$')
-		// 	return (0);
-		return (1);
-	}
-	return (0);
-}
-
-static void	add_unit(t_data *data, char *add, int *pos)
-{
-	int	i;
-
-	i = *pos;
-	add[i] = 0;
-	i = 0;
-	while (add[i] == ' ')
-		i++;
-	if (add[i])
-		data->cmdx = ft_strappend(add, data->cmdx);
-	*pos = 0;
-}
-
-void	get_cmd(t_data *data, char *cmd)
-{
-	int		i;
-	int		j;
-	char	*tmp;
-
-	i = 0;
-	j = 0;
-	tmp = malloc(ft_strlen(cmd) * sizeof(char));
-	while (cmd[i] == ' ')
-		i++;
-	while (cmd[i])
-	{
-		if (is_quote(cmd, i))
-			i++;
-		else if ((cmd[i] == '>' || cmd[i] == '<')  && !is_quote(NULL, -1))
-			i = skip_redirect(cmd, i);
-		else if (cmd[i] == ' ' && !is_quote(NULL, -1))
-		{
-			add_unit(data, tmp, &j);
-			while (cmd[i] == ' ')
-				i++;
-		}
-		else
-			tmp[j++] = cmd[i++];
-	}
-	add_unit(data, tmp, &j);
-	free(tmp);
-}
 
 static t_data	*add_cmd(t_data *data, char *cmd)
 {

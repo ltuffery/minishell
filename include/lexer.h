@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 17:52:45 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/22 13:23:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,8 @@ typedef struct s_data
 void	lexer_handler(t_data **data, char *prompt, char **env);
 t_data	*cut_prompt(t_data *data, char *prompt);
 void	get_redirect(t_data *add, char *cmd);
+void	get_cmd(t_data *data, char *cmd);
+// utils
+int	is_chevron(char c);
 
 #endif
