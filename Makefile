@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/20 16:54:14 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/21 18:43:37 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ SRC = src/minishell.c \
 		src/parsing/check_pipe.c \
 		src/lexer/lexer.c \
 		src/lexer/split_prompt.c \
-		src/lexer/get_redirect.c
+		src/lexer/get_redirect.c \
+		src/lexer/interpreter_var.c
 
 BSRC = 
 
