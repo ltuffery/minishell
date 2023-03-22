@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/21 14:32:27 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/21 20:35:12 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,13 @@ void	print_struct(t_data *data)
 		__builtin_dump_struct(tmp, &printf);
 		int i = 0;
 		printf("\nCmdx:------------------------\n");
-		while (tmp->cmdx[i])
+		if (tmp->cmdx)
 		{
-			printf("%s - ", tmp->cmdx[i]);
-			i++;
+			while (tmp->cmdx[i])
+			{
+				printf("%s - ", tmp->cmdx[i]);
+				i++;
+			}
 		}
 		printf("\n");
 		while (tmp->file)

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 16:55:11 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/22 13:29:26 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,11 @@ static void	get_file(t_data *add, char *cmd, int *start)
 	while (cmd[*start] == ' ')
 		(*start)++;
 	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
+	while (cmd[*start + i] != ' ' && !is_chevron(cmd[*start + i]) && cmd[*start + i])
 		i++;
 	tmp = malloc((i + 1) * sizeof(char));
 	i = 0;
-	while (cmd[*start + i] != ' ' && cmd[*start + i])
+	while (cmd[*start + i] != ' ' && !is_chevron(cmd[*start + i]) && cmd[*start + i])
 	{
 		tmp[i] = cmd[*start + i];
 		i++;
@@ -87,7 +87,7 @@ void	get_redirect(t_data *add, char *cmd)
 			d_quote++;
 		if (cmd[i] == '\'' && (d_quote % 2) == 0)
 			s_quote++;
-		if ((cmd[i] == '<' || cmd[i] == '>') && !(d_quote % 2) && !(s_quote % 2))
+		if (is_chevron(cmd[i]) && !(d_quote % 2) && !(s_quote % 2))
 			get_file(add, cmd, &i);
 		i++;
 	}
