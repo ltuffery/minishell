@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/22 20:57:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/23 21:57:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,69 @@ static char	*getvar(char *line)
 	char	*var;
 
 	i = 0;
-	while (line[i] != '=')
+	while (line[i] != '=' && line[i] != '+' && line[i])
 		i++;
 	var = malloc(sizeof(char) * (i + 1));
 	if (var == NULL)
 		return (NULL);
 	i = 0;
-	while (line[i] != '=')
+	while (line[i] != '=' && line[i] != '+' && line[i])
 	{
 		var[i] = line[i];
 		i++;
 	}
 	var[i] = '\0';
 	return (var);
+}
+
+int	var_is_equal(char *var_chr, char *var_env)
+{
+	int	i;
+
+	i = 0;
+	while (var_env[i] != '=' && var_env[i])
+	{
+		if (!var_chr)
+			return (0);
+		if (var_env[i] != var_chr[i])
+			return (0);
+		i++;
+	}
+	if (var_chr[i])
+		return (0);
+	return (1);
+}
+
+static char	*getvalue(char **env, char *var)
+{
+	int		i;
+	int		j;
+	int		k;
+	char	*arr;
+
+	i = 0;
+	if (!env || !var)
+		return (NULL);
+	while (env[i] && !var_is_equal(var, env[i]))
+		i++;
+	if (!env[i])
+		return (NULL);
+	j = 0;
+	while (env[i][j] && env[i][j] != '=')
+		j++;
+	if (!env[i][j])
+		return (NULL);
+	j++;
+	arr = malloc((ft_strlen(env[i] + j) + 1) * sizeof(char));
+	k = 0;
+	while (env[i][j])
+	{
+		arr[k] = env[i][j];
+		k++;
+		j++;
+	}
+	arr[k] = 0;
+	return (arr);
 }
 
 char	**str_delete(char **str, char *delete)
@@ -65,7 +115,7 @@ char	**str_delete(char **str, char *delete)
 	return (new);
 }
 
-void	printw_quote(char *line)
+void	printw_quote(char **env, char *line)
 {
 	char	*var;
 	char	*tmp;
@@ -73,13 +123,22 @@ void	printw_quote(char *line)
 	var = getvar(line);
 	if (!var)
 		return ;
-	tmp = getenv(var);
-	if (!tmp)
-		return ;
+	tmp = getvalue(env, var);
+	//if (!tmp)
+	//	return ;
 	ft_putstr_fd("declare -x ", 1);
 	ft_putstr_fd(var, 1);
-	printf("=\"%s\"\n", tmp);
+	if(line[ft_strlen(var)] == '=')
+	{
+		if (tmp)
+			printf("=\"%s\"\n", tmp);
+		else
+			printf("=\"\"\n");
+	}
+	else
+		printf("\n");
 	free(var);
+	free(tmp);
 }
 
 static void	print_by_order(char **env)
@@ -105,10 +164,7 @@ static void	print_by_order(char **env)
 			i++;
 		}
 		if (tmp)
-		{
-			printw_quote(tmp);
-			//printf("declare -x %s\n", tmp);
-		}
+			printw_quote(env, tmp);
 		old_env = env;
 		env = str_delete(env, tmp);
 	}
@@ -145,16 +201,199 @@ char	**arr_cpy(char **arr)
 	return (new);
 }
 
+
+
+
+
+
+
+
+int parsing_var(char *line)
+{
+	int	i;
+
+	i = 0;
+	while(ft_isalnum(line[i]) || line[i] == '_')
+		i++;
+	if (i == 0)
+	{
+		printf("minishell: export: '%s': not a valid identifier\n", line);
+		return (1);
+	}
+	else if (line[i] == 0)
+		return (0);
+	else if (line[i] != '=' && line[i] != '+')
+	{
+		printf("minishell: export: '%s': not a valid identifier\n", line);
+		return (1);
+	}
+	if (line[i] == '+' && line[i + 1] != '=')
+	{
+		printf("minishell: export: '%s': not a valid identifier\n", line);
+		return (1);
+	}
+	return (0);
+}
+
+int	existing_var(char *line, t_env *my_env)
+{
+	char	*value;
+	char	*var;
+
+	var = getvar(line);
+	if (!var)
+		return (0);
+	value = getvalue(my_env->loc_env, var);
+	free(var);
+	if (!value)
+		return (0);
+	free(value);
+	return (1);
+}
+
+int	remove_plus(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != '+' && line[i] != '=')
+		i++;
+	if (line[i] != '+')
+		return (0);
+	while (line[i + 1])
+	{
+		line[i] = line[i + 1];
+		i++;
+	}
+	line[i] = 0;
+	return (1);
+}
+
+void	add_var(char *line, t_env *my_env)
+{
+	char	**tmp;
+	char	*line_tmp;
+
+	remove_plus(line);
+	my_env->loc_env = ft_strappend(line, my_env->loc_env);
+	//free(tmp);
+	//my_env->loc_env = tmp;
+	tmp = arr_cpy(my_env->loc_env);
+	print_by_order(tmp);
+	printf("Add\n");
+}
+
+char	*var_replace(char *line, char *var_env)
+{
+	char	*new;
+	int		i;
+
+	i = 0;
+	new = malloc(ft_strlen(line) + 1);
+	if (!new)
+		return (line);
+	while (line[i] && line[i] != '=')
+	{
+		new[i] = line[i];
+		i++;
+	}
+	if (!line[i])
+	{
+		new[i] = '=';
+		new[i + 1] = 0;
+		free(var_env);
+		return (new);
+	}
+	while (line[i])
+	{
+		new[i] = line[i];
+		i++;
+	}
+	new[i] = 0;
+	free(var_env);
+	return (new);
+}
+
+char	*var_append(char *line, char *var_env)
+{
+	int		i;
+	int		j;
+	char	*new;
+
+	i = 0;
+	while (line[i] && line[i] != '=')
+		i++;
+	i++;
+	new = malloc(((ft_strlen(var_env) + ft_strlen(line + i)) + 1) * sizeof(char));
+	j = 0;
+	while (var_env[j])
+	{
+		new[j] = var_env[j];
+		j++;
+	}
+	while (line[i])
+	{
+		new[j] = line[i];
+		i++;
+		j++;
+	}
+	free(var_env);
+	return (new);
+}
+
+void	modif_var(char *line, t_env *my_env)
+{
+	char	*var;
+	int		i;
+
+	var = getvar(line);
+	i = 0;
+	while (!var_is_equal(var, my_env->loc_env[i]))
+		i++;
+	if (!remove_plus(line))
+		my_env->loc_env[i] = var_replace(line, my_env->loc_env[i]);
+	else
+		my_env->loc_env[i] = var_append(line, my_env->loc_env[i]);
+	free(var);
+	char** tmp = arr_cpy(my_env->loc_env);
+	print_by_order(tmp);
+	printf("Modif\n");
+}
+
+void arg_handler(char **cmd, t_env *my_env)
+{
+	int	i;
+
+	i = 1;
+	while (cmd[i])
+	{
+		if (!parsing_var(cmd[i]))
+		{
+			if (!existing_var(cmd[i], my_env))
+				add_var(cmd[i], my_env);
+			else
+				modif_var(cmd[i], my_env);
+		}
+		i++;
+	}
+}
+
 void	export_builtins(char **cmd, char **env, t_env *my_env)
 {
 	char	**tmp;
 	
-	if (!my_env->loc_env)
-		cpy_env(env, my_env);
-	tmp = arr_cpy(my_env->loc_env);
+	if (!my_env->loc_env)     // Probablement a faire en amont
+		cpy_env(env, my_env); // edrftgtyhujik
 	if (ft_count(cmd) == 1)
+	{
+		tmp = arr_cpy(my_env->loc_env);
 		print_by_order(tmp);
+	}
+	else
+		arg_handler(cmd, my_env);
 }
+
+// main remouve debug
 
 int	main(int agrc, char **argv, char **env)
 {
