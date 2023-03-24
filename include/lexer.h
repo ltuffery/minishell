@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/22 14:42:36 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/24 17:23:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include "../libft/libft.h"
+
+# define GET_IS_QUOTE 1
 
 //	INFILE = "<"
 //	HERE_DOC = "<<"
@@ -53,5 +55,6 @@ void	get_cmd(t_data *data, char *cmd);
 // utils
 int		is_chevron(char c);
 int		skip_set(char *str, char *set);
+int		is_quote(char str, int get);
 
 #endif

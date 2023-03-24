@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/24 14:36:01 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/24 18:27:29 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,69 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static char	*get_value(char *var, char *line, int s_quote)
+static int	count_simple_quote(char *line)
+{
+	int	i;
+	int	s_quote;
+	int	d_quote;
+
+	i = 0;
+	s_quote = 0;
+	d_quote = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '"' && (s_quote % 2) == 0)
+			d_quote++;
+		else if (line[i] == '\'' && (d_quote % 2) == 0)
+			s_quote++;
+		i++;
+	}
+	return (s_quote);
+}
+
+/*static char	*remove_quote(char *var)
+{
+	size_t	var_len;
+
+	var_len = ft_strlen(var);
+	if (var[0] == '\'' && var[var_len - 1] == '\'')
+	{
+		var[var_len - 1] = '\0';
+		return (&var[1]);
+	}
+	if (var[0] == '"' && var[var_len - 1] == '"')
+	{
+		var[var_len - 1] = '\0';
+		return (&var[0]);
+	}
+	return (var);
+}*/
+
+static char	*get_value(char *var, char *line)
 {
 	char	*value;
+	char	*left_quote;
+	size_t	line_len;
+	int		s_quote;
 
+	s_quote = count_simple_quote(line);
 	if (s_quote % 2 == 0 && s_quote != 0)
-		if (line[0] == '\'' && line[ft_strlen(line) - 1] == '\'')
-			return (NULL);
+		return (NULL);
 	value = getenv(&var[1]);
 	if (value == NULL)
 		return (NULL);
+	line_len = ft_strlen(line);
+	left_quote = ft_strnstr(line, "$", line_len);
 	return (value);
 }
 
 static char	*variable_value(char *line)
 {
-	int		i;
-	int		s_quote;
 	char	*var;
 	char	*value;
 
-	i = 0;
-	s_quote = 0;
-	while (line[i] != '\0')
-	{
-		if (line[i] == '\'')
-			s_quote++;
-		i++;
-	}
 	var = ft_strtrim(line, "\"'");
-	value = get_value(var, line, s_quote);
+	value = get_value(var, line);
 	free(var);
 	if (value == NULL)
 	{
