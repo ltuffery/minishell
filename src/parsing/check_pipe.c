@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:05:34 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/17 16:08:54 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/24 16:51:25 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ static int	around_pipe(char *prompt)
 	char	*tmp;
 
 	tmp = ft_strtrim(prompt, " ");
+	if (!tmp)
+		return (0);
+	if (!tmp[0])
+	{
+		free(tmp);
+		return (0);
+	}
 	if (tmp[0] == '|' || tmp[ft_strlen(tmp) - 1] == '|')
 	{
 		free(tmp);

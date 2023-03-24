@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 03:05:05 by njegat            #+#    #+#             */
-/*   Updated: 2023/01/24 06:10:16 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/24 17:00:01 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,12 @@ static size_t	ft_set_end(char const *s1, char const *set)
 	size_t	i;
 
 	i = ft_strlen(s1) - 1;
-	while (ft_charset(s1[i], set))
+	while (i > 0)
+	{
+		if (!ft_charset(s1[i], set))
+			break ;
 		i--;
+	}
 	return (i);
 }
 

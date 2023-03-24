@@ -1,34 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_struct.c                                      :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 13:09:01 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/20 15:58:15 by njegat           ###   ########.fr       */
+/*   Created: 2023/03/24 16:23:11 by njegat            #+#    #+#             */
+/*   Updated: 2023/03/24 17:05:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/minishell.h"
+#ifndef UTILS_H
+# define UTILS_H
+# include "lexer.h"
 
-void	free_struct(t_data **data)
-{
-	t_data	*tmp;
-	t_file	*tmp_file;
+void	free_struct(t_data **data);
+char	*getvar(char *line);
+int		var_is_equal(char *var_chr, char *var_env);
+char	*getvalue(char **env, char *var);
 
-	while (*data)
-	{
-		ft_double_free((*data)->cmdx);
-		while ((*data)->file)
-		{
-			free((*data)->file->name);
-			tmp_file = (*data)->file;
-			(*data)->file = (*data)->file->next;
-			free(tmp_file);
-		}
-		tmp = (*data);
-		*data = (*data)->next;
-		free(tmp);
-	}
-}
+#endif

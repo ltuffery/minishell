@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/22 14:15:00 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/24 16:38:59 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	get_cmd(t_data *data, char *cmd)
 
 	i = 0;
 	j = 0;
-	tmp = malloc(ft_strlen(cmd) * sizeof(char));
+	tmp = malloc((ft_strlen(cmd) + 1) * sizeof(char));
 	i += skip_set(cmd + i, " ");
 	while (cmd[i])
 	{
