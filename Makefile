@@ -68,7 +68,7 @@ re: fclean all
 
 test:
 	@make -s -C libft
-	@clang tests/$(FILE).c src/builtins/$(FILE).c libft/libft.a
+	@clang tests/$(FILE).c src/builtins/$(FILE).c libft/libft.a -g
 	@valgrind ./a.out
 	@rm a.out
 	@make fclean -s -C libft 
