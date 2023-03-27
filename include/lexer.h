@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/24 17:23:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/27 13:06:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,13 @@ typedef struct s_data
 void	lexer_handler(t_data **data, char *prompt, char **env);
 t_data	*cut_prompt(t_data *data, char *prompt);
 void	get_redirect(t_data *add, char *cmd);
-void	variable_handler(t_data *data);
+void	files_handler(t_data *data);
 void	get_cmd(t_data *data, char *cmd);
 // utils
 int		is_chevron(char c);
 int		skip_set(char *str, char *set);
 int		is_quote(char str, int get);
+
+char	*var_value(char *line);
 
 #endif
