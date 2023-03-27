@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/27 15:01:21 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:44:01 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../include/builtins.h"
-
-static void	cpy_env(char **env, t_env *my_env)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		my_env->loc_env = ft_strappend(env[i], my_env->loc_env);
-		i++;
-	}
-}
 
 char	*var_replace(char *line, char *var_env)
 {
@@ -122,12 +110,12 @@ void	arg_handler(char **cmd, t_env *my_env)
 	}
 }
 
-void	export_builtins(char **cmd, char **env, t_env *my_env)
+void	export_builtins(char **cmd, t_env *my_env)
 {
 	char	**tmp;
 
-	if (!my_env->loc_env)     // Probablement a faire en amont
-		cpy_env(env, my_env); // edrftgtyhujik
+	//if (!my_env->loc_env)     // Probablement a faire en amont
+	//	cpy_env(env, my_env); // edrftgtyhujik
 	if (ft_count(cmd) == 1)
 	{
 		tmp = arr_cpy(my_env->loc_env);
@@ -139,14 +127,14 @@ void	export_builtins(char **cmd, char **env, t_env *my_env)
 
 // main remouve debug
 
-int	main(int agrc, char **argv, char **env)
-{
-	t_env	*my_env;
+// int	main(int agrc, char **argv, char **env)
+// {
+// 	t_env	*my_env;
 
-	my_env = malloc(sizeof(t_env));
-	my_env->loc_env = NULL;
-	export_builtins(argv, env, my_env);
-	ft_double_free(my_env->loc_env);
-	free(my_env);
-	return(0);
-}
+// 	my_env = malloc(sizeof(t_env));
+// 	my_env->loc_env = NULL;
+// 	export_builtins(argv, env, my_env);
+// 	ft_double_free(my_env->loc_env);
+// 	free(my_env);
+// 	return(0);
+// }

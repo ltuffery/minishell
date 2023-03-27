@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/22 13:00:01 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 17:54:40 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static t_data	*add_cmd(t_data *data, char *cmd)
 	t_data	*add;
 
 	add = malloc(sizeof(t_data));
+	add->fd_infile = -1;
+	add->fd_outfile = -1;
 	add->next = NULL;
 	add->file = NULL;
 	get_redirect(add, cmd);

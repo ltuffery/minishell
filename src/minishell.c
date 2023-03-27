@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 14:17:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:39:27 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,33 @@ void	print_struct(t_data *data)
 	}
 }
 /*!------------------------------ End ----------------------------------!*/
+static void	cpy_env(char **env, t_env *my_env)
+{
+	int	i;
 
-static void	input_handler(char *line, char **env)
+	i = 0;
+	while (env[i])
+	{
+		my_env->loc_env = ft_strappend(env[i], my_env->loc_env);
+		i++;
+	}
+}
+
+static void	input_handler(char *line, t_env *my_env)
 {
 	t_data	*data;
 
 	data = NULL;
 	if (!parsing_handler(line))
 	{
-		lexer_handler(&data, line, env);
+		lexer_handler(&data, line, NULL);
 	}
+	exec_redirect(data, my_env);
 	//print_struct(data); // --> Debug - remove for push
 	free_struct(&data);
 }
 
-static void	call_promt(char *line, char **env)
+static void	call_promt(char *line, t_env *my_env)
 {
 	if (line == NULL)
 	{
@@ -70,7 +82,7 @@ static void	call_promt(char *line, char **env)
 	}
 	if (line && *line)
 	{
-		input_handler(line, env);
+		input_handler(line, my_env);
 		add_history(line);
 	}
 }
@@ -94,9 +106,12 @@ int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	act;
 	char				*line;
+	t_env	*my_env;
 
+	my_env = malloc(sizeof(t_env));
+	my_env->loc_env = NULL;
+	cpy_env(env, my_env);
 	(void)argv;
-	(void)env;
 	if (argc != 1)
 	{
 		ft_putstr_fd("too many arguments", 2);
@@ -110,6 +125,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishoul> ");
-		call_promt(line, env);
+		call_promt(line, my_env);
 	}
 }

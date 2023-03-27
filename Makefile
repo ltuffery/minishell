@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/27 15:19:52 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/27 18:24:48 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,12 @@ SRC = src/minishell.c \
 		src/lexer/get_cmd.c \
 		src/lexer/lexer_utils.c \
 		src/utils/free_struct.c \
-		src/utils/env_utils.c 
+		src/utils/env_utils.c \
+		src/builtins/export.c \
+		src/builtins/export/export_parsing.c \
+		src/builtins/export/export_print.c \
+		src/builtins/export/export_utils.c \
+		src/execution/exec_redirect.c
 
 BSRC = 
 

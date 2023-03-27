@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 13:06:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:53:02 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_file
 {
 	t_type_file		type;
 	char			*name;
+	int				fd;
 	struct s_file	*next;
 }	t_file;
 
@@ -44,6 +45,8 @@ typedef struct s_data
 	char			**cmdx;
 	t_file			*file;
 	pid_t			child;
+	int				fd_infile;
+	int				fd_outfile;
 	struct s_data	*next;
 }	t_data;
 

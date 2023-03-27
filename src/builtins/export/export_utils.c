@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 14:22:18 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 18:45:27 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	existing_var(char *line, t_env *my_env)
 	if (!var)
 		return (0);
 	value = getvalue(my_env->loc_env, var);
+	printf("var : %s, value : %s\n", var, value);
 	free(var);
 	if (!value)
 		return (0);

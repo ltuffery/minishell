@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/22 13:29:26 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 17:38:24 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ static void	get_file(t_data *add, char *cmd, int *start)
 	}
 	tmp[i] = 0;
 	file->name = tmp;
+	file->fd = -1;
 	file->next = NULL;
 	add_file(add, file);
 }
