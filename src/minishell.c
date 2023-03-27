@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/24 18:42:45 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/27 14:17:34 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void	input_handler(char *line, char **env)
 	{
 		lexer_handler(&data, line, env);
 	}
-	print_struct(data); // --> Debug - remove for push
+	//print_struct(data); // --> Debug - remove for push
 	free_struct(&data);
 }
 
