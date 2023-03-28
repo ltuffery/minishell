@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 17:38:29 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:37:25 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	open_heredoc(t_data *data)
 			data->fd_infile = tmp->fd;
 			if (tmp->fd == -1)
 			{
-				perror("minishoull ");
+				perror("minishoull: here_doc: ");
 				return (1);
 			}
 		}
