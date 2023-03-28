@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:28:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:47:06 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:49:15 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
+#include "../../include/utils.h"
 
 static char	**get_path(t_env *my_env)
 {
@@ -19,7 +20,7 @@ static char	**get_path(t_env *my_env)
 
 	path = getvalue(my_env->loc_env, "PATH");
 	if (!path)
-		return (1);
+		return (NULL);
 	output = ft_split(path, ':');
 	free(path);
 	return (output);

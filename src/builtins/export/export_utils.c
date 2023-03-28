@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 11:12:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:32:29 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/builtins.h"
+#include "../../../include/utils.h"
 
 int	existing_var(char *line, t_env *my_env)
 {

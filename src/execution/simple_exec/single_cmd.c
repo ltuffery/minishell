@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:32:11 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:42:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/execute.h"
+#include "../../../include/utils.h"
 
 void	launch_cmd(t_data *data, t_env *my_env, int error_path)
 {

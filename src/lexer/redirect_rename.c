@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 14:41:18 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:38:34 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static char	*str_addchar(char *str, char c)
 	return (new_str);
 }
 
-static char	*final_name(char *name)
+static char	*final_name(char *name, t_type_file type, t_env *env)
 {
 	size_t	i;
 	size_t	name_len;
@@ -59,9 +59,9 @@ static char	*final_name(char *name)
 			s_quote = !s_quote;
 		if (name[i] == '"' && s_quote == 0)
 			d_quote = !d_quote;
-		if (name[i] == '$' && s_quote == 0)
+		if (name[i] == '$' && s_quote == 0 && type != HERE_DOC)
 		{
-			value = var_value(&name[i]);
+			value = var_value(&name[i], env);
 			if (value == NULL)
 				continue ;
 			new_name = ft_strjoin(new_name, value);
@@ -78,14 +78,14 @@ static char	*final_name(char *name)
 	return (new_name);
 }
 
-void	files_handler(t_data *data)
+void	files_handler(t_data *data, t_env *env)
 {
 	t_file	*file;
 
 	file = data->file;
 	while (file != NULL)
 	{
-		file->name = final_name(file->name);
+		file->name = final_name(file->name, file->type, env);
 		file = file->next;
 	}
 }

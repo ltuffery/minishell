@@ -6,11 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:26:58 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 14:54:10 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:32:06 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../../../include/builtins.h"
+#include "../../../include/utils.h"
 
 static void	printw_quote(char **env, char *line)
 {
