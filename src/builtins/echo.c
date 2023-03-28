@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 12:03:15 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 13:00:20 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
+#include <stdio.h>
 
 static t_boolean	is_flag(const char *str)
 {
@@ -34,15 +35,19 @@ void	echo_builtins(char **argv)
 	t_boolean	has_flag;
 
 	i = 2;
-	has_flag = is_flag(argv[1]);
-	if (has_flag == FALSE)
-		i = 1;
-	while (argv[i] != NULL)
+	has_flag = FALSE;
+	if (argv[1] != NULL)
 	{
-		printf("%s", argv[i]);
-		if (argv[i + 1] != NULL)
-			printf(" ");
-		i++;
+		has_flag = is_flag(argv[1]);
+		if (has_flag == FALSE)
+			i = 1;
+		while (argv[i] != NULL)
+		{
+			printf("%s", argv[i]);
+			if (argv[i + 1] != NULL)
+				printf(" ");
+			i++;
+		}
 	}
 	if (has_flag == FALSE)
 		printf("\n");
