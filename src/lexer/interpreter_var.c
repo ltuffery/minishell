@@ -6,15 +6,17 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 18:03:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:37:30 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../libft/libft.h"
+#include "../../include/lexer.h"
+#include "../../include/utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-char	*var_value(char *line)
+char	*var_value(char *line, t_env *env)
 {
 	size_t	i;
 	char	*ret;
@@ -33,7 +35,7 @@ char	*var_value(char *line)
 	if (ft_isdigit(ret[0]))
 		value = ft_strdup(&ret[1]);
 	else
-		value = getenv(ret);
+		value = getvalue(env->loc_env, ret);
 	free(ret);
 	if (value == NULL)
 		return (NULL);

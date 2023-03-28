@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 14:28:55 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:30:44 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "../../include/builtins.h"
+#include "../../include/utils.h"
 
 char	*var_replace(char *line, char *var_env)
 {

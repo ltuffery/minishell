@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 12:03:39 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:29:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # define BUILTINS_H
 
 # include <stddef.h>
-# include "utils.h"
 # include "../libft/libft.h"
 
 typedef struct s_env

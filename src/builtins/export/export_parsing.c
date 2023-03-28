@@ -6,10 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:32:20 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 14:53:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 18:31:19 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdio.h>
 #include "../../../include/builtins.h"
 
 int	parsing_var(char *line)
