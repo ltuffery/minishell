@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 13:32:51 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 15:10:54 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	add_unit(t_data *data, char *add, int *pos)
 	i = *pos;
 	add[i] = 0;
 	i = 0;
-	i = skip_set(add, " ");
+	//i = skip_set(add, " ");
 	if (add[i])
 		data->cmdx = ft_strappend(add, data->cmdx);
 	*pos = 0;

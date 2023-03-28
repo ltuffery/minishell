@@ -1,32 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   exec_handler.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 15:17:36 by njegat           ###   ########.fr       */
+/*   Created: 2023/03/27 16:07:27 by njegat            #+#    #+#             */
+/*   Updated: 2023/03/28 15:31:45 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# include <stdio.h>
-# include <readline/readline.h>
-# include <readline/history.h>
-# include <unistd.h>
-# include "../libft/libft.h"
-# include "parsing.h"
-# include "lexer.h"
-# include "builtins.h"
-# include "utils.h"
-# include "execute.h"
+#include "../../include/execute.h"
 
-typedef enum e_boolean
+
+
+void	exec_handler(t_data *data, t_env *my_env)
 {
-	FALSE = 0,
-	TRUE = 1,
-}	t_boolean;
-
-#endif
+	if (!data->next)
+		single_cmd(data, my_env);
+}

@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/28 12:05:18 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/28 15:36:53 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,7 +44,10 @@ SRC = src/minishell.c \
 		src/builtins/env.c \
 		src/builtins/exit.c \
 		src/builtins/pwd.c \
-		src/execution/exec_redirect.c
+		src/execution/exec_handler.c \
+		src/execution/exec_utils.c \
+		src/execution/files_mana.c \
+		src/execution/simple_exec/single_cmd.c
 
 BSRC = 
 
