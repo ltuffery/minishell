@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:09:54 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:51:15 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,29 @@ static void	add_unit(t_data *data, char *add, int *pos)
 	*pos = 0;
 }
 
-//static void	insert_var(char *tmp, char *add, int *i, int *j)
-//{
-//}
+static int	insert_var(char *cmd, char *add, int *j, char **tmp)
+{
+	int	i;
 
-void	get_cmd(t_data *data, char *cmd)
+	i = 0;
+	if (cmd[i] == '$')
+		i++;
+	while (cmd[i] && (ft_isalnum(cmd[i]) || cmd[i] == '_'))
+		i++;
+	if (!add)
+		return (i);
+	*tmp = ft_strjoin(*tmp, add);
+	*j = ft_strlen(*tmp);
+	free(add);
+	return (i);
+}
+
+void	get_cmd(t_data *data, char *cmd, t_env *my_env)
 {
 	int		i;
 	int		j;
 	char	*tmp;
+	char	*var;
 
 	i = 0;
 	j = 0;
@@ -63,8 +77,9 @@ void	get_cmd(t_data *data, char *cmd)
 		}
 		else if (cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
 		{
-			//var = var_value(&cmd[i], env);
-			//insert_var(tmp, var, &i, &j);
+			var = var_value(&cmd[i], my_env);
+			tmp[j]= 0;
+			i += insert_var(cmd + i, var, &j, &tmp);
 		}
 		else
 			tmp[j++] = cmd[i++];
