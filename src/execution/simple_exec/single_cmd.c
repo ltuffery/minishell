@@ -6,55 +6,47 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:34:07 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:42:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/execute.h"
 #include "../../../include/utils.h"
 
-static int	strcmp_strict(char *s1, char *s2)
+void	launch_cmd(t_data *data, t_env *my_env, int error_path)
 {
-	int	i;
-
-	if (ft_strlen(s1) != ft_strlen(s2))
-		return (ft_strlen(s1) - ft_strlen(s2));
-	i = 0;
-	while (s1[i])
+	if (data->cmdx[0])
 	{
-		if (s1[i] != s2[i])
-			return (s1[i] - s2[i]);
-		i++;
+		if (access(data->cmdx[0], X_OK) == 0)
+		{
+			simple_dup_handler(data);
+			close_files(data);
+			if (execve(data->cmdx[0], data->cmdx, my_env->loc_env) == -1)
+			{
+				perror("execve");
+				free_struct(&data);
+				exit (1);
+			}
+		}
+		ft_print_error_cmd(data->cmdx[0], error_path);
 	}
-	return (0);
+	else
+		ft_print_error_cmd("''", error_path);
 }
 
 void	exec_cmd_single(t_data *data, t_env *my_env)
 {
 	int	error_path;
+	int	err_file;
+
 	error_path = get_cmd_path(data, my_env);
-	if (!open_files(data))
+	err_file = open_files(data);
+	if (!err_file)
 	{
-		pid_t child = fork();
-		if (child == 0)
+		data->child = fork();
+		if (data->child == 0)
 		{
-			if (data->cmdx[0])
-			{
-				if (access(data->cmdx[0], X_OK) == 0)
-				{
-					simple_dup_handler(data);
-					close_files(data);
-					if (execve(data->cmdx[0], data->cmdx, my_env->loc_env) == -1)
-					{
-						perror("execve");
-						free_struct(&data);
-						exit (1);
-					}
-				}
-				ft_print_error_cmd(data->cmdx[0], error_path);
-			}
-			else
-				ft_print_error_cmd("''", error_path);
+			launch_cmd(data, my_env, error_path);
 			free_struct(&data);
 			exit (1);
 		}
@@ -63,15 +55,8 @@ void	exec_cmd_single(t_data *data, t_env *my_env)
 	close_files(data);
 }
 
-void	exec_builtins_handler(t_data *data, t_env *my_env)
+void	exec_builtins(t_data *data, t_env *my_env)
 {
-	int	tmp_out;
-	int	tmp_in;
-	
-	tmp_out = dup(1);
-	tmp_in = dup(0);
-	open_files(data);
-	simple_dup_handler(data);
 	if (!strcmp_strict(data->cmdx[0], "cd"))
 		cd_builtins("/");
 	else if (!strcmp_strict(data->cmdx[0], "echo"))
@@ -86,11 +71,27 @@ void	exec_builtins_handler(t_data *data, t_env *my_env)
 		pwd_builtins();
 	// else if (!strcmp_strict(data->cmdx[0], "unset"))
 	// 	unset_builtins();
-	close_files(data);
-	dup2(tmp_out, 1);
-	dup2(tmp_in, 0);
-	close(tmp_out);
-	close(tmp_in);
+}
+
+void	exec_builtins_handler(t_data *data, t_env *my_env)
+{
+	int	tmp_out;
+	int	tmp_in;
+	int	err_file;
+
+	err_file = open_files(data);
+	if (!err_file)
+	{
+		tmp_out = dup(1);
+		tmp_in = dup(0);
+		simple_dup_handler(data);
+		exec_builtins(data, my_env);
+		close_files(data);
+		dup2(tmp_out, 1);
+		dup2(tmp_in, 0);
+		close(tmp_out);
+		close(tmp_in);
+	}
 }
 
 void	single_cmd(t_data *data, t_env *my_env)
