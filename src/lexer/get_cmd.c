@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:08:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 19:09:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ static void	add_unit(t_data *data, char *add, int *pos)
 	*pos = 0;
 }
 
-static void	insert_var(char *tmp, char *add, int *i, int *j)
-{
-}
+//static void	insert_var(char *tmp, char *add, int *i, int *j)
+//{
+//}
 
 void	get_cmd(t_data *data, char *cmd)
 {
