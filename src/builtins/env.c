@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:36:37 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/17 15:44:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:03:45 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 
-void	env_builtins(const char **env)
+void	env_builtins(char **env)
 {
 	int	i;
 

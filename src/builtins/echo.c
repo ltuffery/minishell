@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/24 18:00:29 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 12:03:15 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_boolean	is_flag(const char *str)
 	return (TRUE);
 }
 
-void	echo_builtins(const char **argv)
+void	echo_builtins(char **argv)
 {
 	int			i;
 	t_boolean	has_flag;

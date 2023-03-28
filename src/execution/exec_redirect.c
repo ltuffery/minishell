@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:07:27 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 10:58:47 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 12:16:29 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,15 +70,30 @@ void	close_files(t_data *data)
 
 void	dup_handler(t_data *data)
 {
-	dup2(0, data->fd_infile);
-	dup2(1, data->fd_outfile);
+	if (data->fd_infile >= 0)
+		dup2(0, data->fd_infile);
+	if (data->fd_outfile >= 0)
+		dup2(1, data->fd_outfile);
 }
 
 void	exec_builtins_handler(t_data *data, t_env *my_env)
 {
 	open_files(data);
 	dup_handler(data);
-	export_builtins(data->cmdx, my_env);
+	if (!strcmp_strict(data->cmdx[0], "cd"))
+		cd_builtins("/");
+	else if (!strcmp_strict(data->cmdx[0], "echo"))
+		echo_builtins(data->cmdx);
+	else if (!strcmp_strict(data->cmdx[0], "env"))
+		env_builtins(my_env->loc_env);
+	else if (!strcmp_strict(data->cmdx[0], "exit"))
+		exit_builtins();
+	else if (!strcmp_strict(data->cmdx[0], "export"))
+		export_builtins(data->cmdx, my_env);
+	else if (!strcmp_strict(data->cmdx[0], "pwd"))
+		pwd_builtins();
+	// else if (!strcmp_strict(data->cmdx[0], "unset"))
+	// 	unset_builtins();
 	close_files(data);
 }
 
@@ -99,6 +114,7 @@ void	single_cmd(t_data *data, t_env *my_env)
 		}
 		i++;
 	}
+	ft_double_free(builtins);
 	//exec_cmd_single();
 }
 

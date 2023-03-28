@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/03/27 18:24:48 by njegat           ###   ########.fr        #
+#    Updated: 2023/03/28 12:05:18 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,11 @@ SRC = src/minishell.c \
 		src/builtins/export/export_parsing.c \
 		src/builtins/export/export_print.c \
 		src/builtins/export/export_utils.c \
+		src/builtins/cd.c \
+		src/builtins/echo.c \
+		src/builtins/env.c \
+		src/builtins/exit.c \
+		src/builtins/pwd.c \
 		src/execution/exec_redirect.c
 
 BSRC = 
