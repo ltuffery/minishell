@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:36:49 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:56:25 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@
 # include "../libft/libft.h"
 # include "builtins.h"
 
-# define GET_IS_QUOTE 1
+# define SIMPLE_QUOTE 1
+# define DOOBLE_QUOTE 2
 
 //	INFILE = "<"
 //	HERE_DOC = "<<"

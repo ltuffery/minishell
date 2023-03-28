@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:22:52 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 14:27:23 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:57:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ int	is_quote(char str, int get)
 	static int	d_quote;
 
 	if (get == 1)
-		return ((s_quote + d_quote) % 2);
+	{
+		if (s_quote)
+			return (SIMPLE_QUOTE);
+		else if (d_quote)
+			return (DOOBLE_QUOTE);
+		return (0);
+	}
 	if (str == '"' && s_quote == 0)
 	{
 		d_quote = !d_quote;
