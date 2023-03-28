@@ -6,13 +6,14 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 17:04:16 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/24 17:09:16 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:31:07 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
 
-//Récupère le nom de variable dans une line contenant VAR ou VAR=VALUE ou VAR+=...
+//Récupère le nom de variable dans une line contenant 
+//VAR ou VAR=VALUE ou VAR+=...
 char	*getvar(char *line)
 {
 	int		i;
@@ -34,7 +35,8 @@ char	*getvar(char *line)
 	return (var);
 }
 
-//savoir si une var est égal a celle de l'env. var_chr = VAR et var_env = VAR=value 
+//savoir si une var est égal a celle de l'env. 
+//var_chr = VAR et var_env = VAR=value 
 int	var_is_equal(char *var_chr, char *var_env)
 {
 	int	i;

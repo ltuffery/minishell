@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 11:53:55 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 14:28:55 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*var_append(char *line, char *var_env)
 	while (line[i] && line[i] != '=')
 		i++;
 	i++;
-	new = malloc(((ft_strlen(var_env) + ft_strlen(line + i)) + 1) * sizeof(char));
+	new = malloc((ft_strlen(var_env) + ft_strlen(line + i) + 1) * sizeof(char));
 	j = 0;
 	while (var_env[j])
 	{
@@ -114,8 +114,6 @@ void	export_builtins(char **cmd, t_env *my_env)
 {
 	char	**tmp;
 
-	//if (!my_env->loc_env)     // Probablement a faire en amont
-	//	cpy_env(env, my_env); // edrftgtyhujik
 	if (ft_count(cmd) == 1)
 	{
 		tmp = arr_cpy(my_env->loc_env);
@@ -124,17 +122,3 @@ void	export_builtins(char **cmd, t_env *my_env)
 	else
 		arg_handler(cmd, my_env);
 }
-
-// main remouve debug
-
-// int	main(int agrc, char **argv, char **env)
-// {
-// 	t_env	*my_env;
-
-// 	my_env = malloc(sizeof(t_env));
-// 	my_env->loc_env = NULL;
-// 	export_builtins(argv, env, my_env);
-// 	ft_double_free(my_env->loc_env);
-// 	free(my_env);
-// 	return(0);
-// }

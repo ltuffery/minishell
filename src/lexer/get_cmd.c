@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/24 19:01:02 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 13:32:51 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	get_cmd(t_data *data, char *cmd)
 	{
 		if (is_quote(cmd[i], 0))
 			i++;
-		else if (is_chevron(cmd[i])  && !is_quote(0, 1))
+		else if (is_chevron(cmd[i]) && !is_quote(0, 1))
 			i = skip_redirect(cmd, i);
 		else if (cmd[i] == ' ' && !is_quote(0, 1))
 		{

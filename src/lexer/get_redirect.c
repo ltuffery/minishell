@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 17:38:24 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 13:31:59 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,24 +46,24 @@ static void	get_type(t_file *file, char *cmd, int *start)
 	}
 }
 
-static void	get_file(t_data *add, char *cmd, int *start)
+static void	get_file(t_data *add, char *cmd, int *ps)
 {
 	int		i;
 	char	*tmp;
 	t_file	*file;
 
 	file = malloc(sizeof(t_file));
-	get_type(file, cmd, start);
-	while (cmd[*start] == ' ')
-		(*start)++;
+	get_type(file, cmd, ps);
+	while (cmd[*ps] == ' ')
+		(*ps)++;
 	i = 0;
-	while (cmd[*start + i] != ' ' && !is_chevron(cmd[*start + i]) && cmd[*start + i])
+	while (cmd[*ps + i] != ' ' && !is_chevron(cmd[*ps + i]) && cmd[*ps + i])
 		i++;
 	tmp = malloc((i + 1) * sizeof(char));
 	i = 0;
-	while (cmd[*start + i] != ' ' && !is_chevron(cmd[*start + i]) && cmd[*start + i])
+	while (cmd[*ps + i] != ' ' && !is_chevron(cmd[*ps + i]) && cmd[*ps + i])
 	{
-		tmp[i] = cmd[*start + i];
+		tmp[i] = cmd[*ps + i];
 		i++;
 	}
 	tmp[i] = 0;
