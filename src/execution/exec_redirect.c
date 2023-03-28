@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:07:27 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 18:25:15 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 10:58:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	single_cmd(t_data *data, t_env *my_env)
 	i = 0;
 	while (builtins[i])
 	{
-		if (strcmp_strict(data->cmdx[0], builtins[i]))
+		if (!strcmp_strict(data->cmdx[0], builtins[i]))
 		{
 			exec_builtins_handler(data, my_env);
 			ft_double_free(builtins);

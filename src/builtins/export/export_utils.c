@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:20:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/27 18:45:27 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/28 11:12:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,24 @@
 
 int	existing_var(char *line, t_env *my_env)
 {
-	char	*value;
 	char	*var;
+	int		i;
 
 	var = getvar(line);
 	if (!var)
 		return (0);
-	value = getvalue(my_env->loc_env, var);
-	printf("var : %s, value : %s\n", var, value);
+	i = 0;
+	while (my_env->loc_env[i])
+	{
+		if (var_is_equal(var, my_env->loc_env[i]))
+		{
+			free(var);
+			return (1);
+		}
+		i++;
+	}
 	free(var);
-	if (!value)
-		return (0);
-	free(value);
-	return (1);
+	return (0);
 }
 
 int	remove_plus(char *line)
