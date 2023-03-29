@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 17:02:55 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:13:37 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static int	insert_var(char *cmd, char *add, int *j, char **tmp)
 	return (i);
 }
 
-void	get_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
+void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 {
 	int		i;
 	int		j;
@@ -77,7 +77,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
 		}
 		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
 		{
-			var = var_value(&new_cmd[i], my_env);
+			var = var_value(&new_cmd[i], env);
 			tmp[j]= 0;
 			i += insert_var(new_cmd + i, var, &j, &tmp);
 		}

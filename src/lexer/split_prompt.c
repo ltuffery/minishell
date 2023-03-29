@@ -6,13 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 17:11:45 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:18:14 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-static t_cmd	*add_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
+static t_cmd	*add_cmd(t_data *data, char *new_cmd)
 {
 	t_cmd	*tmp;
 	t_cmd	*add;
@@ -24,21 +24,21 @@ static t_cmd	*add_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
 	add->file = NULL;
 	get_redirect(add, new_cmd);
 	add->arg = NULL;
-	get_cmd(add, new_cmd, my_env);
+	get_cmd(add, new_cmd, data->env);
 	free(new_cmd);
-	if (cmd)
+	if (data->cmd)
 	{
-		tmp = cmd;
+		tmp = data->cmd;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = add;
 	}
 	else
-		cmd = add;
-	return (cmd);
+		data->cmd = add;
+	return (data->cmd);
 }
 
-static t_cmd	*split_pipe(t_cmd *cmd, int start, int end, char *prompt, t_env *my_env)
+static t_cmd	*split_pipe(t_data *data, int start, int end, char *prompt)
 {
 	char	*new_cmd;
 	int		i;
@@ -51,11 +51,11 @@ static t_cmd	*split_pipe(t_cmd *cmd, int start, int end, char *prompt, t_env *my
 		i++;
 	}
 	new_cmd[i] = 0;
-	cmd = add_cmd(cmd, new_cmd, my_env);
-	return (cmd);
+	data->cmd = add_cmd(data, new_cmd);
+	return (data->cmd);
 }
 
-t_cmd	*cut_prompt(t_cmd *cmd, char *prompt, t_env *my_env)
+t_cmd	*cut_prompt(t_data *data, char *prompt)
 {
 	int	i;
 	int	start;
@@ -74,11 +74,11 @@ t_cmd	*cut_prompt(t_cmd *cmd, char *prompt, t_env *my_env)
 			s_quote++;
 		if (prompt[i] == '|' && !(d_quote % 2) && !(s_quote % 2))
 		{
-			cmd = split_pipe(cmd, start, i, prompt, my_env);
+			data->cmd = split_pipe(data, start, i, prompt);
 			start = i + 1;
 		}
 		i++;
 	}
-	cmd = split_pipe(cmd, start, i, prompt, my_env);
-	return (cmd);
+	data->cmd = split_pipe(data, start, i, prompt);
+	return (data->cmd);
 }

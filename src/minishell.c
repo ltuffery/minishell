@@ -6,11 +6,16 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 17:13:44 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:23:49 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/execute.h"
+#include "../include/lexer.h"
+#include "../include/utils.h"
+#include "../include/parsing.h"
+#include "../libft/libft.h"
 #include <bits/types/siginfo_t.h>
 #include <readline/readline.h>
 #include <signal.h>
@@ -47,33 +52,31 @@ void	print_struct(t_cmd *cmd)
 	}
 }
 /*!------------------------------ End ----------------------------------!*/
-static void	cpy_env(char **env, t_env *my_env)
+static void	cpy_env(char **env, t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (env[i])
 	{
-		my_env->loc_env = ft_strappend(env[i], my_env->loc_env);
+		data->env = ft_strappend(env[i], data->env);
 		i++;
 	}
 }
 
-static void	input_handler(char *line, t_env *my_env)
+static void	input_handler(char *line, t_data *data)
 {
-	t_cmd	*cmd;
-
-	cmd = NULL;
+	data->cmd = NULL;
 	if (!parsing_handler(line))
 	{
-		lexer_handler(&cmd, line, my_env);
-		exec_handler(cmd, my_env);
+		lexer_handler(data, line);
+		exec_handler(data);
 	}
 	//print_struct(data); // --> Debug - remove for push
-	free_struct(&cmd);
+	free_struct(&data->cmd);
 }
 
-static void	call_promt(char *line, t_env *my_env)
+static void	call_promt(char *line, t_data *data)
 {
 	if (line == NULL)
 	{
@@ -82,7 +85,7 @@ static void	call_promt(char *line, t_env *my_env)
 	}
 	if (line && *line)
 	{
-		input_handler(line, my_env);
+		input_handler(line, data);
 		add_history(line);
 	}
 }
@@ -106,11 +109,11 @@ int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	act;
 	char				*line;
-	t_env	*my_env;
+	t_data	*data;
 
-	my_env = malloc(sizeof(t_env));
-	my_env->loc_env = NULL;
-	cpy_env(env, my_env);
+	data = malloc(sizeof(data));
+	data->env = NULL;
+	cpy_env(env, data);
 	(void)argv;
 	if (argc != 1)
 	{
@@ -125,6 +128,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishoul> ");
-		call_promt(line, my_env);
+		call_promt(line, data);
 	}
 }

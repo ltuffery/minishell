@@ -3,20 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   interpreter_var.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 18:37:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:16:26 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
 #include "../../include/lexer.h"
 #include "../../include/utils.h"
-#include <stdio.h>
-#include <stdlib.h>
 
-char	*var_value(char *line, t_env *env)
+char	*var_value(char *line, char **env)
 {
 	size_t	i;
 	char	*ret;
@@ -35,7 +32,7 @@ char	*var_value(char *line, t_env *env)
 	if (ft_isdigit(ret[0]))
 		value = ft_strdup(&ret[1]);
 	else
-		value = getvalue(env->loc_env, ret);
+		value = getvalue(env, ret);
 	free(ret);
 	if (value == NULL)
 		return (NULL);

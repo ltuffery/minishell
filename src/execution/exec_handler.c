@@ -6,14 +6,14 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 16:07:27 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 16:55:59 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:10:49 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 
-void	exec_handler(t_cmd *cmd, t_env *my_env)
+void	exec_handler(t_data *data)
 {
-	if (!cmd->next)
-		single_cmd(cmd, my_env);
+	if (!data->cmd->next)
+		single_cmd(data);
 }

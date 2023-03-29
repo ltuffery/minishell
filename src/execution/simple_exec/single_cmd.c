@@ -6,87 +6,88 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 16:55:40 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:36:53 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/execute.h"
+#include "../../../include/builtins.h"
 #include "../../../include/utils.h"
 
-void	launch_cmd(t_cmd *cmd, t_env *my_env, int error_path)
+static void	launch_cmd(t_data *data, int error_path)
 {
-	if (cmd->arg[0])
+	if (data->cmd->arg[0])
 	{
-		if (access(cmd->arg[0], X_OK) == 0)
+		if (access(data->cmd->arg[0], X_OK) == 0)
 		{
-			simple_dup_handler(cmd);
-			close_files(cmd);
-			if (execve(cmd->arg[0], cmd->arg, my_env->loc_env) == -1)
+			simple_dup_handler(data->cmd);
+			close_files(data->cmd);
+			if (execve(data->cmd->arg[0], data->cmd->arg, data->env) == -1)
 			{
 				perror("execve");
-				free_struct(&cmd);
+				free_struct(&data->cmd);
 				exit (1);
 			}
 		}
-		ft_print_error_cmd(cmd->arg[0], error_path);
+		ft_print_error_cmd(data->cmd->arg[0], error_path);
 	}
 	else
 		ft_print_error_cmd("''", error_path);
 }
 
-void	exec_cmd_single(t_cmd *cmd, t_env *my_env)
+static void	exec_cmd_single(t_data *data)
 {
 	int	error_path;
 	int	err_file;
 
-	error_path = get_cmd_path(cmd, my_env);
-	err_file = open_files(cmd);
+	error_path = get_cmd_path(data);
+	err_file = open_files(data->cmd);
 	if (!err_file)
 	{
-		cmd->child = fork();
-		if (cmd->child == 0)
+		data->cmd->child = fork();
+		if (data->cmd->child == 0)
 		{
-			launch_cmd(cmd, my_env, error_path);
-			free_struct(&cmd);
+			launch_cmd(data, error_path);
+			free_struct(&data->cmd);
 			exit (1);
 		}
 	}
 	waitpid(-1, NULL, 0);
-	close_files(cmd);
+	close_files(data->cmd);
 }
 
-void	exec_builtins(t_cmd *cmd, t_env *my_env)
+static void	exec_builtins(t_data *data)
 {
-	if (!strcmp_strict(cmd->arg[0], "cd"))
+	if (!strcmp_strict(data->cmd->arg[0], "cd"))
 		cd_builtins("/");
-	else if (!strcmp_strict(cmd->arg[0], "echo"))
-		echo_builtins(cmd->arg);
-	else if (!strcmp_strict(cmd->arg[0], "env"))
-		env_builtins(my_env->loc_env);
-	else if (!strcmp_strict(cmd->arg[0], "exit"))
+	else if (!strcmp_strict(data->cmd->arg[0], "echo"))
+		echo_builtins(data->cmd->arg);
+	else if (!strcmp_strict(data->cmd->arg[0], "env"))
+		env_builtins(data->env);
+	else if (!strcmp_strict(data->cmd->arg[0], "exit"))
 		exit_builtins();
-	else if (!strcmp_strict(cmd->arg[0], "export"))
-		export_builtins(cmd->arg, my_env);
-	else if (!strcmp_strict(cmd->arg[0], "pwd"))
+	else if (!strcmp_strict(data->cmd->arg[0], "export"))
+		export_builtins(data->cmd->arg, data->env);
+	else if (!strcmp_strict(data->cmd->arg[0], "pwd"))
 		pwd_builtins();
 	// else if (!strcmp_strict(cmd->arg[0], "unset"))
 	// 	unset_builtins();
 }
 
-void	exec_builtins_handler(t_cmd *cmd, t_env *my_env)
+static void	exec_builtins_handler(t_data *data)
 {
 	int	tmp_out;
 	int	tmp_in;
 	int	err_file;
 
-	err_file = open_files(cmd);
+	err_file = open_files(data->cmd);
 	if (!err_file)
 	{
 		tmp_out = dup(1);
 		tmp_in = dup(0);
-		simple_dup_handler(cmd);
-		exec_builtins(cmd, my_env);
-		close_files(cmd);
+		simple_dup_handler(data->cmd);
+		exec_builtins(data);
+		close_files(data->cmd);
 		dup2(tmp_out, 1);
 		dup2(tmp_in, 0);
 		close(tmp_out);
@@ -94,29 +95,29 @@ void	exec_builtins_handler(t_cmd *cmd, t_env *my_env)
 	}
 }
 
-void	single_cmd(t_cmd *cmd, t_env *my_env)
+void	single_cmd(t_data *data)
 {
 	char	**builtins;
 	int		i;
 
-	if (!cmd->arg)
+	if (!data->cmd->arg)
 	{
-		open_files(cmd);
-		close_files(cmd);
+		open_files(data->cmd);
+		close_files(data->cmd);
 		return ;
 	}
 	builtins = ft_split("cd:echo:env:exit:export:pwd:unset", ':');
 	i = 0;
 	while (builtins[i])
 	{
-		if (!strcmp_strict(cmd->arg[0], builtins[i]))
+		if (!strcmp_strict(data->cmd->arg[0], builtins[i]))
 		{
-			exec_builtins_handler(cmd, my_env);
+			exec_builtins_handler(data);
 			ft_double_free(builtins);
 			return ;
 		}
 		i++;
 	}
 	ft_double_free(builtins);
-	exec_cmd_single(cmd, my_env);
+	exec_cmd_single(data);
 }

@@ -6,22 +6,18 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 16:46:53 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:34:42 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 # include <stdio.h>
+# include "../libft/libft.h"
 # include <readline/readline.h>
 # include <readline/history.h>
 # include <unistd.h>
-# include "../libft/libft.h"
-# include "parsing.h"
-# include "lexer.h"
-# include "builtins.h"
-# include "utils.h"
-# include "execute.h"
+# include <sys/types.h>
 
 typedef enum e_boolean
 {
@@ -29,5 +25,40 @@ typedef enum e_boolean
 	TRUE = 1,
 }	t_boolean;
 
+//	INFILE = "<"
+//	HERE_DOC = "<<"
+//	OUTFILE = ">"
+//	APPEND = ">>"
+typedef enum e_type_file
+{
+	INFILE = 1,
+	HERE_DOC = 2,
+	OUTFILE = 3,
+	APPEND = 4,
+}	t_type_file;
+
+typedef struct s_file
+{
+	t_type_file		type;
+	char			*name;
+	int				fd;
+	struct s_file	*next;
+}	t_file;
+
+typedef struct s_cmd
+{
+	char			**arg;
+	t_file			*file;
+	pid_t			child;
+	int				fd_infile;
+	int				fd_outfile;
+	struct s_cmd	*next;
+}	t_cmd;
+
+typedef struct s_data
+{
+	t_cmd	*cmd;
+	char	**env;
+}	t_data;
 
 #endif

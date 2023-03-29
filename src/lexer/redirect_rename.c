@@ -6,15 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/29 17:08:15 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:17:39 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
 #include "../../include/lexer.h"
 #include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
 
 static char	*str_addchar(char *str, char c)
 {
@@ -37,7 +34,7 @@ static char	*str_addchar(char *str, char c)
 	return (new_str);
 }
 
-static char	*final_name(char *name, t_type_file type, t_env *env)
+static char	*final_name(char *name, t_type_file type, char **env)
 {
 	size_t	i;
 	size_t	name_len;
@@ -78,14 +75,14 @@ static char	*final_name(char *name, t_type_file type, t_env *env)
 	return (new_name);
 }
 
-void	files_handler(t_cmd *cmd, t_env *env)
+void	files_handler(t_data *data)
 {
 	t_file	*file;
 
-	file = cmd->file;
+	file = data->cmd->file;
 	while (file != NULL)
 	{
-		file->name = final_name(file->name, file->type, env);
+		file->name = final_name(file->name, file->type, data->env);
 		file = file->next;
 	}
 }

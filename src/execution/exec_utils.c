@@ -6,12 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 16:57:29 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:11:46 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
-#include "../../include/utils.h"
 
 int	strcmp_strict(char *s1, char *s2)
 {

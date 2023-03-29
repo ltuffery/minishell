@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 18:30:44 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:33:31 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,23 +74,23 @@ char	*var_append(char *line, char *var_env)
 	return (new);
 }
 
-void	modif_var(char *line, t_env *my_env)
+void	modif_var(char *line, char **my_env)
 {
 	char	*var;
 	int		i;
 
 	var = getvar(line);
 	i = 0;
-	while (!var_is_equal(var, my_env->loc_env[i]))
+	while (!var_is_equal(var, my_env[i]))
 		i++;
 	if (!remove_plus(line))
-		my_env->loc_env[i] = var_replace(line, my_env->loc_env[i]);
+		my_env[i] = var_replace(line, my_env[i]);
 	else
-		my_env->loc_env[i] = var_append(line, my_env->loc_env[i]);
+		my_env[i] = var_append(line, my_env[i]);
 	free(var);
 }
 
-void	arg_handler(char **cmd, t_env *my_env)
+void	arg_handler(char **cmd, char **my_env)
 {
 	int	i;
 
@@ -102,7 +102,7 @@ void	arg_handler(char **cmd, t_env *my_env)
 			if (!existing_var(cmd[i], my_env))
 			{
 				remove_plus(cmd[i]);
-				my_env->loc_env = ft_strappend(cmd[i], my_env->loc_env);
+				my_env = ft_strappend(cmd[i], my_env);
 			}
 			else
 				modif_var(cmd[i], my_env);
@@ -111,13 +111,13 @@ void	arg_handler(char **cmd, t_env *my_env)
 	}
 }
 
-void	export_builtins(char **cmd, t_env *my_env)
+void	export_builtins(char **cmd, char **my_env)
 {
 	char	**tmp;
 
 	if (ft_count(cmd) == 1)
 	{
-		tmp = arr_cpy(my_env->loc_env);
+		tmp = arr_cpy(my_env);
 		print_by_order(tmp);
 	}
 	else
