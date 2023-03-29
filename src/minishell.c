@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:23:49 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 18:55:52 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,9 @@ int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	act;
 	char				*line;
-	t_data	*data;
+	t_data				*data;
 
-	data = malloc(sizeof(data));
+	data = malloc(sizeof(t_data));
 	data->env = NULL;
 	cpy_env(env, data);
 	(void)argv;
