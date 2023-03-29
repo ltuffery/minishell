@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:55:52 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:10:49 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,11 +109,10 @@ int	main(int argc, char **argv, char **env)
 {
 	struct sigaction	act;
 	char				*line;
-	t_data				*data;
+	t_data				data;
 
-	data = malloc(sizeof(t_data));
-	data->env = NULL;
-	cpy_env(env, data);
+	data.env = NULL;
+	cpy_env(env, &data);
 	(void)argv;
 	if (argc != 1)
 	{
@@ -128,6 +127,6 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		line = readline("minishoul> ");
-		call_promt(line, data);
+		call_promt(line, &data);
 	}
 }
