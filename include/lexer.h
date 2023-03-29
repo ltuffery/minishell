@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 16:49:51 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 17:16:40 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ typedef struct s_cmd
 	struct s_cmd	*next;
 }	t_cmd;
 
-void	lexer_handler(t_cmd **data, char *prompt, t_env *env);
-t_cmd	*cut_prompt(t_cmd *data, char *prompt, t_env *my_env);
+void	lexer_handler(t_cmd **cmd, char *prompt, t_env *env);
+t_cmd	*cut_prompt(t_cmd *cmd, char *prompt, t_env *my_env);
 void	get_redirect(t_cmd *add, char *cmd);
-void	files_handler(t_cmd *data, t_env *env);
-void	get_cmd(t_cmd *data, char *cmd, t_env *my_env);
+void	files_handler(t_cmd *cmd, t_env *env);
+void	get_cmd(t_cmd *cmd, char *cmd, t_env *my_env);
 // utils
 int		is_chevron(char c);
 int		skip_set(char *str, char *set);
