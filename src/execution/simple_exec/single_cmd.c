@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:36:53 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 21:47:45 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static void	exec_cmd_single(t_data *data)
 	close_files(data->cmd);
 }
 
-static void	exec_builtins(t_data *data)
+static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 {
 	if (!strcmp_strict(data->cmd->arg[0], "cd"))
 		cd_builtins("/");
@@ -65,7 +65,12 @@ static void	exec_builtins(t_data *data)
 	else if (!strcmp_strict(data->cmd->arg[0], "env"))
 		env_builtins(data->env);
 	else if (!strcmp_strict(data->cmd->arg[0], "exit"))
-		exit_builtins();
+	{
+		close_files(data->cmd);
+		close(tmp_in);
+		close(tmp_out);
+		exit_builtins(data);
+	}
 	else if (!strcmp_strict(data->cmd->arg[0], "export"))
 		export_builtins(data->cmd->arg, data->env);
 	else if (!strcmp_strict(data->cmd->arg[0], "pwd"))
@@ -86,7 +91,7 @@ static void	exec_builtins_handler(t_data *data)
 		tmp_out = dup(1);
 		tmp_in = dup(0);
 		simple_dup_handler(data->cmd);
-		exec_builtins(data);
+		exec_builtins(data, tmp_in, tmp_out);
 		close_files(data->cmd);
 		dup2(tmp_out, 1);
 		dup2(tmp_in, 0);
@@ -112,8 +117,8 @@ void	single_cmd(t_data *data)
 	{
 		if (!strcmp_strict(data->cmd->arg[0], builtins[i]))
 		{
-			exec_builtins_handler(data);
 			ft_double_free(builtins);
+			exec_builtins_handler(data);
 			return ;
 		}
 		i++;

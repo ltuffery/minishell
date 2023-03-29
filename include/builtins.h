@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/29 18:29:55 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:44:13 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 # define BUILTINS_H
 
 # include <stddef.h>
-# include "../libft/libft.h"
+# include "minishell.h"
 
 void	echo_builtins(char **argv);
 void	cd_builtins(const char *path);
 void	env_builtins(char **env);
-void	exit_builtins(void);
+void	exit_builtins(t_data *data);
 void	pwd_builtins(void);
 // Export
 void	export_builtins(char **cmd, char **env);

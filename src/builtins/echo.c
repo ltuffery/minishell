@@ -6,12 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 13:00:20 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:44:54 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-#include <stdio.h>
 
 static t_boolean	is_flag(const char *str)
 {
