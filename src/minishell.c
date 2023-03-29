@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 19:10:49 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 19:35:30 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ static void	input_handler(char *line, t_data *data)
 	}
 	//print_struct(data); // --> Debug - remove for push
 	free_struct(&data->cmd);
+	data->cmd = NULL;
 }
 
 static void	call_promt(char *line, t_data *data)
@@ -81,6 +82,7 @@ static void	call_promt(char *line, t_data *data)
 	if (line == NULL)
 	{
 		printf("exit\n");
+		ft_double_free(data->env);
 		exit(0);
 	}
 	if (line && *line)

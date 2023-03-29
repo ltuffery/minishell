@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 13:09:01 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:27:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 19:32:59 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,11 @@ void	free_struct(t_cmd **cmd)
 		free(tmp);
 	}
 }
+
+// void	free_data(t_data *data)
+// {
+// 	ft_double_free(data->env);
+// }
 
 // void	free_env(t_env *my_env)
 // {
