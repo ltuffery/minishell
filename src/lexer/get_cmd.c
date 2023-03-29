@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:51:15 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 17:02:55 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	skip_redirect(char *cmd, int pos)
 	return (pos);
 }
 
-static void	add_unit(t_data *data, char *add, int *pos)
+static void	add_unit(t_cmd *cmd, char *add, int *pos)
 {
 	int	i;
 
@@ -32,7 +32,7 @@ static void	add_unit(t_data *data, char *add, int *pos)
 	i = 0;
 	//i = skip_set(add, " ");
 	if (add[i])
-		data->cmdx = ft_strappend(add, data->cmdx);
+		cmd->arg = ft_strappend(add, cmd->arg);
 	*pos = 0;
 }
 
@@ -53,7 +53,7 @@ static int	insert_var(char *cmd, char *add, int *j, char **tmp)
 	return (i);
 }
 
-void	get_cmd(t_data *data, char *cmd, t_env *my_env)
+void	get_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
 {
 	int		i;
 	int		j;
@@ -62,28 +62,28 @@ void	get_cmd(t_data *data, char *cmd, t_env *my_env)
 
 	i = 0;
 	j = 0;
-	tmp = malloc((ft_strlen(cmd) + 1) * sizeof(char));
-	i += skip_set(cmd + i, " ");
-	while (cmd[i])
+	tmp = malloc((ft_strlen(new_cmd) + 1) * sizeof(char));
+	i += skip_set(new_cmd + i, " ");
+	while (new_cmd[i])
 	{
-		if (is_quote(cmd[i], 0))
+		if (is_quote(new_cmd[i], 0))
 			i++;
-		else if (is_chevron(cmd[i]) && !is_quote(0, 1))
-			i = skip_redirect(cmd, i);
-		else if (cmd[i] == ' ' && !is_quote(0, 1))
+		else if (is_chevron(new_cmd[i]) && !is_quote(0, 1))
+			i = skip_redirect(new_cmd, i);
+		else if (new_cmd[i] == ' ' && !is_quote(0, 1))
 		{
-			add_unit(data, tmp, &j);
-			i += skip_set(cmd + i, " ");
+			add_unit(cmd, tmp, &j);
+			i += skip_set(new_cmd + i, " ");
 		}
-		else if (cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
+		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
 		{
-			var = var_value(&cmd[i], my_env);
+			var = var_value(&new_cmd[i], my_env);
 			tmp[j]= 0;
-			i += insert_var(cmd + i, var, &j, &tmp);
+			i += insert_var(new_cmd + i, var, &j, &tmp);
 		}
 		else
-			tmp[j++] = cmd[i++];
+			tmp[j++] = new_cmd[i++];
 	}
-	add_unit(data, tmp, &j);
+	add_unit(cmd, tmp, &j);
 	free(tmp);
 }

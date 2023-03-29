@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 15:17:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 16:46:53 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ typedef enum e_boolean
 	FALSE = 0,
 	TRUE = 1,
 }	t_boolean;
+
 
 #endif

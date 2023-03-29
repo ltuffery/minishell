@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:43:05 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 16:57:29 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ int	strcmp_strict(char *s1, char *s2)
 	return (0);
 }
 
-void	simple_dup_handler(t_data *data)
+void	simple_dup_handler(t_cmd *cmd)
 {
-	if (data->fd_infile >= 0)
-		if (dup2(data->fd_infile, 0) == -1)
+	if (cmd->fd_infile >= 0)
+		if (dup2(cmd->fd_infile, 0) == -1)
 			perror("minishoul: dup2");
-	if (data->fd_outfile >= 0)
-		if (dup2(data->fd_outfile, 1) == -1)
+	if (cmd->fd_outfile >= 0)
+		if (dup2(cmd->fd_outfile, 1) == -1)
 			perror("minishoul: dup2");
 }
 

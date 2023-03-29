@@ -6,56 +6,56 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:33:53 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 17:11:45 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-static t_data	*add_cmd(t_data *data, char *cmd, t_env *my_env)
+static t_cmd	*add_cmd(t_cmd *cmd, char *new_cmd, t_env *my_env)
 {
-	t_data	*tmp;
-	t_data	*add;
+	t_cmd	*tmp;
+	t_cmd	*add;
 
-	add = malloc(sizeof(t_data));
+	add = malloc(sizeof(t_cmd));
 	add->fd_infile = -1;
 	add->fd_outfile = -1;
 	add->next = NULL;
 	add->file = NULL;
-	get_redirect(add, cmd);
-	add->cmdx = NULL;
-	get_cmd(add, cmd, my_env);
-	free(cmd);
-	if (data)
+	get_redirect(add, new_cmd);
+	add->arg = NULL;
+	get_cmd(add, new_cmd, my_env);
+	free(new_cmd);
+	if (cmd)
 	{
-		tmp = data;
+		tmp = cmd;
 		while (tmp->next)
 			tmp = tmp->next;
 		tmp->next = add;
 	}
 	else
-		data = add;
-	return (data);
+		cmd = add;
+	return (cmd);
 }
 
-static t_data	*split_pipe(t_data *data, int start, int end, char *prompt, t_env *my_env)
+static t_cmd	*split_pipe(t_cmd *cmd, int start, int end, char *prompt, t_env *my_env)
 {
-	char	*cmd;
+	char	*new_cmd;
 	int		i;
 
-	cmd = malloc(((end - start) + 2) * sizeof(char));
+	new_cmd = malloc(((end - start) + 2) * sizeof(char));
 	i = 0;
 	while (start + i < end)
 	{
-		cmd[i] = prompt[start + i];
+		new_cmd[i] = prompt[start + i];
 		i++;
 	}
-	cmd[i] = 0;
-	data = add_cmd(data, cmd, my_env);
-	return (data);
+	new_cmd[i] = 0;
+	cmd = add_cmd(cmd, new_cmd, my_env);
+	return (cmd);
 }
 
-t_data	*cut_prompt(t_data *data, char *prompt, t_env *my_env)
+t_cmd	*cut_prompt(t_cmd *cmd, char *prompt, t_env *my_env)
 {
 	int	i;
 	int	start;
@@ -74,11 +74,11 @@ t_data	*cut_prompt(t_data *data, char *prompt, t_env *my_env)
 			s_quote++;
 		if (prompt[i] == '|' && !(d_quote % 2) && !(s_quote % 2))
 		{
-			data = split_pipe(data, start, i, prompt, my_env);
+			cmd = split_pipe(cmd, start, i, prompt, my_env);
 			start = i + 1;
 		}
 		i++;
 	}
-	data = split_pipe(data, start, i, prompt, my_env);
-	return (data);
+	cmd = split_pipe(cmd, start, i, prompt, my_env);
+	return (cmd);
 }

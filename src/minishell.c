@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 20:05:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:13:44 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,21 +17,21 @@
 #include <stdlib.h>
 
 /*!------------------------ Fonction de Debug --------------------------!*/
-void	print_struct(t_data *data)
+void	print_struct(t_cmd *cmd)
 {
-	t_data	*tmp;
-	tmp = data;
+	t_cmd	*tmp;
+	tmp = cmd;
 	while (tmp)
 	{
 		printf("\nData:------------------------\n");
 		__builtin_dump_struct(tmp, &printf);
 		int i = 0;
 		printf("\nCmdx:------------------------\n");
-		if (tmp->cmdx)
+		if (tmp->arg)
 		{
-			while (tmp->cmdx[i])
+			while (tmp->arg[i])
 			{
-				printf("%s - ", tmp->cmdx[i]);
+				printf("%s - ", tmp->arg[i]);
 				i++;
 			}
 		}
@@ -61,16 +61,16 @@ static void	cpy_env(char **env, t_env *my_env)
 
 static void	input_handler(char *line, t_env *my_env)
 {
-	t_data	*data;
+	t_cmd	*cmd;
 
-	data = NULL;
+	cmd = NULL;
 	if (!parsing_handler(line))
 	{
-		lexer_handler(&data, line, my_env);
-		exec_handler(data, my_env);
+		lexer_handler(&cmd, line, my_env);
+		exec_handler(cmd, my_env);
 	}
 	//print_struct(data); // --> Debug - remove for push
-	free_struct(&data);
+	free_struct(&cmd);
 }
 
 static void	call_promt(char *line, t_env *my_env)

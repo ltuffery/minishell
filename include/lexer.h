@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:29:42 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 16:49:51 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,21 +42,21 @@ typedef struct s_file
 	struct s_file	*next;
 }	t_file;
 
-typedef struct s_data
+typedef struct s_cmd
 {
-	char			**cmdx;
+	char			**arg;
 	t_file			*file;
 	pid_t			child;
 	int				fd_infile;
 	int				fd_outfile;
-	struct s_data	*next;
-}	t_data;
+	struct s_cmd	*next;
+}	t_cmd;
 
-void	lexer_handler(t_data **data, char *prompt, t_env *env);
-t_data	*cut_prompt(t_data *data, char *prompt, t_env *my_env);
-void	get_redirect(t_data *add, char *cmd);
-void	files_handler(t_data *data, t_env *env);
-void	get_cmd(t_data *data, char *cmd, t_env *my_env);
+void	lexer_handler(t_cmd **data, char *prompt, t_env *env);
+t_cmd	*cut_prompt(t_cmd *data, char *prompt, t_env *my_env);
+void	get_redirect(t_cmd *add, char *cmd);
+void	files_handler(t_cmd *data, t_env *env);
+void	get_cmd(t_cmd *data, char *cmd, t_env *my_env);
 // utils
 int		is_chevron(char c);
 int		skip_set(char *str, char *set);

@@ -6,29 +6,29 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 13:09:01 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 12:25:12 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/29 17:12:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
 
-void	free_struct(t_data **data)
+void	free_struct(t_cmd **cmd)
 {
-	t_data	*tmp;
+	t_cmd	*tmp;
 	t_file	*tmp_file;
 
-	while (*data)
+	while (*cmd)
 	{
-		ft_double_free((*data)->cmdx);
-		while ((*data)->file)
+		ft_double_free((*cmd)->arg);
+		while ((*cmd)->file)
 		{
-			free((*data)->file->name);
-			tmp_file = (*data)->file;
-			(*data)->file = (*data)->file->next;
+			free((*cmd)->file->name);
+			tmp_file = (*cmd)->file;
+			(*cmd)->file = (*cmd)->file->next;
 			free(tmp_file);
 		}
-		tmp = (*data);
-		*data = (*data)->next;
+		tmp = (*cmd);
+		*cmd = (*cmd)->next;
 		free(tmp);
 	}
 }

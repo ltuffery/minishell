@@ -6,13 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 13:31:59 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:06:59 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-static void	add_file(t_data *add, t_file *file)
+static void	add_file(t_cmd *add, t_file *file)
 {
 	t_file	*tmp;
 
@@ -27,43 +27,43 @@ static void	add_file(t_data *add, t_file *file)
 		add->file = file;
 }
 
-static void	get_type(t_file *file, char *cmd, int *start)
+static void	get_type(t_file *file, char *new_cmd, int *start)
 {
-	if (cmd[*start] == '>')
+	if (new_cmd[*start] == '>')
 		file->type = OUTFILE;
-	else if (cmd[*start] == '<')
+	else if (new_cmd[*start] == '<')
 		file->type = INFILE;
 	(*start)++;
-	if (cmd[*start] == '>')
+	if (new_cmd[*start] == '>')
 	{
 		file->type = APPEND;
 		(*start)++;
 	}
-	else if (cmd[*start] == '<')
+	else if (new_cmd[*start] == '<')
 	{
 		file->type = HERE_DOC;
 		(*start)++;
 	}
 }
 
-static void	get_file(t_data *add, char *cmd, int *ps)
+static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 {
 	int		i;
 	char	*tmp;
 	t_file	*file;
 
 	file = malloc(sizeof(t_file));
-	get_type(file, cmd, ps);
-	while (cmd[*ps] == ' ')
+	get_type(file, new_cmd, ps);
+	while (new_cmd[*ps] == ' ')
 		(*ps)++;
 	i = 0;
-	while (cmd[*ps + i] != ' ' && !is_chevron(cmd[*ps + i]) && cmd[*ps + i])
+	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i]) && new_cmd[*ps + i])
 		i++;
 	tmp = malloc((i + 1) * sizeof(char));
 	i = 0;
-	while (cmd[*ps + i] != ' ' && !is_chevron(cmd[*ps + i]) && cmd[*ps + i])
+	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i]) && new_cmd[*ps + i])
 	{
-		tmp[i] = cmd[*ps + i];
+		tmp[i] = new_cmd[*ps + i];
 		i++;
 	}
 	tmp[i] = 0;
@@ -73,7 +73,7 @@ static void	get_file(t_data *add, char *cmd, int *ps)
 	add_file(add, file);
 }
 
-void	get_redirect(t_data *add, char *cmd)
+void	get_redirect(t_cmd *add, char *new_cmd)
 {
 	int	i;
 	int	s_quote;
@@ -82,14 +82,14 @@ void	get_redirect(t_data *add, char *cmd)
 	i = 0;
 	s_quote = 0;
 	d_quote = 0;
-	while (cmd[i])
+	while (new_cmd[i])
 	{
-		if (cmd[i] == '"' && (s_quote % 2) == 0)
+		if (new_cmd[i] == '"' && (s_quote % 2) == 0)
 			d_quote++;
-		if (cmd[i] == '\'' && (d_quote % 2) == 0)
+		if (new_cmd[i] == '\'' && (d_quote % 2) == 0)
 			s_quote++;
-		if (is_chevron(cmd[i]) && !(d_quote % 2) && !(s_quote % 2))
-			get_file(add, cmd, &i);
+		if (is_chevron(new_cmd[i]) && !(d_quote % 2) && !(s_quote % 2))
+			get_file(add, new_cmd, &i);
 		i++;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_rename.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 18:38:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:08:15 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ static char	*final_name(char *name, t_type_file type, t_env *env)
 	return (new_name);
 }
 
-void	files_handler(t_data *data, t_env *env)
+void	files_handler(t_cmd *cmd, t_env *env)
 {
 	t_file	*file;
 
-	file = data->file;
+	file = cmd->file;
 	while (file != NULL)
 	{
 		file->name = final_name(file->name, file->type, env);
