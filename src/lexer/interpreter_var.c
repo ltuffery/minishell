@@ -6,12 +6,25 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 16:52:40 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:51:15 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 #include "../../include/utils.h"
+#include <stddef.h>
+
+size_t	var_len(char *var)
+{
+	size_t	i;
+
+	i = 1;
+	if (var[0] != '$')
+		return (0);
+	while (ft_isalnum(var[i]) || var[i] == '_')
+		i++;
+	return (i);
+}
 
 int	is_ambiguous(char *val)
 {

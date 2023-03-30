@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:13:37 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 18:57:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,18 @@ static void	add_unit(t_cmd *cmd, char *add, int *pos)
 	*pos = 0;
 }
 
+static void	add_units(t_cmd *cmd, char **adds)
+{
+	int	i;
+
+	i = 0;
+	while (adds[i] != NULL)
+	{
+		cmd->arg = ft_strappend(adds[i], cmd->arg);
+		i++;
+	}
+}
+
 static int	insert_var(char *cmd, char *add, int *j, char **tmp)
 {
 	int	i;
@@ -59,6 +71,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 	int		j;
 	char	*tmp;
 	char	*var;
+	char	**split;
 
 	i = 0;
 	j = 0;
@@ -79,7 +92,15 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 		{
 			var = var_value(&new_cmd[i], env);
 			tmp[j]= 0;
-			i += insert_var(new_cmd + i, var, &j, &tmp);
+			if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
+			{
+				split = ft_split(var, ' ');
+				j = 0;
+				add_units(cmd, split);
+				i += var_len(&new_cmd[i]);
+			}
+			else
+				i += insert_var(new_cmd + i, var, &j, &tmp);
 		}
 		else
 			tmp[j++] = new_cmd[i++];
