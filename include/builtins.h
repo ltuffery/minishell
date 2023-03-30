@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/29 19:44:13 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 14:34:33 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	env_builtins(char **env);
 void	exit_builtins(t_data *data);
 void	pwd_builtins(void);
 // Export
-void	export_builtins(char **cmd, char **env);
+void	export_builtins(char **cmd, t_data *data);
 int		existing_var(char *line, char **env);
 int		remove_plus(char *line);
 char	**arr_cpy(char **arr);
