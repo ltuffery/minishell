@@ -6,12 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/29 18:17:39 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 16:59:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
-#include <stddef.h>
 
 static char	*str_addchar(char *str, char c)
 {
@@ -38,25 +37,17 @@ static char	*final_name(char *name, t_type_file type, char **env)
 {
 	size_t	i;
 	size_t	name_len;
-	int		s_quote;
-	int		d_quote;
 	char	*new_name;
 	char	*value;
 
 	i = 0;
-	s_quote = 0;
-	d_quote = 0;
 	name_len = ft_strlen(name);
 	new_name = ft_calloc(sizeof(char), 1);
 	if (new_name == NULL)
 		return (NULL);
 	while (name[i] != '\0')
 	{
-		if (name[i] == '\'' && d_quote == 0)
-			s_quote = !s_quote;
-		if (name[i] == '"' && s_quote == 0)
-			d_quote = !d_quote;
-		if (name[i] == '$' && s_quote == 0 && type != HERE_DOC)
+		if (name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE && type != HERE_DOC)
 		{
 			value = var_value(&name[i], env);
 			if (value == NULL)
