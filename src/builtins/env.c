@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:36:37 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/28 12:03:45 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 19:12:13 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
+#include "../../libft/libft.h"
 
 void	env_builtins(char **env)
 {
@@ -19,7 +20,8 @@ void	env_builtins(char **env)
 	i = 0;
 	while (env[i] != NULL)
 	{
-		printf("%s\n", env[i]);
+		if (ft_strfind(env[i], '='))
+			printf("%s\n", env[i]);
 		i++;
 	}
 }
