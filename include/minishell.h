@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 15:32:22 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 18:12:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ typedef struct s_file
 	t_type_file		type;
 	char			*name;
 	int				fd;
+	t_boolean		ambiguous;
 	struct s_file	*next;
 }	t_file;
 

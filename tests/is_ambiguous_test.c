@@ -1,17 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   interpreter_var.c                                  :+:      :+:    :+:   */
+/*   is_ambiguous_test.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 16:52:40 by ltuffery         ###   ########.fr       */
+/*   Created: 2023/03/30 16:36:50 by ltuffery          #+#    #+#             */
+/*   Updated: 2023/03/30 16:51:21 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
-#include "../../include/utils.h"
+#include <stdio.h>
 
 int	is_ambiguous(char *val)
 {
@@ -34,28 +33,13 @@ int	is_ambiguous(char *val)
 	return (0);
 }
 
-char	*var_value(char *line, char **env)
+int	main(void)
 {
-	size_t	i;
-	char	*ret;
-	char	*value;
-
-	i = 0;
-	if (line[i] == '$')
-		i++;
-	ret = ft_strdup(&line[i]);
-	i = 0;
-	if (ret == NULL)
-		return (NULL);
-	while (ft_isalnum(ret[i]) || ret[i] == '_')
-		i++;
-	ret[i] = '\0';
-	if (ft_isdigit(ret[0]))
-		value = ft_strdup(&ret[1]);
-	else
-		value = getvalue(env, ret);
-	free(ret);
-	if (value == NULL)
-		return (NULL);
-	return (value);
+	printf("%i\n", is_ambiguous("a b")); // wait : 1
+	printf("%i\n", is_ambiguous("   a       b")); // wait : 1
+	printf("%i\n", is_ambiguous("ab")); // wait : 0
+	printf("%i\n", is_ambiguous("ab     ")); // wait : 0
+	printf("%i\n", is_ambiguous("    ab")); // wait : 0
+	printf("%i\n", is_ambiguous("   a b")); // wait : 1
+	printf("%i\n", is_ambiguous("    ab   ")); // wait : 0
 }

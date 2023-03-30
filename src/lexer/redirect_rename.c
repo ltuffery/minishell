@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 16:59:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:21:20 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	*str_addchar(char *str, char c)
 	return (new_str);
 }
 
-static char	*final_name(char *name, t_type_file type, char **env)
+static char	*final_name(t_file *file, char **env)
 {
 	size_t	i;
 	size_t	name_len;
@@ -41,28 +41,30 @@ static char	*final_name(char *name, t_type_file type, char **env)
 	char	*value;
 
 	i = 0;
-	name_len = ft_strlen(name);
+	name_len = ft_strlen(file->name);
 	new_name = ft_calloc(sizeof(char), 1);
 	if (new_name == NULL)
 		return (NULL);
-	while (name[i] != '\0')
+	while (file->name[i] != '\0')
 	{
-		if (name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE && type != HERE_DOC)
+		if (file->name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE && file->type != HERE_DOC)
 		{
-			value = var_value(&name[i], env);
+			value = var_value(&file->name[i], env);
 			if (value == NULL)
 				continue ;
+			if (is_quote(0, 1) == EMPTY_QUOTE)
+				file->ambiguous = is_ambiguous(value);
 			new_name = ft_strjoin(new_name, value);
 			if (new_name == NULL)
 				return (NULL);
-			while (ft_isalnum(name[i + 1]) || name[i + 1] == '_')
+			while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
 				i++;
 		}
-		else if (! is_quote(name[i], 0))
-			new_name = str_addchar(new_name, name[i]);
+		else if (! is_quote(file->name[i], 0))
+			new_name = str_addchar(new_name, file->name[i]);
 		i++;
 	}
-	free(name);
+	free(file->name);
 	return (new_name);
 }
 
@@ -73,7 +75,7 @@ void	files_handler(t_data *data)
 	file = data->cmd->file;
 	while (file != NULL)
 	{
-		file->name = final_name(file->name, file->type, data->env);
+		file->name = final_name(file, data->env);
 		file = file->next;
 	}
 }

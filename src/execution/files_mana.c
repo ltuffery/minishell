@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 17:59:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:14:51 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
+#include "../../include/lexer.h"
 
 int	open_infile(t_file *file, int *fd_infile)
 {
@@ -70,6 +71,11 @@ int	open_files(t_cmd *cmd)
 	file = cmd->file;
 	while (file != NULL)
 	{
+		if (file->ambiguous == TRUE)
+		{
+			ft_print_error_ambiguous();
+			return (1);
+		}
 		heredoc_check = open_heredoc(file, &cmd->fd_infile);
 		infile_check = open_infile(file, &cmd->fd_infile);
 		out_check = open_out(file, &cmd->fd_outfile);

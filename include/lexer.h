@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:22 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 18:21:09 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "../libft/libft.h"
 # include "minishell.h"
 
+# define EMPTY_QUOTE 0
 # define SIMPLE_QUOTE 1
 # define DOOBLE_QUOTE 2
 
@@ -31,5 +32,6 @@ int		skip_set(char *str, char *set);
 int		is_quote(char str, int get);
 
 char	*var_value(char *line, char **env);
+int		is_ambiguous(char *val);
 
 #endif

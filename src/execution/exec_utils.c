@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:11:46 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/30 17:51:48 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,9 @@ void	ft_print_error_file(char *file)
 	ft_putstr_fd("minishoul: ", 2);
 	ft_putstr_fd(file, 2);
 	ft_putendl_fd(": No such file or directory", 2);
+}
+
+void	ft_print_error_ambiguous(void)
+{
+	ft_putendl_fd("minishoul: ambiguous redirect", 2);
 }
