@@ -54,3 +54,4 @@ Mkfile.old
 # Custom
 *.swp
 minishell
+.vscode
