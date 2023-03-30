@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 18:57:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:23:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static void	add_units(t_cmd *cmd, char **adds)
 		cmd->arg = ft_strappend(adds[i], cmd->arg);
 		i++;
 	}
+	ft_double_free(adds);
 }
 
 static int	insert_var(char *cmd, char *add, int *j, char **tmp)
@@ -98,6 +99,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 				j = 0;
 				add_units(cmd, split);
 				i += var_len(&new_cmd[i]);
+				free(var);
 			}
 			else
 				i += insert_var(new_cmd + i, var, &j, &tmp);
