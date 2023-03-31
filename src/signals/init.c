@@ -6,10 +6,11 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 15:36:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/31 17:03:08 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:29:30 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/signals.h"
 #include <bits/types/siginfo_t.h>
 #include <readline/readline.h>
 #include <signal.h>
@@ -42,14 +43,28 @@ static void	child_listen(int sig, siginfo_t *info, void *unused)
 
 void	init_signals(int who)
 {
-	struct sigaction	act;
+	struct sigaction	ctrl_c;
+	struct sigaction	ctrl_quit;
 
-	act.sa_flags = SA_SIGINFO;
-	if (who == 0)
-		act.sa_sigaction = listen;
-	else
-	 	act.sa_sigaction = child_listen;
-	sigemptyset(&act.sa_mask);
-	sigaction(SIGINT, &act, NULL);
-	sigaction(SIGQUIT, &act, NULL);
+	ctrl_c.sa_flags = SA_SIGINFO;
+	ctrl_quit.sa_flags = SA_SIGINFO;
+	if (who == PARENT)
+	{
+		ctrl_quit.sa_handler = SIG_IGN;
+		ctrl_c.sa_sigaction = listen;
+	}
+	else if (who == DEFAULT)
+	{
+	 	ctrl_c.sa_handler = SIG_DFL;
+	 	ctrl_quit.sa_handler = SIG_DFL;
+	}
+	else if (who == CHILD)
+	{
+		ctrl_c.sa_sigaction = child_listen;
+		ctrl_quit.sa_sigaction = child_listen;
+	}
+	sigemptyset(&ctrl_c.sa_mask);
+	sigemptyset(&ctrl_quit.sa_mask);
+	sigaction(SIGINT, &ctrl_c, NULL);
+	sigaction(SIGQUIT, &ctrl_quit, NULL);
 }

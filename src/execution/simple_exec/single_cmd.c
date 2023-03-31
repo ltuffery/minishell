@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/31 16:53:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:22:13 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 #include "../../../include/builtins.h"
 #include "../../../include/utils.h"
 #include "../../../include/signals.h"
+#include <signal.h>
+#include <stdio.h>
 
 static void	launch_cmd(t_data *data, int error_path)
 {
@@ -46,15 +48,16 @@ static void	exec_cmd_single(t_data *data)
 	if (!err_file)
 	{
 		data->cmd->child = fork();
-		init_signals(CHILD);
 		if (data->cmd->child == 0)
 		{
+			init_signals(DEFAULT);
 			launch_cmd(data, error_path);
 			free_struct(&data->cmd);
 			exit (1);
 		}
+		init_signals(CHILD);
 	}
-	waitpid(-1, NULL, 0);
+	waitpid(data->cmd->child, NULL, 0);
 	init_signals(PARENT);
 	close_files(data->cmd);
 }

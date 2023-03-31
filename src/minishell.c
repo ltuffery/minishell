@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/31 16:28:45 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/03/31 18:22:32 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	data.env = NULL;
-	init_signals(0);
+	init_signals(PARENT);
 	cpy_env(env, &data);
 	if (argc != 1)
 	{
