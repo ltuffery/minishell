@@ -6,13 +6,14 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 15:34:19 by njegat           ###   ########.fr       */
+/*   Updated: 2023/03/31 16:53:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/execute.h"
 #include "../../../include/builtins.h"
 #include "../../../include/utils.h"
+#include "../../../include/signals.h"
 
 static void	launch_cmd(t_data *data, int error_path)
 {
@@ -45,6 +46,7 @@ static void	exec_cmd_single(t_data *data)
 	if (!err_file)
 	{
 		data->cmd->child = fork();
+		init_signals(CHILD);
 		if (data->cmd->child == 0)
 		{
 			launch_cmd(data, error_path);
@@ -53,6 +55,7 @@ static void	exec_cmd_single(t_data *data)
 		}
 	}
 	waitpid(-1, NULL, 0);
+	init_signals(PARENT);
 	close_files(data->cmd);
 }
 
