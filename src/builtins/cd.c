@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/03 20:54:39 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/03 20:56:32 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	pwd_change(t_data *data)
 	export = ft_strappend("OLDPWD=",export);
 	tmp = getvalue(data->env, "PWD");
 	export[1] = ft_strjoin(export[1],tmp);
+	free(tmp);
 	if (export[1])
 		export_builtins(export, data);
 	ft_double_free(export);
