@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/31 18:22:32 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:36:08 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../include/utils.h"
 #include "../include/parsing.h"
 #include "../include/signals.h"
+#include "../include/builtins.h"
 #include "../libft/libft.h"
 #include <readline/readline.h>
 #include <stdlib.h>
@@ -91,10 +92,35 @@ static void	call_promt(char *line, t_data *data)
 	}
 }
 
+char	*get_prompt(t_data *data)
+{
+	char	*out;
+	char	*tmp;
+
+	out = malloc(1);
+	out[0] = 0;
+	out = ft_strjoin(out, "\033[3;32m┌──(\033[0m\033[3;36m");
+	tmp = getvalue(data->env, "USER");
+	if (tmp)
+		out = ft_strjoin(out, tmp);
+	else
+		out = ft_strjoin(out, "unnamed");
+	free(tmp);
+	out = ft_strjoin(out, "\033[0m\033[3;32m)-[\033[0m");
+	tmp = getvalue(data->env, "PWD");
+	if (tmp)
+		out = ft_strjoin(out, tmp);
+	out = ft_strjoin(out, "\033[3;32m]\033[0m");
+	free(tmp);
+	out = ft_strjoin(out, "\n\033[3;32m└─\033[0m\033[3;36mminishoul> \033[0m");
+	return (out);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char				*line;
 	t_data				data;
+	char				*promt;
 
 	(void)argv;
 	data.env = NULL;
@@ -107,7 +133,9 @@ int	main(int argc, char **argv, char **env)
 	}
 	while (1)
 	{
-		line = readline("minishoul> ");
+		promt = get_prompt(&data);
+		line = readline(promt);
+		free(promt);
 		call_promt(line, &data);
 	}
 }
