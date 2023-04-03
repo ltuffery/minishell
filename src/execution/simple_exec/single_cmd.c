@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/31 18:22:13 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/03 20:21:31 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ static void	exec_cmd_single(t_data *data)
 static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 {
 	if (!strcmp_strict(data->cmd->arg[0], "cd"))
-		cd_builtins("/");
+		cd_builtins(data, data->cmd->arg);
 	else if (!strcmp_strict(data->cmd->arg[0], "echo"))
 		echo_builtins(data->cmd->arg);
 	else if (!strcmp_strict(data->cmd->arg[0], "env"))

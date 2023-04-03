@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 14:34:33 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/03 20:21:22 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include "minishell.h"
 
 void	echo_builtins(char **argv);
-void	cd_builtins(const char *path);
+void	cd_builtins(t_data *data, char **arg);
 void	env_builtins(char **env);
 void	exit_builtins(t_data *data);
 void	pwd_builtins(void);
