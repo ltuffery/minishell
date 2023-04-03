@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 18:51:15 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/03 18:55:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	is_ambiguous(char *val)
 
 	i = 0;
 	has_space = 0;
+	if (val == NULL)
+		return (0);
 	while (val[i] != '\0')
 	{
 		if (val[i] != ' ' && has_space)
