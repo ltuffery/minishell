@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 17:51:48 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:15:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ void	ft_print_error_cmd(char *cmd, int error_path)
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		exit(1);
 	}
 	else
 	{
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": command not found", 2);
+		exit(127);
 	}
 }
 
