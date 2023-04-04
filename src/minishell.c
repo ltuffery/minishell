@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/03 18:36:08 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/04 13:55:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 #include "../libft/libft.h"
 #include <readline/readline.h>
 #include <stdlib.h>
+
+int	g_status = 0;
 
 /*!------------------------ Fonction de Debug --------------------------!*/
 void	print_struct(t_cmd *cmd)

@@ -10,12 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef BUILTINS_H
 # define BUILTINS_H
 
-# include <stddef.h>
 # include "minishell.h"
+# include <stddef.h>
 
 void	echo_builtins(char **argv);
 void	cd_builtins(t_data *data, char **arg);
@@ -29,6 +28,6 @@ int		remove_plus(char *line);
 char	**arr_cpy(char **arr);
 char	**str_delete(char **str, char *delete);
 void	print_by_order(char **env);
-int 	parsing_var(char *line);
+int		parsing_var(char *line);
 
 #endif

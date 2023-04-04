@@ -12,8 +12,8 @@
 
 #ifndef UTILS_H
 # define UTILS_H
-#include "minishell.h"
-#include "../libft/libft.h"
+# include "../libft/libft.h"
+# include "minishell.h"
 
 void	free_struct(t_cmd **cmd);
 char	*getvar(char *line);
