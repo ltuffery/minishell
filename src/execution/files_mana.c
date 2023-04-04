@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 18:14:51 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/04 23:37:23 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,13 @@ int	open_heredoc(t_file *file, int *fd_infile)
 {
 	if (file->type == HERE_DOC)
 	{
-		//tmp->fd = get_here_doc();
+		//file->fd = dup(-1);
+		int tmp = open("/tmp/heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		if (tmp >= 0)
+			heredoc_fd(tmp, file->name);
+		close(tmp);
+		file->fd = open("/tmp/heredoc", O_RDONLY, 0644);
+		//file->fd = 1;
 		*fd_infile = file->fd;
 		if (file->fd == -1)
 		{

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:16:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 18:06:10 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/04 22:04:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void	exec_handler(t_data *data);
 void	single_cmd(t_data *data);
+void	pipe_handler(t_data *data);
+void	heredoc_fd(int fd, char *limiter);
 int		open_files(t_cmd *cmd);
 void	close_files(t_cmd *cmd);
 void	simple_dup_handler(t_cmd *cmd);
