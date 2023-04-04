@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 15:36:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/31 18:29:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/04 15:22:24 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ static void	child_listen(int sig, siginfo_t *info, void *unused)
 	(void)info;
 	(void)unused;
 	if (sig == SIGQUIT)
+	{
 		printf("Quit (core dumped)\n");
+		g_status = 131;
+	}
 }
 
 void	init_signals(int who)

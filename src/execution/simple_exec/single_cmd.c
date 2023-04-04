@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/03 20:21:31 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/04 15:16:52 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../../include/utils.h"
 #include "../../../include/signals.h"
 #include <signal.h>
-#include <stdio.h>
+#include <stdlib.h>
 
 static void	launch_cmd(t_data *data, int error_path)
 {
@@ -42,6 +42,7 @@ static void	exec_cmd_single(t_data *data)
 {
 	int	error_path;
 	int	err_file;
+	int	exit_status;
 
 	error_path = get_cmd_path(data);
 	err_file = open_files(data->cmd);
@@ -57,7 +58,8 @@ static void	exec_cmd_single(t_data *data)
 		}
 		init_signals(CHILD);
 	}
-	waitpid(data->cmd->child, NULL, 0);
+	waitpid(data->cmd->child, &exit_status, 0);
+	g_status = WEXITSTATUS(exit_status);
 	init_signals(PARENT);
 	close_files(data->cmd);
 }

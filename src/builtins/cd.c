@@ -10,30 +10,30 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/builtins.h"
+#include "../../include/utils.h"
+#include <limits.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <limits.h>
-#include "../../include/utils.h"
-#include "../../include/builtins.h"
 
 void	pwd_change(t_data *data)
 {
 	char	**export;
 	char	*tmp;
 	char	pwd[PATH_MAX];
-	
+
 	export = NULL;
-	export = ft_strappend("export",export);
-	export = ft_strappend("OLDPWD=",export);
+	export = ft_strappend("export", export);
+	export = ft_strappend("OLDPWD=", export);
 	tmp = getvalue(data->env, "PWD");
-	export[1] = ft_strjoin(export[1],tmp);
+	export[1] = ft_strjoin(export[1], tmp);
 	free(tmp);
 	if (export[1])
 		export_builtins(export, data);
 	ft_double_free(export);
 	export = NULL;
-	export = ft_strappend("export",export);
-	export = ft_strappend("PWD=",export);
+	export = ft_strappend("export", export);
+	export = ft_strappend("PWD=", export);
 	if (getcwd(pwd, sizeof(pwd)) == NULL)
 		perror("error pwd");
 	else

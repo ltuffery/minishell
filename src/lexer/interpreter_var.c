@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/03 18:55:11 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/04 14:33:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,12 @@ size_t	var_len(char *var)
 {
 	size_t	i;
 
-	i = 1;
-	if (var[0] != '$')
-		return (0);
-	while (ft_isalnum(var[i]) || var[i] == '_')
+	i = 0;
+	if (var[0] == '$')
+		i++;
+	if (var[i] == '?')
+		return (i + 1);
+	while (var[i] != '\0' && (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
 	return (i);
 }
@@ -55,22 +57,21 @@ char	*var_value(char *line, char **env)
 	char	*ret;
 	char	*value;
 
-	i = 0;
-	if (line[i] == '$')
-		i++;
+	i = line[0] == '$';
+	if (line[i] == '?')
+	{
+		value = ft_itoa(g_status);
+		return (value);
+	}
 	ret = ft_strdup(&line[i]);
-	i = 0;
 	if (ret == NULL)
 		return (NULL);
-	while (ft_isalnum(ret[i]) || ret[i] == '_')
-		i++;
+	i = var_len(ret);
 	ret[i] = '\0';
 	if (ft_isdigit(ret[0]))
 		value = ft_strdup(&ret[1]);
 	else
 		value = getvalue(env, ret);
 	free(ret);
-	if (value == NULL)
-		return (NULL);
 	return (value);
 }
