@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 18:21:20 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/05 14:50:20 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ void	files_handler(t_data *data)
 	file = data->cmd->file;
 	while (file != NULL)
 	{
+		file->ambiguous = FALSE;
 		file->name = final_name(file, data->env);
 		file = file->next;
 	}
