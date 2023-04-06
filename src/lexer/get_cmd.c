@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 14:24:42 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:12:07 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 	i = 0;
 	j = 0;
 	tmp = malloc((ft_strlen(new_cmd) + 1) * sizeof(char));
-	i += skip_set(new_cmd + i, " ");
+	i += skip_set(new_cmd + i, " \t");
 	while (new_cmd[i])
 	{
 		if (is_quote(new_cmd[i], 0))
