@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 15:16:52 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 06:04:16 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,9 @@ static void	exec_cmd_single(t_data *data)
 	int	exit_status;
 
 	error_path = get_cmd_path(data);
-	err_file = open_files(data->cmd);
+	err_file = open_heredoc(data);
+	if (!err_file)
+		err_file = open_files(data->cmd);
 	if (!err_file)
 	{
 		data->cmd->child = fork();
@@ -93,7 +95,9 @@ static void	exec_builtins_handler(t_data *data)
 	int	tmp_in;
 	int	err_file;
 
-	err_file = open_files(data->cmd);
+	err_file = open_heredoc(data);
+	if (!err_file)
+		err_file = open_files(data->cmd);
 	if (!err_file)
 	{
 		tmp_out = dup(1);
@@ -115,6 +119,7 @@ void	single_cmd(t_data *data)
 
 	if (!data->cmd->arg)
 	{
+		open_heredoc(data);
 		open_files(data->cmd);
 		close_files(data->cmd);
 		return ;

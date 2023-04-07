@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/04 22:06:09 by njegat           ###   ########.fr        #
+#    Updated: 2023/04/07 05:24:27 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,7 @@ SRC = src/minishell.c \
 		src/execution/exec_utils.c \
 		src/execution/files_mana.c \
 		src/execution/get_path.c \
-		src/execution/heredoc_fd.c \
+		src/execution/heredoc_handler.c \
 		src/execution/simple_exec/single_cmd.c \
 		src/execution/pipe/pipe_handler.c \
 		src/signals/init.c

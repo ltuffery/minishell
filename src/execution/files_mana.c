@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 23:37:23 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 06:09:50 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,35 @@ int	open_infile(t_file *file, int *fd_infile)
 	return (0);
 }
 
-int	open_heredoc(t_file *file, int *fd_infile)
+int	open_heredoc(t_data *data)
 {
-	if (file->type == HERE_DOC)
+	t_cmd	*tmp_cmd;
+	t_file	*tmp_file;
+
+	tmp_cmd = data->cmd;
+	while (tmp_cmd)
 	{
-		//file->fd = dup(-1);
-		int tmp = open("/tmp/heredoc", O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		if (tmp >= 0)
-			heredoc_fd(tmp, file->name);
-		close(tmp);
-		file->fd = open("/tmp/heredoc", O_RDONLY, 0644);
-		//file->fd = 1;
-		*fd_infile = file->fd;
-		if (file->fd == -1)
+		tmp_file = tmp_cmd->file;
+		while (tmp_file)
 		{
-			perror("minishoull: here_doc: ");
-			return (1);
+			if (tmp_file->type == HERE_DOC)
+			{
+				if (tmp_file->ambiguous == TRUE)
+				{
+					ft_print_error_ambiguous();
+					return (1);
+				}
+				tmp_file->fd = heredoc_handler(tmp_file->name);
+				tmp_cmd->fd_infile = tmp_file->fd;
+				if (tmp_file->fd == -1)
+				{
+					perror("minishoull: here_doc");
+					return (1);
+				}
+			}
+			tmp_file = tmp_file->next;
 		}
+		tmp_cmd = tmp_cmd->next;
 	}
 	return (0);
 }
@@ -70,7 +82,6 @@ int	open_out(t_file *file, int *fd_outfile)
 int	open_files(t_cmd *cmd)
 {
 	int		infile_check;
-	int		heredoc_check;
 	int		out_check;
 	t_file	*file;
 
@@ -82,10 +93,11 @@ int	open_files(t_cmd *cmd)
 			ft_print_error_ambiguous();
 			return (1);
 		}
-		heredoc_check = open_heredoc(file, &cmd->fd_infile);
+		if (file->type == HERE_DOC)
+			cmd->fd_infile = file->fd;
 		infile_check = open_infile(file, &cmd->fd_infile);
 		out_check = open_out(file, &cmd->fd_outfile);
-		if (heredoc_check || infile_check || out_check)
+		if (infile_check || out_check)
 			return (1);
 		file = file->next;
 	}
