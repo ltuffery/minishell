@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 14:31:41 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 17:54:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <readline/readline.h>
 #include <stdlib.h>
 
-int	g_status = 0;
+t_exitcode	g_status;
 
 /*!------------------------ Fonction de Debug --------------------------!*/
 void	print_struct(t_cmd *cmd)
@@ -75,8 +75,8 @@ static void	input_handler(char *line, t_data *data)
 		exec_handler(data);
 	}
 	else
-		g_status = 2;
-	//print_struct(data->cmd); // --> Debug - remove for push
+		set_code(2, FALSE);
+		//print_struct(data->cmd); // --> Debug - remove for push
 	free_struct(&data->cmd);
 	data->cmd = NULL;
 }

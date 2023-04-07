@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 07:22:09 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 16:41:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static void	exec_cmd_single(t_data *data)
 		init_signals(CHILD);
 	}
 	waitpid(data->cmd->child, &exit_status, 0);
-	g_status = WEXITSTATUS(exit_status);
+	set_if_sig_false(WEXITSTATUS(exit_status));
 	init_signals(PARENT);
 	close_files(data->cmd);
 }
@@ -87,6 +87,7 @@ static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 		pwd_builtins();
 	// else if (!strcmp_strict(cmd->arg[0], "unset"))
 	// 	unset_builtins();
+	set_code(0, FALSE);
 }
 
 static void	exec_builtins_handler(t_data *data)

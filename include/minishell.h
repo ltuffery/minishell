@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 07:00:33 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 15:54:42 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <readline/history.h>
 # include <unistd.h>
 # include <sys/types.h>
-
-extern int	g_status;
 
 typedef enum e_boolean
 {
@@ -65,5 +63,13 @@ typedef struct s_data
 	int		pipefd1[2];
 	int		pipefd2[2];
 }	t_data;
+
+typedef struct s_exitcode
+{
+	t_boolean	write_by_signale;
+	int			code;
+}	t_exitcode;
+
+extern t_exitcode	g_status;
 
 #endif

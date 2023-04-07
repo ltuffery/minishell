@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:12:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/05 18:02:48 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:23:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,27 @@ static t_boolean	print_error(char *error)
 	return (TRUE);
 }
 
+static int	count_rdct(t_boolean save)
+{
+	static int	nbr;
+
+	if (save == TRUE)
+		nbr++;
+	return (nbr);
+}
+
 static t_boolean	check_char(char c, t_boolean *rdct_find)
 {
 	static t_boolean	ret;
 	static t_boolean	space_find;
 
-
-	ret = FALSE;
-	space_find = FALSE;
 	if (c == '<' || c == '>')
 	{
-		if (space_find == TRUE && c == '>')
-			ret = print_error(">");
-		else if (space_find == TRUE && c == '<')
-			ret = print_error("<");
+		count_rdct(TRUE);
+		if (space_find == TRUE)
+			ret = print_error("< or >");
+		else if (count_rdct(FALSE) == 3)
+			ret = print_error("< or >");
 		*rdct_find = TRUE;
 	}
 	else if (c == '|' && *rdct_find == TRUE)
