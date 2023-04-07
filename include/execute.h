@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:16:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 22:04:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 11:44:34 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,27 @@
 # include "minishell.h"
 # include <fcntl.h>
 # include <sys/wait.h>
+# define EVEN 0
+# define ODD 1
+# define ERR_PIPE 12
+# define ERR_DUP 13
+# define ERR_FILE 14
+# define CLOSE_FORK 7
+# define CLOSE_P1 -3
+# define CLOSE_P2 -4
 
 void	exec_handler(t_data *data);
 void	single_cmd(t_data *data);
-void	pipe_handler(t_data *data);
-void	heredoc_fd(int fd, char *limiter);
+int		pipe_handler(t_data *data);
+int		heredoc_handler(char *limiter);
 int		open_files(t_cmd *cmd);
+int		open_heredoc(t_data *data);
 void	close_files(t_cmd *cmd);
 void	simple_dup_handler(t_cmd *cmd);
 void	ft_print_error_cmd(char *cmd, int error_path);
 void	ft_print_error_file(char *file);
 void	ft_print_error_ambiguous(void);
-int		get_cmd_path(t_data *data);
+int		get_cmd_path(t_data *data, t_cmd *cmd);
 int		strcmp_strict(char *s1, char *s2);
 
 #endif

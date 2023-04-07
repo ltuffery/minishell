@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:28:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:35:51 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 07:22:25 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static char	**get_path(char **env)
 	return (output);
 }
 
-int	get_cmd_path(t_data *data)
+int	get_cmd_path(t_data *data, t_cmd *cmd)
 {
 	char	**path;
 	int		i;
@@ -36,11 +36,11 @@ int	get_cmd_path(t_data *data)
 	while (path[i])
 	{
 		path[i] = ft_strjoin(path[i], "/");
-		path[i] = ft_strjoin(path[i], data->cmd->arg[0]);
+		path[i] = ft_strjoin(path[i], cmd->arg[0]);
 		if (access(path[i], X_OK) == 0)
 		{
-			free(data->cmd->arg[0]);
-			data->cmd->arg[0] = ft_strdup(path[i]);
+			free(cmd->arg[0]);
+			cmd->arg[0] = ft_strdup(path[i]);
 			break ;
 		}
 		i++;
