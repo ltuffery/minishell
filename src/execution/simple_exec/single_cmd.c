@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 06:04:16 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 07:22:09 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	exec_cmd_single(t_data *data)
 	int	err_file;
 	int	exit_status;
 
-	error_path = get_cmd_path(data);
+	error_path = get_cmd_path(data, data->cmd);
 	err_file = open_heredoc(data);
 	if (!err_file)
 		err_file = open_files(data->cmd);

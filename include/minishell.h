@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 13:55:17 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 07:00:33 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ typedef struct s_data
 {
 	t_cmd	*cmd;
 	char	**env;
+	int		pipefd1[2];
+	int		pipefd2[2];
 }	t_data;
 
 #endif
