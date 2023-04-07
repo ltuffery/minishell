@@ -6,11 +6,12 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 15:36:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/04 15:22:24 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:39:55 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/signals.h"
+#include "../../include/utils.h"
 #include <bits/types/siginfo_t.h>
 #include <readline/readline.h>
 #include <signal.h>
@@ -40,8 +41,10 @@ static void	child_listen(int sig, siginfo_t *info, void *unused)
 	if (sig == SIGQUIT)
 	{
 		printf("Quit (core dumped)\n");
-		g_status = 131;
+		set_code(131, TRUE);
 	}
+	else if (sig == SIGINT)
+		set_code(130, TRUE);
 }
 
 void	init_signals(int who)

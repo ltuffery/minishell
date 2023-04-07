@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/04 14:33:41 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 16:33:40 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	*var_value(char *line, char **env)
 	i = line[0] == '$';
 	if (line[i] == '?')
 	{
-		value = ft_itoa(g_status);
+		value = ft_itoa(g_status.code);
 		return (value);
 	}
 	ret = ft_strdup(&line[i]);
