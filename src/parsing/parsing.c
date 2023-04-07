@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 10:36:00 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 19:23:26 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 17:57:38 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	parsing_handler(char *prompt)
 		return (1);
 	if (check_pipe(prompt))
 		return (1);
-	if (check_redirecting(prompt))
-		return (1);
+	// if (check_redirecting(prompt))
+	// 	return (1);
 	return (0);
 }
