@@ -6,13 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 17:05:01 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 17:06:25 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 17:43:09 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/execute.h"
 
-static int	init_pipe(t_data *data, t_cmd *cmd, int pos)
+static int	init_pipe(t_data *data, int pos)
 {
 	int	error;
 	
@@ -22,7 +22,7 @@ static int	init_pipe(t_data *data, t_cmd *cmd, int pos)
 		if (error == -1)
 			return (ERR_PIPE);
 	}
-	else if (pos % 2 == EVEN && cmd->next)
+	else if (pos % 2 == EVEN)
 	{
 		close(data->pipefd1[0]);
 		close(data->pipefd1[1]);
@@ -30,7 +30,7 @@ static int	init_pipe(t_data *data, t_cmd *cmd, int pos)
 		if (error == -1)
 			return (ERR_PIPE);
 	}
-	else if (pos % 2 == ODD && cmd->next)
+	else if (pos % 2 == ODD)
 	{
 		if (pos > 1)
 		{
@@ -49,7 +49,7 @@ int	select_pipe(t_data *data, t_cmd *cmd, int pos)
 	int	error;
 	
 	if (pos == 0)
-		error = init_pipe(data, cmd, pos);
+		error = init_pipe(data, pos);
 	else if (!cmd->next && pos > 1)
 	{
 		close(data->pipefd2[1]);
@@ -62,6 +62,6 @@ int	select_pipe(t_data *data, t_cmd *cmd, int pos)
 	else if (!cmd->next && pos == 1)
 		close(data->pipefd1[1]);
 	else
-		error = init_pipe(data, cmd, pos);
+		error = init_pipe(data, pos);
 	return (0);
 }

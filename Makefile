@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/07 05:24:27 by njegat           ###   ########.fr        #
+#    Updated: 2023/04/07 17:12:43 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRC = src/minishell.c \
 		src/execution/heredoc_handler.c \
 		src/execution/simple_exec/single_cmd.c \
 		src/execution/pipe/pipe_handler.c \
+		src/execution/pipe/select_pipe.c \
 		src/signals/init.c
 
 BSRC = 

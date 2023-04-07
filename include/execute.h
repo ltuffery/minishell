@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:16:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 11:44:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 17:10:57 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	ft_print_error_file(char *file);
 void	ft_print_error_ambiguous(void);
 int		get_cmd_path(t_data *data, t_cmd *cmd);
 int		strcmp_strict(char *s1, char *s2);
+int		select_pipe(t_data *data, t_cmd *cmd, int pos);
 
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_handler.c                                     :+:      :+:    :+:   */
+/*   pipe_handler.c.old                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 13:12:59 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/07 17:39:34 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	list_len(t_cmd *cmd)
 	return (i);
 }
 
-void	close_pipe(t_data *data, int pos)
+void	close_pidsfpe(t_data *data, int pos)
 {
 	if (pos == CLOSE_P1)
 	{
@@ -62,7 +62,7 @@ void	close_pipe(t_data *data, int pos)
 	}
 }
 
-int	select_pipe(t_data *data, int pos)
+int	select_pipfge(t_data *data, int pos)
 {
 	int	err_pipe;
 	(void)pos;
@@ -90,7 +90,7 @@ int	select_pipe(t_data *data, int pos)
 	return (0);
 }
 
-void	exit_fork(t_data *data)
+void	exit_fsdfork(t_data *data)
 {
 	free_struct(&data->cmd);
 	ft_double_free(data->env);
@@ -99,7 +99,7 @@ void	exit_fork(t_data *data)
 	exit(1);
 }
 
-int	dup_even(t_data *data, t_cmd *cmd, int pos)
+int	dup_evefn(t_data *data, t_cmd *cmd, int pos)
 {
 	int	err_dup;
 
@@ -119,7 +119,7 @@ int	dup_even(t_data *data, t_cmd *cmd, int pos)
 	return (0);
 }
 
-int	dup_odd(t_data *data, t_cmd *cmd)
+int	dup_ofdd(t_data *data, t_cmd *cmd)
 {
 	int	err_dup;
 
@@ -139,7 +139,7 @@ int	dup_odd(t_data *data, t_cmd *cmd)
 	return (0);
 }
 
-void	dup_handler(t_data *data, t_cmd *cmd, int pos)
+void	dup_hafndler(t_data *data, t_cmd *cmd, int pos)
 {
 	int	err_dup;
 
@@ -157,7 +157,7 @@ void	dup_handler(t_data *data, t_cmd *cmd, int pos)
 	}
 }
 
-void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
+void	exec_pfipe(t_data *data, t_cmd *cmd, int pos)
 {
 	int err_path;
 
@@ -185,7 +185,7 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 	close_files(cmd);
 }
 
-int	pipe_handler(t_data *data)
+int	pipe_hanfdler(t_data *data)
 {
 	t_cmd	*cmd;
 	int		err_file;
