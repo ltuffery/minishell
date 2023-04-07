@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/05 15:30:21 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/07 14:31:41 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,20 +103,20 @@ char	*get_prompt(t_data *data)
 
 	out = malloc(1);
 	out[0] = 0;
-	out = ft_strjoin(out, "\033[3;32m┌──(\033[0m\033[3;36m");
+	out = ft_strjoin(out, "\001\e[3;32m\002┌──(\001\e[3;36m\002");
 	tmp = getvalue(data->env, "USER");
 	if (tmp)
 		out = ft_strjoin(out, tmp);
 	else
 		out = ft_strjoin(out, "unnamed");
 	free(tmp);
-	out = ft_strjoin(out, "\033[0m\033[3;32m)-[\033[0m");
+	out = ft_strjoin(out, "\001\e[3;32m\002)-[\001\e[0m\002");
 	tmp = getvalue(data->env, "PWD");
 	if (tmp)
 		out = ft_strjoin(out, tmp);
-	out = ft_strjoin(out, "\033[3;32m]\033[0m");
+	out = ft_strjoin(out, "\001\e[3;32m]\002");
 	free(tmp);
-	out = ft_strjoin(out, "\n\033[3;32m└─\033[0m\033[3;36mminishoul> \033[0m");
+	out = ft_strjoin(out, "\n\001\e[3;32m\002└─\001\e[3;36m\002minishoul> \001\e[0m\002");
 	return (out);
 }
 
