@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 16:41:11 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/08 08:43:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,6 @@ static void	exec_builtins_handler(t_data *data)
 
 void	single_cmd(t_data *data)
 {
-	char	**builtins;
-	int		i;
-
 	if (!data->cmd->arg)
 	{
 		open_heredoc(data);
@@ -125,18 +122,8 @@ void	single_cmd(t_data *data)
 		close_files(data->cmd);
 		return ;
 	}
-	builtins = ft_split("cd:echo:env:exit:export:pwd:unset", ':');
-	i = 0;
-	while (builtins[i])
-	{
-		if (!strcmp_strict(data->cmd->arg[0], builtins[i]))
-		{
-			ft_double_free(builtins);
-			exec_builtins_handler(data);
-			return ;
-		}
-		i++;
-	}
-	ft_double_free(builtins);
-	exec_cmd_single(data);
+	if (is_builtins(data->cmd) == TRUE)
+		exec_builtins_handler(data);
+	else
+		exec_cmd_single(data);
 }

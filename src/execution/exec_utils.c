@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 22:31:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 08:43:08 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,24 @@ int	strcmp_strict(char *s1, char *s2)
 	return (0);
 }
 
-void	simple_dup_handler(t_cmd *cmd)
+int	is_builtins(t_cmd *cmd)
 {
-	if (cmd->fd_infile >= 0)
-		if (dup2(cmd->fd_infile, 0) == -1)
-			perror("minishoul: dup2");
-	if (cmd->fd_outfile >= 0)
-		if (dup2(cmd->fd_outfile, 1) == -1)
-			perror("minishoul: dup2");
+	char	**builtins;
+	int		i;
+
+	builtins = ft_split("cd:echo:env:exit:export:pwd:unset", ':');
+	i = 0;
+	while (builtins[i])
+	{
+		if (!strcmp_strict(cmd->arg[0], builtins[i]))
+		{
+			ft_double_free(builtins);
+			return (TRUE);
+		}
+		i++;
+	}
+	ft_double_free(builtins);
+	return (FALSE);
 }
 
 void	ft_print_error_cmd(char *cmd, int error_path)
