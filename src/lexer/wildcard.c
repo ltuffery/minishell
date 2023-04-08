@@ -1,18 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_wildcard.c                                    :+:      :+:    :+:   */
+/*   wildcard.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 10:07:00 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 12:43:52 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 14:37:33 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../libft/libft.h"
+#include "../../include/lexer.h"
 #include <dirent.h>
-#include <stdio.h>
 
 int	check_ext(char *file, char	*str)
 {
@@ -99,26 +98,68 @@ char	*get_ext(char *str)
 	return (out);
 }
 
+int	add_wildcard(char *str, char **prompt)
+{
+	char	*wildcard;
+	char	*ext;
+	int		i;
+
+	i = 0;
+	ext = get_ext(str);
+	wildcard = get_wildcard(ext);
+	if (wildcard[0])
+	{
+		*prompt = ft_strjoin(*prompt, wildcard);
+		while (str[i] && str[i] != ' ')
+			i++;
+	}
+	free(wildcard);
+	free(ext);
+	return (i);
+}
+
+static int	is_quote_tmp(char c, int get)
+{
+	static int	s_quote;
+	static int	d_quote;
+
+	if (get == 1)
+	{
+		if (s_quote)
+			return (SIMPLE_QUOTE);
+		else if (d_quote)
+			return (DOOBLE_QUOTE);
+		return (0);
+	}
+	if (c == '"' && s_quote == 0)
+	{
+		d_quote = !d_quote;
+		return (1);
+	}
+	else if (c == '\'' && d_quote == 0)
+	{
+		s_quote = !s_quote;
+		return (1);
+	}
+	return (0);
+}
+
 char	*wildcard_handler(char *str)
 {
 	int	i;
 	char	*prompt;
-	char	*wildcard;
-	char	*ext;
 
 	i = 0;
 	prompt = malloc(1);
 	prompt[0] = 0;
 	while (str[i])
 	{
-		if (str[i] == '*')
+		if (is_quote_tmp(str[i], 1) == 0)
 		{
-			ext = get_ext(str + i);
-			wildcard = get_wildcard(ext);
-			prompt = ft_strjoin(prompt, wildcard);
-			free(ext);
-			while (str[i] && str[i] != ' ')
-				i++;
+			if (str[i] == '*' && i == 0)
+				i += add_wildcard(str + i, &prompt);
+			else if (str[i] == '*' && str[i - 1] == ' ')
+				i += add_wildcard(str + i, &prompt);
 		}
 		prompt = str_add_c(prompt, str[i]);
 		i++;
