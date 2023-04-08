@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/30 18:51:58 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/08 12:10:02 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ int		is_quote(char str, int get);
 char	*var_value(char *line, char **env);
 int		is_ambiguous(char *val);
 size_t	var_len(char *var);
+
+char	*wildcard_handler(char *str);
 
 #endif
