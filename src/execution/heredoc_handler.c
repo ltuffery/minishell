@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc_fd.c                                       :+:      :+:    :+:   */
+/*   heredoc_handler.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 05:23:30 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 09:46:16 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	heredoc_handler(char *limiter)
 	rand_string = ft_itoa(randval);
 	if (!rand_string)
 		return (-1);
-	r_string = ft_strdup("tmp/.heredoc_");
+	r_string = ft_strdup("/tmp/.heredoc_");
 	r_string = ft_strjoin(r_string, rand_string);
 	free(rand_string);
 	if (!r_string)

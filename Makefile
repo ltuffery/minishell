@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/08 08:36:08 by njegat           ###   ########.fr        #
+#    Updated: 2023/04/08 09:27:08 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRC = src/minishell.c \
 		src/builtins/env.c \
 		src/builtins/exit.c \
 		src/builtins/pwd.c \
+		src/builtins/unset.c \
 		src/execution/exec_handler.c \
 		src/execution/exec_utils.c \
 		src/execution/files_mana.c \

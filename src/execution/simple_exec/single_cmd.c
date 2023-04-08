@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 08:43:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 09:26:23 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 		export_builtins(data->cmd->arg, data);
 	else if (!strcmp_strict(data->cmd->arg[0], "pwd"))
 		pwd_builtins();
-	// else if (!strcmp_strict(cmd->arg[0], "unset"))
-	// 	unset_builtins();
+	else if (!strcmp_strict(data->cmd->arg[0], "unset"))
+		unset_builtins(data, data->cmd->arg);
 	set_code(0, FALSE);
 }
 
