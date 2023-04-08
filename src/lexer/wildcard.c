@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 10:07:00 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 14:37:33 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 15:59:37 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	check_ext(char *file, char	*str)
 
 char	*get_wildcard(char *str)
 {
-	 struct dirent *dir;
+	struct dirent *dir;
     char	*back;
 	back = malloc(1);
 	back[0] = 0;
@@ -49,8 +49,11 @@ char	*get_wildcard(char *str)
         {
 			if (check_ext(dir->d_name, str))
 			{
-           		back = ft_strjoin(back, dir->d_name);
-				back = ft_strjoin(back, " ");
+				if (dir->d_name[0] != '.')
+				{
+           			back = ft_strjoin(back, dir->d_name);
+					back = ft_strjoin(back, " ");
+				}
 			}
         }
         closedir(d);

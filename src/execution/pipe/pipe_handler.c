@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 09:44:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 14:46:27 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 				{
 					perror("execve");
 					free_struct(&data->cmd);
+					ft_double_free(data->env);
 					exit (1);
 				}
 			}
