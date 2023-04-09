@@ -122,3 +122,4 @@ echo hola""bonjour
 echo "$DONTEXIST"Makefile
 echo "$DONTEXIST""Makefile"
 echo "$DONTEXIST" "Makefile"
+unset sdfgg=
