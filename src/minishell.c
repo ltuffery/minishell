@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 12:18:59 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 19:15:10 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ char	*get_prompt(t_data *data)
 	tmp = getvalue(data->env, "PWD");
 	if (tmp)
 		out = ft_strjoin(out, tmp);
-	out = ft_strjoin(out, "\001\e[3;32m]\002");
+	out = ft_strjoin(out, "\001\e[3;32m]\e[0m\002");
 	free(tmp);
 	out = ft_strjoin(out, "\n\001\e[3;32m\002└─\001\e[3;36m\002minishoul> \001\e[0m\002");
 	return (out);
@@ -124,7 +124,7 @@ int	main(int argc, char **argv, char **env)
 {
 	char				*line;
 	t_data				data;
-	char				*promt;
+	char				*prompt;
 
 	(void)argv;
 	data.env = NULL;
@@ -137,9 +137,9 @@ int	main(int argc, char **argv, char **env)
 	}
 	while (1)
 	{
-		promt = get_prompt(&data);
-		line = readline(promt);
-		free(promt);
+		prompt = get_prompt(&data);
+		line = readline(prompt);
+		free(prompt);
 		call_promt(line, &data);
 	}
 }

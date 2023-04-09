@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 14:46:27 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/08 16:10:27 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,14 @@ int	launch_handler(t_data *data, t_cmd *cmd, int pos)
 	return (0);
 }
 
+static void	close_end_pipe(t_data *data, int pos)
+{
+	if (pos % 2)
+		close(data->pipefd2[0]);
+	else
+		close(data->pipefd1[0]);
+}
+
 int	pipe_handler(t_data *data)
 {
 	t_cmd	*cmd;
@@ -113,6 +121,7 @@ int	pipe_handler(t_data *data)
 		cmd = cmd->next;
 		pos++;
 	}
+	close_end_pipe(data, pos);
 	while (waitpid(-1, NULL, 0) > 0)
 		continue ;
 return (0);
