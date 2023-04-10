@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/08 12:45:54 by njegat           ###   ########.fr        #
+#    Updated: 2023/04/10 17:26:58 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ SRC = src/minishell.c \
 		src/lexer/lexer_utils.c \
 		src/utils/free_struct.c \
 		src/utils/env_utils.c \
-		src/utils/signals_utils.c \
+		src/utils/exitcode_utils.c \
 		src/builtins/export.c \
 		src/builtins/export/export_parsing.c \
 		src/builtins/export/export_print.c \
