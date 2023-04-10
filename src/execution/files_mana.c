@@ -6,12 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 06:09:50 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/10 18:10:53 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 #include "../../include/lexer.h"
+#include "../../include/utils.h"
 
 int	open_infile(t_file *file, int *fd_infile)
 {
@@ -44,6 +45,7 @@ int	open_heredoc(t_data *data)
 				if (tmp_file->ambiguous == TRUE)
 				{
 					ft_print_error_ambiguous();
+					set_code(1, TRUE);
 					return (1);
 				}
 				tmp_file->fd = heredoc_handler(tmp_file->name);
@@ -51,6 +53,7 @@ int	open_heredoc(t_data *data)
 				if (tmp_file->fd == -1)
 				{
 					perror("minishoull: here_doc");
+					set_code(1, TRUE);
 					return (1);
 				}
 			}
@@ -98,7 +101,10 @@ int	open_files(t_cmd *cmd)
 		infile_check = open_infile(file, &cmd->fd_infile);
 		out_check = open_out(file, &cmd->fd_outfile);
 		if (infile_check || out_check)
+		{
+			set_code(1, TRUE);
 			return (1);
+		}
 		file = file->next;
 	}
 	return (0);
