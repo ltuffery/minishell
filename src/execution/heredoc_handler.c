@@ -37,7 +37,7 @@ int	heredoc_handler(char *limiter)
 	unsigned int	randval;
 	char			*rand_string;
 	char			*r_string;
-	int 			fd;
+	int				fd;
 
 	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)

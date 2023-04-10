@@ -13,11 +13,11 @@
 #include "../../include/lexer.h"
 #include <dirent.h>
 
-int	check_ext(char *file, char	*str)
+int	check_ext(char *file, char *str)
 {
 	int	i;
 	int	j;
-	
+
 	i = 0;
 	while (file[i] && file[i] != str[0])
 		i++;
@@ -38,27 +38,29 @@ int	check_ext(char *file, char	*str)
 
 char	*get_wildcard(char *str)
 {
-	struct dirent *dir;
-    char	*back;
+	struct dirent	*dir;
+	char			*back;
+	DIR				*d;
+
 	back = malloc(1);
 	back[0] = 0;
-    DIR *d = opendir("."); 
-    if (d)
-    {
-        while ((dir = readdir(d)) != NULL)
-        {
+	d = opendir(".");
+	if (d)
+	{
+		while ((dir = readdir(d)) != NULL)
+		{
 			if (check_ext(dir->d_name, str))
 			{
 				if (dir->d_name[0] != '.')
 				{
-           			back = ft_strjoin(back, dir->d_name);
+					back = ft_strjoin(back, dir->d_name);
 					back = ft_strjoin(back, " ");
 				}
 			}
-        }
-        closedir(d);
-    }
-    return (back);
+		}
+		closedir(d);
+	}
+	return (back);
 }
 
 char	*str_add_c(char *str, char c)
@@ -71,7 +73,7 @@ char	*str_add_c(char *str, char c)
 		return (NULL);
 	ft_strlcpy(out, str, ft_strlen(str) + 1);
 	i = 0;
-	while(out[i])
+	while (out[i])
 		i++;
 	out[i] = c;
 	out[i + 1] = 0;
@@ -81,7 +83,7 @@ char	*str_add_c(char *str, char c)
 
 char	*get_ext(char *str)
 {
-	int	i;
+	int		i;
 	char	*out;
 
 	i = 0;
@@ -149,7 +151,7 @@ static int	is_quote_tmp(char c, int get)
 
 char	*wildcard_handler(char *str)
 {
-	int	i;
+	int		i;
 	char	*prompt;
 
 	i = 0;

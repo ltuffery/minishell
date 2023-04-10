@@ -38,9 +38,9 @@ static void	unset_print_error(char *str)
 
 void	unset_builtins(t_data *data, char **arg)
 {
-	char	**tmp_env;
-	int		i;
-	int		j;
+	char **tmp_env;
+	int i;
+	int j;
 
 	i = 1;
 	while (arg[i])

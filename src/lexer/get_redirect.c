@@ -57,11 +57,13 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	while (new_cmd[*ps] == ' ')
 		(*ps)++;
 	i = 0;
-	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i]) && new_cmd[*ps + i])
+	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])
+		&& new_cmd[*ps + i])
 		i++;
 	tmp = malloc((i + 1) * sizeof(char));
 	i = 0;
-	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i]) && new_cmd[*ps + i])
+	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])
+		&& new_cmd[*ps + i])
 	{
 		tmp[i] = new_cmd[*ps + i];
 		i++;

@@ -61,8 +61,8 @@ void	init_signals(int who)
 	}
 	else if (who == DEFAULT)
 	{
-	 	ctrl_c.sa_handler = SIG_DFL;
-	 	ctrl_quit.sa_handler = SIG_DFL;
+		ctrl_c.sa_handler = SIG_DFL;
+		ctrl_quit.sa_handler = SIG_DFL;
 	}
 	else if (who == CHILD)
 	{

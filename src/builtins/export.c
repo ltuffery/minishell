@@ -10,11 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "../../include/builtins.h"
 #include "../../include/utils.h"
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 char	*var_replace(char *line, char *var_env)
 {
