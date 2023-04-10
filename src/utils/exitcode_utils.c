@@ -20,7 +20,7 @@ void	set_code(int code, t_boolean is_set_by_signal)
 
 void	set_if_sig_false(int code)
 {
-	if (! g_status.write_by_signale)
+	if (!g_status.write_by_signale)
 		g_status.code = code;
 	g_status.write_by_signale = FALSE;
 }

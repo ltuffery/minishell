@@ -12,7 +12,7 @@
 
 #include "../../include/utils.h"
 
-//Récupère le nom de variable dans une line contenant 
+//Récupère le nom de variable dans une line contenant
 //VAR ou VAR=VALUE ou VAR+=...
 char	*getvar(char *line)
 {
@@ -35,8 +35,8 @@ char	*getvar(char *line)
 	return (var);
 }
 
-//savoir si une var est égal a celle de l'env. 
-//var_chr = VAR et var_env = VAR=value 
+//savoir si une var est égal a celle de l'env.
+//var_chr = VAR et var_env = VAR=value
 int	var_is_equal(char *var_chr, char *var_env)
 {
 	int	i;

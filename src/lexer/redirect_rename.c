@@ -47,7 +47,8 @@ static char	*final_name(t_file *file, char **env)
 		return (NULL);
 	while (file->name[i] != '\0')
 	{
-		if (file->name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE && file->type != HERE_DOC)
+		if (file->name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE
+			&& file->type != HERE_DOC)
 		{
 			value = var_value(&file->name[i], env);
 			if (value == NULL)
@@ -60,7 +61,7 @@ static char	*final_name(t_file *file, char **env)
 			while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
 				i++;
 		}
-		else if (! is_quote(file->name[i], 0))
+		else if (!is_quote(file->name[i], 0))
 			new_name = str_addchar(new_name, file->name[i]);
 		i++;
 	}

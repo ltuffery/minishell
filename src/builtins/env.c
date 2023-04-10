@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "../../libft/libft.h"
+#include <stdio.h>
 
 void	env_builtins(char **env)
 {

@@ -32,7 +32,7 @@ static void	add_unit(t_cmd *cmd, char *add, int *pos)
 	i = 0;
 	//i = skip_set(add, " ");
 	//if (add[i])
-		cmd->arg = ft_strappend(add, cmd->arg);
+	cmd->arg = ft_strappend(add, cmd->arg);
 	*pos = 0;
 }
 
@@ -90,7 +90,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
 		{
 			var = var_value(&new_cmd[i], env);
-			tmp[j]= 0;
+			tmp[j] = 0;
 			if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
 			{
 				split = ft_split(var, ' ');
