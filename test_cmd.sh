@@ -2,13 +2,14 @@
 #bash <test >bsh
 #diff test minsh | grep \> | sed -e 's/> //g' | sed -e 's/< //g' | sed "/┌─/d" | sed "/└─/d"  >ret
 #diff bsh ret
+make re
 if [ "$1" -eq "1" ]
 	then
 		cat test | while  read ligne ; do 
 			echo $ligne >ret;
 			./minishell <ret >minsh 2>tmp;
 			bash <ret >bsh 2>tmp;
-			cat minsh | sed "/┌─/d" | sed "/└─/d"  >ret
+			cat minsh | sed "/┌─/d" | sed "/└─/d" >ret
 			if diff bsh ret
 			then
 				echo -n
@@ -74,5 +75,7 @@ if [ "$1" -eq "1" ]
 			echo "1 for back cmd and 2 for error"
 		fi
 fi
+make fclean
+rm minsh bsh ret tmp
 
 # && echo "pas vide" || echo "vide"

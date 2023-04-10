@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 16:10:27 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/10 17:57:52 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 	cmd->child = fork();
 	if (cmd->child == 0)
 	{
+		init_signals(DEFAULT);
 		if (cmd->arg[0])
 		{
 			if (access(cmd->arg[0], X_OK) == 0)
@@ -43,6 +44,7 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 		else
 			ft_print_error_cmd("''", err_path);
 	}
+	init_signals(CHILD);
 }
 
 void	launch_builtins(t_data *data, t_cmd *cmd)
@@ -104,6 +106,8 @@ int	pipe_handler(t_data *data)
 	t_cmd	*cmd;
 	int		error;
 	int		pos;
+	int		exit_status;
+	pid_t	child;
 	
 	error = open_heredoc(data);
 	if (error)
@@ -118,11 +122,15 @@ int	pipe_handler(t_data *data)
 			launch_handler(data, cmd, pos);
 		}
 		close_files(cmd);
+		child = cmd->child;
 		cmd = cmd->next;
 		pos++;
 	}
 	close_end_pipe(data, pos);
+	waitpid(child, &exit_status, 0);
+	set_if_sig_false(WEXITSTATUS(exit_status));
 	while (waitpid(-1, NULL, 0) > 0)
 		continue ;
+	init_signals(PARENT);
 return (0);
 }

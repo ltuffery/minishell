@@ -123,3 +123,119 @@ echo "$DONTEXIST"Makefile
 echo "$DONTEXIST""Makefile"
 echo "$DONTEXIST" "Makefile"
 unset sdfgg=
+echo coucou
+unset 3253454=
+echo -n Hola
+         echo      coucou""toi          
+         echo    "d" coucou""toi "" qui regarde
+$?
+$?$?
+?$HOME
+$
+$HOME
+$HOMEdskjhfkdshfsd
+"$HOMEdskjhfkdshfsd"
+'$HOMEdskjhfkdshfsd'
+$DONTEXIST
+$LESS$VAR
+Ctlr-C
+holaCtlr-C
+cat (faire Ctlr-C apres avoir fait plusieurs fois [ENTREE])
+cat | rev(faire Ctlr-C apres avoir fait plusieurs fois [ENTREE])
+Ctlr-D
+hola Ctlr-D
+Ctlr-\
+hola Ctlr-\
+cat (faire Ctlr-\ apres avoir fait plusieurs fois [ENTREE])
+Ctlr-Z
+export HOLA=bonjour
+env | grep HOLA
+export       HOLA=bonjour
+env | grep HOLA
+export Hola
+export | grep Hola
+export Hola9hey
+export | grep Hola9hey
+export $DONTEXIST
+export | grep "HOME"
+export ""
+export =
+export %
+export $?
+export ?=2
+export 9HOLA=
+export HOLA9=bonjour
+env | grep HOLA9
+export _HOLA=bonjour
+env | grep HOLA
+export ___HOLA=bonjour
+env | grep ___HOLA
+export _HO_LA_=bonjour
+env | grep _HO_LA_
+export HOL@=bonjour
+export HOL\~A=bonjour
+export -HOLA=bonjour
+export --HOLA=bonjour
+export HOLA-=bonjour
+export HO-LA=bonjour
+export HOL.A=bonjour
+export HOL\\\$A=bonjour
+export HO\\\\LA=bonjour
+export HOL}A=bonjour
+export HOL{A=bonjour
+export HO*LA=bonjour
+export HO#LA=bonjour
+export HO@LA=bonjour
+export HO!LA=bonjour
+export HO$?LA=bonjour
+env | grep HO$?LA
+export +HOLA=bonjour
+export HOL+A=bonjour
+export HOLA+=bonjour
+env | grep HOLA
+export HOLA=bonjour
+export HOLA+=bonjour
+env | grep HOLA
+exportHOLA=bonjour
+export HOLA =bonjour
+export HOLA = bonjour
+export HOLA=bon jour
+env | grep HOLA
+export HOLA= bonjour
+export HOLA=bonsoir
+export HOLA=bonretour
+export HOLA=bonjour
+env | grep HOLA
+export HOLA=$HOME
+env | grep HOLA
+export HOLA=bonjour$HOME
+env | grep HOLA
+export HOLA=$HOMEbonjour
+env | grep HOLA
+export HOLA=bon$jour
+env | grep HOLA
+export HOLA=bon\jour
+env | grep HOLA
+export HOLA=bon\\jour
+env | grep HOLA
+export HOLA=bon(jour
+export HOLA=bon()jour
+export HOLA=bon&jour
+export HOLA=bon@jour
+env | grep HOLA
+export HOLA=bon;jour
+env | grep HOLA
+export HOLA=bon!jour
+export HOLA=bon""jour""
+env | grep HOLA
+export HOLA$USER=bonjour
+env | grep HOLA
+export HOLA=bonjour=casse-toi
+echo $HOLA
+export ""HOLA=bonjour""=casse-toi
+echo $HOLA
+export ""=""
+export ''=''
+export "="="="
+export '='='='
+unset ""
