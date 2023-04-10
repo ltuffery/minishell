@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/07 16:33:40 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/10 16:33:49 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,25 +53,28 @@ int	is_ambiguous(char *val)
 
 char	*var_value(char *line, char **env)
 {
-	size_t	i;
-	char	*ret;
-	char	*value;
+	t_boolean	has_dollar;
+	size_t		len;
+	char		*ret;
+	char		*value;
 
-	i = line[0] == '$';
-	if (line[i] == '?')
+	has_dollar = line[0] == '$';
+	if (line[has_dollar] == '?')
 	{
 		value = ft_itoa(g_status.code);
 		return (value);
 	}
-	ret = ft_strdup(&line[i]);
+	ret = ft_strdup(&line[0]);
 	if (ret == NULL)
 		return (NULL);
-	i = var_len(ret);
-	ret[i] = '\0';
-	if (ft_isdigit(ret[0]))
-		value = ft_strdup(&ret[1]);
+	len = var_len(ret);
+	ret[len] = '\0';
+	if (ft_isdigit(ret[has_dollar]))
+		value = ft_strdup(&ret[has_dollar + 1]);
+	else if (len == 1)
+		value = ft_strdup("$");
 	else
-		value = getvalue(env, ret);
+		value = getvalue(env, &ret[has_dollar]);
 	free(ret);
 	return (value);
 }
