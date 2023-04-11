@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 16:42:13 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:38:44 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	skip_redirect(char *cmd, int pos)
 	while (cmd[pos] == ' ')
 		pos++;
 	while (cmd[pos] != ' ' && cmd[pos])
+		pos++;
+	while (cmd[pos] == ' ')
 		pos++;
 	return (pos);
 }
@@ -102,7 +104,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 			else
 			{
 				i += insert_var(new_cmd + i, var, &j, &tmp);
-				if (is_quote(0, 1) == EMPTY_QUOTE)
+				if (is_quote(0, 1) == EMPTY_QUOTE && !var)
 					i += skip_set(new_cmd + i, " ");
 			}
 		}

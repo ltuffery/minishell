@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 15:41:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/11 19:40:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 #include <limits.h>
 #include <stdio.h>
 #include <unistd.h>
+#define MANY_ARG 1
+#define NSET 2
+#define ERRDIR 3
 
 void	pwd_change(t_data *data)
 {
@@ -44,6 +47,23 @@ void	pwd_change(t_data *data)
 	ft_double_free(export);
 }
 
+static void	puterror_cd(char *arg, int err)
+{
+	if (err == MANY_ARG)
+		ft_putstr_fd("minishoul: cd: too many arguments\n", 2);
+	else if (err == NSET)
+	{
+		ft_putstr_fd("minishoul: cd: ", 2);
+		ft_putstr_fd(arg, 2);
+		ft_putstr_fd(" not set\n", 2);
+	}
+	else if (err == ERRDIR)
+	{
+		ft_putstr_fd("minishoul: cd: ", 2);
+		perror(arg);
+	}
+}
+
 void	cd_builtins(t_data *data, char **arg)
 {
 	int		error;
@@ -62,11 +82,7 @@ void	cd_builtins(t_data *data, char **arg)
 		error = chdir(arg[1]);
 	free(home);
 	if (error < 0)
-	{
-		ft_putstr_fd("minishoul: cd: ", 2);
-		ft_putstr_fd(arg[1], 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
-	}
+		puterror_cd(arg[1], ERRDIR);
 	else
 		pwd_change(data);
 }
