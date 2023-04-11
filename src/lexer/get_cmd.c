@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 14:27:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 16:35:15 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	skip_redirect(char *cmd, int pos)
 	while (cmd[pos] == ' ')
 		pos++;
 	while (cmd[pos] != ' ' && cmd[pos])
+		pos++;
+	while (cmd[pos] == ' ')
 		pos++;
 	return (pos);
 }
