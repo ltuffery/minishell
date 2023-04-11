@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:09:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 09:41:08 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:21:24 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static void	unset_print_error(char *str)
 
 void	unset_builtins(t_data *data, char **arg)
 {
-	char **tmp_env;
-	int i;
-	int j;
+	char	**tmp_env;
+	int		i;
+	int		j;
 
 	i = 1;
 	while (arg[i])

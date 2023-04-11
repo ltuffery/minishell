@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/04 19:06:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:41:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,20 @@ void	pwd_change(t_data *data)
 void	cd_builtins(t_data *data, char **arg)
 {
 	int		error;
-	char	*tmp;
+	char	*home;
 
-	if (!arg[1] || !ft_strcmp(arg[1], "~"))
+	if (arg[2])
 	{
-		tmp = getvalue(data->env, "HOME");
-		error = chdir(tmp);
-		free(tmp);
-	}
-	else if (arg[2])
-	{
-		ft_putstr_fd("minishoul: cd: ", 2);
-		ft_putstr_fd("too many arguments\n", 2);
+		ft_putendl_fd("minishoul: cd: too many arguments", 2);
 		return ;
 	}
+	error = -1;
+	home = getvalue(data->env, "HOME");
+	if (home != NULL && (arg[1] == NULL || !ft_strcmp(arg[1], "~")))
+		error = chdir(home);
 	else
 		error = chdir(arg[1]);
+	free(home);
 	if (error < 0)
 	{
 		ft_putstr_fd("minishoul: cd: ", 2);
@@ -70,7 +68,5 @@ void	cd_builtins(t_data *data, char **arg)
 		ft_putstr_fd(": No such file or directory\n", 2);
 	}
 	else
-	{
 		pwd_change(data);
-	}
 }

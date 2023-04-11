@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/30 14:35:33 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 15:19:05 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,28 +21,13 @@ char	*var_replace(char *line, char *var_env)
 	char	*new;
 	int		i;
 
-	i = 0;
 	new = malloc(ft_strlen(line) + 1);
-	if (!new)
+	if (new == NULL)
 		return (line);
-	while (line[i] && line[i] != '=')
-	{
-		new[i] = line[i];
-		i++;
-	}
-	if (!line[i])
-	{
-		new[i] = '=';
-		new[i + 1] = 0;
-		free(var_env);
-		return (new);
-	}
-	while (line[i])
-	{
-		new[i] = line[i];
-		i++;
-	}
-	new[i] = 0;
+	i = ft_strfind(line, '=');
+	ft_strlcpy(new, line, ft_strlen(line) + 1);
+	if (i == -1)
+		ft_strjoin(new, "=");
 	free(var_env);
 	return (new);
 }
