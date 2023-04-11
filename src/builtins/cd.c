@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 14:03:39 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:07:07 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ void	cd_builtins(t_data *data, char **arg)
 	if (error < 0)
 	{
 		ft_putstr_fd("minishoul: cd: ", 2);
-		ft_putstr_fd(arg[1], 2);
-		perror(" ");
+		perror(arg[1]);
 	}
 	else
 	{
