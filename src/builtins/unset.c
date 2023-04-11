@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:09:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 09:41:08 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:37:36 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static int	unset_parsing(char *str)
 	int	i;
 
 	i = 0;
+	if (!str[0])
+		return (1);
 	if (isdigit(str[0]))
 		return (1);
 	while (isalnum(str[i]) || str[i] == '_')
