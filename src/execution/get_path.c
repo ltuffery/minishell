@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:28:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 12:30:32 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 13:30:32 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ int	get_cmd_path(t_data *data, t_cmd *cmd)
 	int		i;
 
 	if (!cmd->arg[0][0])
-		return (0);
+		return (1);
 	path = get_path(data->env);
+	if (!path)
+		return (1);
 	i = 0;
 	while (path[i])
 	{
