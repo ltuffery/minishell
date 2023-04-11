@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 13:03:19 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:27:34 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 			else
 			{
 				i += insert_var(new_cmd + i, var, &j, &tmp);
-				if (is_quote(0, 1) == EMPTY_QUOTE)
+				if (is_quote(0, 1) == EMPTY_QUOTE && !var)
 					i += skip_set(new_cmd + i, " ");
 			}
 		}

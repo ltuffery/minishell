@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 14:07:07 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 14:51:18 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,24 @@ void	cd_builtins(t_data *data, char **arg)
 	int		error;
 	char	*tmp;
 
-	if (!arg[1] || !ft_strcmp(arg[1], "~"))
+	if (arg[2])
+	{
+		ft_putstr_fd("minishoul: cd: ", 2);
+		ft_putstr_fd("too many arguments\n", 2);
+		return ;
+	}
+	else if (!arg[1] || !ft_strcmp(arg[1], "~"))
 	{
 		tmp = getvalue(data->env, "HOME");
 		error = chdir(tmp);
 		free(tmp);
 	}
-	else if (arg[2])
+	else if (!ft_strcmp(arg[1], "-"))
 	{
-		ft_putstr_fd("minishoul: cd: ", 2);
-		ft_putstr_fd("too many arguments\n", 2);
-		return ;
+		tmp = getvalue(data->env, "OLDPWD");
+		error = chdir(tmp);
+		pwd_builtins();
+		free(tmp);
 	}
 	else
 		error = chdir(arg[1]);
