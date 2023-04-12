@@ -6,9 +6,10 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/12 15:08:11 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/12 15:20:31 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../include/lexer.h"
 
@@ -31,6 +32,18 @@ static char	*str_addchar(char *str, char c)
 	new_str[i] = c;
 	free(str);
 	return (new_str);
+}
+
+static void	get_value_var(t_file *file, int i, char **new_name, char **env)
+{
+	char	*value;
+
+	value = var_value(&file->name[i], env);
+	if (value == NULL)
+		return ;
+	if (is_quote(0, 1) == EMPTY_QUOTE)
+		file->ambiguous = is_ambiguous(value);
+	*new_name = ft_strjoin(*new_name, value);
 }
 
 static char	*final_name(t_file *file, char **env)
@@ -65,6 +78,8 @@ static char	*final_name(t_file *file, char **env)
 				return (NULL);
 			while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
 				i++;
+			get_value_var(file, i, &new_name, env);
+			i += var_len(&file->name[i]) - 1;
 		}
 		else if (!is_quote(file->name[i], 0))
 			new_name = str_addchar(new_name, file->name[i]);

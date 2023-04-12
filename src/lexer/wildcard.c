@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 10:07:00 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 15:59:37 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 16:19:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ char	*get_wildcard(char *str)
 	d = opendir(".");
 	if (d)
 	{
-		while ((dir = readdir(d)) != NULL)
+		dir = readdir(d);
+		while (dir != NULL)
 		{
 			if (check_ext(dir->d_name, str))
 			{

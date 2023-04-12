@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 17:04:16 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 14:31:07 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:12:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,6 @@ char	*getvalue(char **env, char *var)
 	j++;
 	arr = malloc((ft_strlen(env[i] + j) + 1) * sizeof(char));
 	k = 0;
-	while (env[i][j])
-	{
-		arr[k] = env[i][j];
-		k++;
-		j++;
-	}
-	arr[k] = 0;
+	ft_strlcpy(arr, &env[i][j], ft_strlen(&env[i][j]) + 1);
 	return (arr);
 }

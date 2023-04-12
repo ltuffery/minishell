@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/08 19:36:30 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:53:10 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,5 @@ void	exit_builtins(t_data *data)
 	ft_putendl_fd("exit", 1);
 	free_struct(&data->cmd);
 	ft_double_free(data->env);
-	exit(g_status.code);
+	exit(exitcode()->code);
 }

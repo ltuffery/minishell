@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:14:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/07 15:54:42 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/11 14:46:22 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,5 @@ typedef struct s_exitcode
 	t_boolean	write_by_signale;
 	int			code;
 }	t_exitcode;
-
-extern t_exitcode	g_status;
 
 #endif

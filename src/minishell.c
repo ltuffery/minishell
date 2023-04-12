@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/12 15:10:57 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/12 15:16:35 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
 #include "../libft/libft.h"
 #include <readline/readline.h>
 #include <stdlib.h>
-
-t_exitcode	g_status;
 
 /*!------------------------ Fonction de Debug --------------------------!*/
 void	print_struct(t_cmd *cmd)
@@ -83,11 +81,15 @@ static void	input_handler(char *line, t_data *data)
 
 static void	call_promt(char *line, t_data *data)
 {
+	int	code;
+
 	if (line == NULL)
 	{
+		code = exitcode()->code;
 		printf("exit\n");
 		ft_double_free(data->env);
-		exit(0);
+		free(exitcode());
+		exit(code);
 	}
 	if (line && *line)
 	{
@@ -105,14 +107,14 @@ char	*get_prompt(t_data *data)
 	out[0] = 0;
 	out = ft_strjoin(out, "\001\e[3;32m\002┌──(\001\e[3;36m\002");
 	tmp = getvalue(data->env, "USER");
-	if (tmp)
+	if (tmp != NULL)
 		out = ft_strjoin(out, tmp);
 	else
 		out = ft_strjoin(out, "unnamed");
 	free(tmp);
 	out = ft_strjoin(out, "\001\e[3;32m\002)-[\001\e[0m\002");
 	tmp = getvalue(data->env, "PWD");
-	if (tmp)
+	if (tmp != NULL)
 		out = ft_strjoin(out, tmp);
 	out = ft_strjoin(out, "\001\e[3;32m]\e[0m\002");
 	free(tmp);

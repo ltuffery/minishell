@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 15:38:17 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/11 19:40:14 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,36 +67,20 @@ static void	puterror_cd(char *arg, int err)
 void	cd_builtins(t_data *data, char **arg)
 {
 	int		error;
-	char	*tmp;
+	char	*home;
 
-	error = 0;
 	if (arg[2])
-		puterror_cd(NULL, MANY_ARG);
-	else if (!arg[1] || !ft_strcmp(arg[1], "~"))
 	{
-		tmp = getvalue(data->env, "HOME");
-		if (tmp)
-		{
-			error = chdir(tmp);
-			free(tmp);
-		}
-		else
-			puterror_cd("HOME", NSET);
+		ft_putendl_fd("minishoul: cd: too many arguments", 2);
+		return ;
 	}
-	else if (!ft_strcmp(arg[1], "-"))
-	{
-		tmp = getvalue(data->env, "OLDPWD");
-		if (tmp)
-		{
-			error = chdir(tmp);
-			pwd_builtins();
-			free(tmp);
-		}
-		else
-			puterror_cd("OLDPWD", NSET);
-	}
+	error = -1;
+	home = getvalue(data->env, "HOME");
+	if (home != NULL && (arg[1] == NULL || !ft_strcmp(arg[1], "~")))
+		error = chdir(home);
 	else
 		error = chdir(arg[1]);
+	free(home);
 	if (error < 0)
 		puterror_cd(arg[1], ERRDIR);
 	else

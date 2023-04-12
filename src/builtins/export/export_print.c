@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 14:26:58 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:32:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/11 15:45:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,12 @@ void	print_by_order(char **env)
 	char	*tmp;
 	char	**old_env;
 
-	while (env)
+	while (env != NULL)
 	{
 		i = 0;
-		tmp = NULL;
-		while (env[i])
+		tmp = env[i];
+		while (env[i] != NULL)
 		{
-			if (!tmp)
-				tmp = env[i];
 			if (ft_strcmp(env[i], tmp) < 0)
 			{
 				tmp = env[i];
