@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/05 14:50:20 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/12 15:08:11 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,12 @@ static char	*final_name(t_file *file, char **env)
 		{
 			value = var_value(&file->name[i], env);
 			if (value == NULL)
-				continue ;
+			{
+				file->ambiguous = TRUE;
+				free(new_name);
+				free(file->name);
+				return (NULL);
+			}
 			if (is_quote(0, 1) == EMPTY_QUOTE)
 				file->ambiguous = is_ambiguous(value);
 			new_name = ft_strjoin(new_name, value);

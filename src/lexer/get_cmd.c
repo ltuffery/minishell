@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 16:35:15 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/12 14:26:28 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ static int	skip_redirect(char *cmd, int pos)
 	return (pos);
 }
 
-static void	add_unit(t_cmd *cmd, char *add, int *pos)
-{
-	int	i;
+// static void	add_unit(t_cmd *cmd, char *add, int *pos)
+// {
+// 	int	i;
 
-	i = *pos;
-	add[i] = 0;
-	i = 0;
-	//i = skip_set(add, " ");
-	//if (add[i])
-	cmd->arg = ft_strappend(add, cmd->arg);
-	*pos = 0;
-}
+// 	i = *pos;
+// 	add[i] = 0;
+// 	i = 0;
+// 	//i = skip_set(add, " ");
+// 	if (pos > 0)
+// 	cmd->arg = ft_strappend(add, cmd->arg);
+// 	*pos = 0;
+// }
 
 static void	add_units(t_cmd *cmd, char **adds)
 {
@@ -51,66 +51,172 @@ static void	add_units(t_cmd *cmd, char **adds)
 	ft_double_free(adds);
 }
 
-static int	insert_var(char *cmd, char *add, int *j, char **tmp)
+// static int	insert_var(char *cmd, char *add, int *j, char **tmp)
+// {
+// 	int	i;
+
+// 	i = var_len(cmd);
+// 	if (!add)
+// 		return (i);
+// 	*tmp = ft_strjoin(*tmp, add);
+// 	*j = ft_strlen(*tmp);
+// 	free(add);
+// 	return (i);
+// }
+
+
+
+
+
+static int	insert_var(char *cmd, char *add, char **tmp)
 {
 	int	i;
 
 	i = var_len(cmd);
 	if (!add)
 		return (i);
+	if (!*tmp)
+	{
+		*tmp = malloc(1);
+		*tmp[0] = 0;
+	}
 	*tmp = ft_strjoin(*tmp, add);
-	*j = ft_strlen(*tmp);
 	free(add);
 	return (i);
 }
 
+static void	add_unit(t_cmd *cmd, char **add)
+{
+	cmd->arg = ft_strappend(*add, cmd->arg);
+	free (*add);
+	*add = NULL;
+}
+
+char	*add_c(char *str, char c)
+{
+	char	*out;
+	int		i;
+
+	if (!str)
+	{
+		out = malloc(sizeof(char) * 2);
+		out[0] = c;
+		out[1] = 0;
+		return (out);
+	}
+	else
+		out = malloc(sizeof(char) * ft_strlen(str) + 3);
+	if (!out)
+		return (NULL);
+	ft_strlcpy(out, str, ft_strlen(str) + 1);
+	i = 0;
+	while (out[i])
+		i++;
+	out[i] = c;
+	out[i + 1] = 0;
+	free(str);
+	return (out);
+}
+
 void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 {
-	int		i;
-	int		j;
 	char	*tmp;
+	int		i;
 	char	*var;
 	char	**split;
 
-	i = 0;
-	j = 0;
-	tmp = malloc((ft_strlen(new_cmd) + 1) * sizeof(char));
-	i += skip_set(new_cmd + i, " \t");
-	while (1)
+	//new_cmd = ft_strtrim(new_cmd, " \t");
+	i = skip_set(new_cmd, " \t");
+	tmp = NULL;
+	while (new_cmd[i])
 	{
 		if (is_quote(new_cmd[i], 0))
 			i++;
 		else if (is_chevron(new_cmd[i]) && !is_quote(0, 1))
 			i = skip_redirect(new_cmd, i);
-		else if ((new_cmd[i] == ' ' || !new_cmd[i]) && !is_quote(0, 1))
+		else if (new_cmd[i] == ' ' && !is_quote(0, 1))
 		{
-			add_unit(cmd, tmp, &j);
-			i += skip_set(new_cmd + i, " ");
-			if (!new_cmd[i])
-				break ;
+			add_unit(cmd, &tmp);
+			i += skip_set(new_cmd + i, " \t");
 		}
 		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
 		{
 			var = var_value(&new_cmd[i], env);
-			tmp[j] = 0;
 			if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
 			{
 				split = ft_split(var, ' ');
-				j = 0;
+				free (tmp);
+				tmp = NULL;
 				add_units(cmd, split);
 				i += var_len(&new_cmd[i]);
 				free(var);
 			}
 			else
 			{
-				i += insert_var(new_cmd + i, var, &j, &tmp);
+				i += insert_var(new_cmd + i, var, &tmp);
 				if (is_quote(0, 1) == EMPTY_QUOTE && !var)
 					i += skip_set(new_cmd + i, " ");
 			}
 		}
 		else
-			tmp[j++] = new_cmd[i++];
+			tmp = add_c(tmp, new_cmd[i++]);
 	}
-	//add_unit(cmd, tmp, &j);
+	if (tmp)
+		add_unit(cmd, &tmp);
 	free(tmp);
 }
+
+
+
+
+
+// void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	*tmp;
+// 	char	*var;
+// 	char	**split;
+
+// 	i = 0;
+// 	j = 0;
+// 	tmp = malloc((ft_strlen(new_cmd) + 1) * sizeof(char));
+// 	i += skip_set(new_cmd + i, " \t");
+// 	while (1)
+// 	{
+// 		if (is_quote(new_cmd[i], 0))
+// 			i++;
+// 		else if (is_chevron(new_cmd[i]) && !is_quote(0, 1))
+// 			i = skip_redirect(new_cmd, i);
+// 		else if ((new_cmd[i] == ' ' || !new_cmd[i]) && !is_quote(0, 1))
+// 		{
+// 			add_unit(cmd, tmp, &j);
+// 			i += skip_set(new_cmd + i, " ");
+// 			if (!new_cmd[i])
+// 				break ;
+// 		}
+// 		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
+// 		{
+// 			var = var_value(&new_cmd[i], env);
+// 			tmp[j] = 0;
+// 			if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
+// 			{
+// 				split = ft_split(var, ' ');
+// 				j = 0;
+// 				add_units(cmd, split);
+// 				i += var_len(&new_cmd[i]);
+// 				free(var);
+// 			}
+// 			else
+// 			{
+// 				i += insert_var(new_cmd + i, var, &j, &tmp);
+// 				if (is_quote(0, 1) == EMPTY_QUOTE && !var)
+// 					i += skip_set(new_cmd + i, " ");
+// 			}
+// 		}
+// 		else
+// 			tmp[j++] = new_cmd[i++];
+// 	}
+// 	//add_unit(cmd, tmp, &j);
+// 	free(tmp);
+// }
