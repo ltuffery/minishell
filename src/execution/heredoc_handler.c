@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 16:14:04 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:39:52 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,43 @@ static void	heredoc_fd(int fd, char *limiter)
 	free(str);
 }
 
-int	heredoc_handler(char *limiter)
+static char	*str_random(void)
 {
-	unsigned int	randval;
-	char			*rand_string;
-	char			*r_string;
 	int				fd;
+	unsigned int	random_nb;
+	char			*output;
 
 	fd = open("/dev/random", O_RDONLY);
 	if (fd < 0)
-		return (-1);
-	read(fd, &randval, sizeof(randval));
+		return (NULL);
+	read(fd, &random_nb, sizeof(random_nb));
 	close(fd);
-	rand_string = ft_itoa(randval);
-	if (!rand_string)
+	output = ft_itoa(random_nb);
+	return (output);
+}
+
+int	heredoc_handler(char *limiter)
+{
+	char	*random;
+	int		fd;
+	char	*rand_name;
+
+	random = str_random();
+	if (!random)
 		return (-1);
-	r_string = ft_strdup("/tmp/.heredoc_");
-	r_string = ft_strjoin(r_string, rand_string);
-	free(rand_string);
-	if (!r_string)
+	rand_name = ft_strdup("/tmp/.heredoc_");
+	rand_name = ft_strjoin(rand_name, random);
+	free(random);
+	if (!rand_name)
 		return (-1);
-	fd = open(r_string, O_CREAT | O_WRONLY, 0644);
+	fd = open(rand_name, O_CREAT | O_WRONLY, 0644);
 	if (fd >= 0)
 	{
 		heredoc_fd(fd, limiter);
 		close(fd);
 	}
-	fd = open(r_string, O_RDONLY, 0644);
-	unlink(r_string);
-	free(r_string);
+	fd = open(rand_name, O_RDONLY, 0644);
+	unlink(rand_name);
+	free(rand_name);
 	return (fd);
 }

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 08:26:58 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 08:31:53 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/13 12:56:36 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ void	close_pipe(t_data *data, t_cmd *cmd, int pos)
 		close(data->pipefd2[0]);
 		close(data->pipefd2[1]);
 	}
+}
+
+void	close_end_pipe(t_data *data, int pos)
+{
+	if (pos % 2)
+		close(data->pipefd2[0]);
+	else
+		close(data->pipefd1[0]);
 }
 
 void	close_all_files(t_data *data)

@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/10 17:26:58 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/04/13 13:06:49 by njegat           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,6 +55,7 @@ SRC = src/minishell.c \
 		src/execution/simple_exec/single_cmd.c \
 		src/execution/simple_exec/simple_exec_utils.c \
 		src/execution/pipe/pipe_handler.c \
+		src/execution/pipe/pipe_exec.c \
 		src/execution/pipe/select_pipe.c \
 		src/execution/pipe/pipe_utils.c \
 		src/execution/pipe/pipe_dup_handler.c \

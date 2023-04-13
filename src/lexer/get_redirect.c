@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:14:09 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/13 14:18:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,15 @@ static void	get_type(t_file *file, char *new_cmd, int *start)
 	}
 }
 
+static void	init_file(t_file *file)
+{
+	file->ambiguous = FALSE;
+	file->fd = -1;
+	file->name = NULL;
+	file->next = NULL;
+	file->type = 0;
+}
+
 static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 {
 	int		i;
@@ -53,6 +62,7 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	t_file	*file;
 
 	file = malloc(sizeof(t_file));
+	init_file(file);
 	get_type(file, new_cmd, ps);
 	while (new_cmd[*ps] == ' ')
 		(*ps)++;
@@ -70,8 +80,6 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	}
 	tmp[i] = 0;
 	file->name = tmp;
-	file->fd = -1;
-	file->next = NULL;
 	add_file(add, file);
 }
 
