@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/12 15:22:23 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/13 11:30:24 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,20 +118,51 @@ char	*add_c(char *str, char c)
 	return (out);
 }
 
+int	get_replace_var(t_cmd *cmd, char *new_cmd, char **env, char **tmp)
+{
+	char	*var;
+	char	**split;
+	int		skip;
+
+	skip = 0;
+	var = var_value(new_cmd, env);
+	if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
+	{
+		split = ft_split(var, ' ');
+		free (*tmp);
+		*tmp = NULL;
+		add_units(cmd, split);
+		skip = var_len(new_cmd);
+		free(var);
+	}
+	else
+	{
+		skip = insert_var(new_cmd, var, tmp);
+		if (is_quote(0, 1) == EMPTY_QUOTE && !var)
+			skip += skip_set(new_cmd + skip, " ");
+	}
+	return (skip);
+}
+
 void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 {
 	char	*tmp;
 	int		i;
-	char	*var;
-	char	**split;
 
-	//new_cmd = ft_strtrim(new_cmd, " \t");
-	i = skip_set(new_cmd, " \t");
+	new_cmd = ft_strtrim(new_cmd, " \t");
+	if (!new_cmd)
+		return ;
+	//i = skip_set(new_cmd, " \t");
+	i = 0;
 	tmp = NULL;
 	while (new_cmd[i])
 	{
 		if (is_quote(new_cmd[i], 0))
+		{
 			i++;
+			if (!new_cmd[i])
+				add_unit(cmd, &tmp);
+		}
 		else if (is_chevron(new_cmd[i]) && !is_quote(0, 1))
 			i = skip_redirect(new_cmd, i);
 		else if (new_cmd[i] == ' ' && !is_quote(0, 1))
@@ -140,24 +171,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 			i += skip_set(new_cmd + i, " \t");
 		}
 		else if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
-		{
-			var = var_value(&new_cmd[i], env);
-			if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
-			{
-				split = ft_split(var, ' ');
-				free (tmp);
-				tmp = NULL;
-				add_units(cmd, split);
-				i += var_len(&new_cmd[i]);
-				free(var);
-			}
-			else
-			{
-				i += insert_var(new_cmd + i, var, &tmp);
-				if (is_quote(0, 1) == EMPTY_QUOTE && !var)
-					i += skip_set(new_cmd + i, " ");
-			}
-		}
+			i += get_replace_var(cmd, new_cmd + i, env, &tmp);
 		else
 			tmp = add_c(tmp, new_cmd[i++]);
 	}
