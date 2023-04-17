@@ -6,13 +6,13 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/13 14:22:08 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:25:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 
-static char	*str_addchar(char *str, char c)
+char	*str_addchar(char *str, char c)
 {
 	size_t	i;
 	size_t	str_len;

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 12:10:02 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:37:49 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env);
 int		is_chevron(char c);
 int		skip_set(char *str, char *set);
 int		is_quote(char str, int get);
+char	*str_addchar(char *str, char c);
 
 // vars
 char	*var_value(char *line, char **env);
