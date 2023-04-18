@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 09:22:24 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 14:43:53 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char	*get_prompt(t_data *data)
 
 	out = malloc(1);
 	out[0] = 0;
-	out = ft_strjoin(out, "\001\e[3;32m\002┌──(\001\e[3;36m\002");
+	out = ft_strjoin(out, "\001\e[3;32m\002(\001\e[3;36m\002");
 	tmp = getvalue(data->env, "USER");
 	if (tmp != NULL)
 		out = ft_strjoin(out, tmp);
@@ -118,7 +118,7 @@ char	*get_prompt(t_data *data)
 		out = ft_strjoin(out, tmp);
 	out = ft_strjoin(out, "\001\e[3;32m]\e[0m\002");
 	free(tmp);
-	out = ft_strjoin(out, "\n\001\e[3;32m\002└─\001\e[3;36m\002minishoul> \001\e[0m\002");
+	out = ft_strjoin(out, "\n\001\e[3;36m\002minishoul> \001\e[0m\002");
 	return (out);
 }
 

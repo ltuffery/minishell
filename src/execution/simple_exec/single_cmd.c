@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/12 13:22:58 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 14:57:20 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void	launch_cmd(t_data *data, int error_path)
 				perror("execve");
 				free_struct(&data->cmd);
 				ft_double_free(data->env);
+				free(exitcode());
 				exit (1);
 			}
 		}
@@ -57,6 +58,8 @@ static void	exec_cmd_single(t_data *data)
 			init_signals(DEFAULT);
 			launch_cmd(data, error_path);
 			free_struct(&data->cmd);
+			ft_double_free(data->env);
+			free(exitcode());
 			exit (1);
 		}
 		init_signals(CHILD);
