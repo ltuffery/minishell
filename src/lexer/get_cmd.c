@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 11:30:24 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 12:52:12 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,17 @@ static int	insert_var(char *cmd, char *add, char **tmp)
 	int	i;
 
 	i = var_len(cmd);
-	if (!add)
-		return (i);
 	if (!*tmp)
 	{
 		*tmp = malloc(1);
 		*tmp[0] = 0;
 	}
-	*tmp = ft_strjoin(*tmp, add);
+	if ((cmd[1] == ' ' || cmd[1] == '\t') && *tmp)
+		ft_strjoin(*tmp, "$");
+	else if (!add)
+		return (i);
+	else
+		*tmp = ft_strjoin(*tmp, add);
 	free(add);
 	return (i);
 }
