@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/18 17:41:21 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 19:00:58 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "../libft/libft.h"
 #include <readline/readline.h>
 #include <stdlib.h>
+#include <limits.h>
 
 /*!------------------------ Fonction de Debug --------------------------!*/
 void	print_struct(t_cmd *cmd)
@@ -52,6 +53,21 @@ void	print_struct(t_cmd *cmd)
 	}
 }
 /*!------------------------------ End ----------------------------------!*/
+
+static void	create_env(t_data *data)
+{
+	char	cwd[PATH_MAX];
+	char	*tmp;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+		perror("error cwd");
+	tmp = malloc(1);
+	tmp[0] = 0;
+	tmp = ft_strjoin(tmp, "PATH=");
+	tmp = ft_strjoin(tmp, cwd);
+	data->env = ft_strappend(tmp, data->env);
+}
+
 static void	cpy_env(char **env, t_data *data)
 {
 	int	i;
@@ -131,7 +147,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	data.env = NULL;
 	init_signals(PARENT);
-	cpy_env(env, &data);
+	if (!env[0])
+		create_env(&data);
+	else
+		cpy_env(env, &data);
 	if (argc != 1)
 	{
 		ft_putstr_fd("too many arguments", 2);

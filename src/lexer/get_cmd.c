@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/18 17:35:44 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 18:16:44 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 	if (tmp)
 		add_unit(cmd, &tmp);
 	free(tmp);
-	}
+}
 
 
 
