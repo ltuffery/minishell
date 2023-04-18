@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/08 08:43:08 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:55:23 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
+#include "../../include/utils.h"
 
 int	strcmp_strict(char *s1, char *s2)
 {
@@ -48,13 +49,16 @@ int	is_builtins(t_cmd *cmd)
 	return (FALSE);
 }
 
-void	ft_print_error_cmd(char *cmd, int error_path)
+void	ft_print_error_cmd(char *cmd, int error_path, t_data *data)
 {
 	if (ft_strfind(cmd, '/') || error_path == 1)
 	{
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": No such file or directory", 2);
+		free_struct(&data->cmd);
+		ft_double_free(data->env);
+		free(exitcode());
 		exit(1);
 	}
 	else
@@ -62,6 +66,9 @@ void	ft_print_error_cmd(char *cmd, int error_path)
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": command not found", 2);
+		free_struct(&data->cmd);
+		ft_double_free(data->env);
+		free(exitcode());
 		exit(127);
 	}
 }

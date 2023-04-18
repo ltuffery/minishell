@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/18 14:43:53 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 17:15:42 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static void	input_handler(char *line, t_data *data)
 	}
 	else
 		set_code(2, FALSE);
-	//print_struct(data->cmd); // --> Debug - remove for push
+	print_struct(data->cmd); // --> Debug - remove for push
 	free_struct(&data->cmd);
 	data->cmd = NULL;
 }

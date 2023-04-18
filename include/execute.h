@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:16:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 13:02:38 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:53:55 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		open_files(t_cmd *cmd);
 int		open_heredoc(t_data *data);
 void	close_files(t_cmd *cmd);
 void	simple_dup_handler(t_cmd *cmd);
-void	ft_print_error_cmd(char *cmd, int error_path);
+void	ft_print_error_cmd(char *cmd, int error_path, t_data *data);
 void	ft_print_error_file(char *file);
 void	ft_print_error_ambiguous(void);
 int		get_cmd_path(t_data *data, t_cmd *cmd);
