@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 19:40:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:39:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ void	cd_builtins(t_data *data, char **arg)
 	int		error;
 	char	*home;
 
-	if (arg[2])
+	if (arg[1])
 	{
-		ft_putendl_fd("minishoul: cd: too many arguments", 2);
-		return ;
+		if (arg[2])
+		{
+			ft_putendl_fd("minishoul: cd: too many arguments", 2);
+			return ;
+		}
 	}
 	error = -1;
 	home = getvalue(data->env, "HOME");
