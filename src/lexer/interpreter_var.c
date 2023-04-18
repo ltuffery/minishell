@@ -6,23 +6,59 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/13 09:34:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:31:09 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
 #include "../../include/utils.h"
 #include <stddef.h>
+#include <stdio.h>
+
+static t_boolean	quotes(char *line, t_boolean has_dollar)
+{
+	if (is_quote('\0', 1) == EMPTY_QUOTE)
+	{
+		if (line[has_dollar] == '"' || line[has_dollar] == '\'')
+			return (TRUE);
+	}
+	return (FALSE);
+}
+
+static char	*content_quotes(char *line, t_boolean has_dollar)
+{
+	int		i;
+	char	quote;
+	char	*ret;
+
+	quote = line[has_dollar];
+	i = has_dollar + 1;
+	ret = ft_calloc(1, sizeof(char));
+	while (line[i] != '\0' && line[i] != quote)
+	{
+		ret = str_addchar(ret, line[i]);
+		i++;
+	}
+	return (ret);
+}
 
 size_t	var_len(char *var)
 {
 	size_t	i;
+	char	*content;
 
 	i = 0;
 	if (var[0] == '$')
 		i++;
 	if (var[i] == '?')
 		return (i + 1);
+	if (quotes(var, i))
+	{
+		content = content_quotes(var, i);
+		i = i + 2 + ft_strlen(content);
+		free(content);
+		return (i);
+	}
 	while (var[i] != '\0' && (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
 	return (i);
@@ -58,12 +94,8 @@ char	*var_value(char *line, char **env)
 	char		*ret;
 	char		*value;
 
+	value = NULL;
 	has_dollar = line[0] == '$';
-	if (line[has_dollar] == '?')
-	{
-		value = ft_itoa(exitcode()->code);
-		return (value);
-	}
 	ret = ft_strdup(&line[0]);
 	if (ret == NULL)
 		return (NULL);
@@ -71,8 +103,12 @@ char	*var_value(char *line, char **env)
 	ret[len] = '\0';
 	if (ft_isdigit(ret[has_dollar]))
 		value = ft_strdup(&ret[has_dollar + 1]);
-	else if (len == 1)
+	else if (quotes(line, has_dollar))
+		value = content_quotes(line, has_dollar);
+	else if (len == 1 && has_dollar == 1)
 		value = ft_strdup("$");
+	else if (line[has_dollar] == '?')
+		value = ft_itoa(exitcode()->code);
 	else
 		value = getvalue(env, &ret[has_dollar]);
 	free(ret);
