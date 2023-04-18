@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/17 19:31:09 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/18 14:37:04 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,9 @@ static t_boolean	quotes(char *line, t_boolean has_dollar)
 	return (FALSE);
 }
 
-static char	*content_quotes(char *line, t_boolean has_dollar)
-{
-	int		i;
-	char	quote;
-	char	*ret;
-
-	quote = line[has_dollar];
-	i = has_dollar + 1;
-	ret = ft_calloc(1, sizeof(char));
-	while (line[i] != '\0' && line[i] != quote)
-	{
-		ret = str_addchar(ret, line[i]);
-		i++;
-	}
-	return (ret);
-}
-
 size_t	var_len(char *var)
 {
 	size_t	i;
-	char	*content;
 
 	i = 0;
 	if (var[0] == '$')
@@ -53,12 +35,7 @@ size_t	var_len(char *var)
 	if (var[i] == '?')
 		return (i + 1);
 	if (quotes(var, i))
-	{
-		content = content_quotes(var, i);
-		i = i + 2 + ft_strlen(content);
-		free(content);
 		return (i);
-	}
 	while (var[i] != '\0' && (ft_isalnum(var[i]) || var[i] == '_'))
 		i++;
 	return (i);
@@ -104,7 +81,7 @@ char	*var_value(char *line, char **env)
 	if (ft_isdigit(ret[has_dollar]))
 		value = ft_strdup(&ret[has_dollar + 1]);
 	else if (quotes(line, has_dollar))
-		value = content_quotes(line, has_dollar);
+		return (NULL);
 	else if (len == 1 && has_dollar == 1)
 		value = ft_strdup("$");
 	else if (line[has_dollar] == '?')
