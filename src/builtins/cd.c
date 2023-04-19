@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/18 17:39:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/19 14:57:51 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,33 @@ static void	puterror_cd(char *arg, int err)
 	}
 }
 
-void	cd_builtins(t_data *data, char **arg)
+static int	home_mana(char	*arg, t_data *data)
 {
 	int		error;
 	char	*home;
+	
+	error = 0;
+	home = getvalue(data->env, "HOME");
+	if (!home)
+	{
+		puterror_cd("HOME", NSET);
+		return (0);
+	}
+	if (!arg)
+		error = chdir(home);
+	else
+	{
+		home = ft_strjoin(home, arg + 1);
+		if (home)
+			error = chdir(home);
+	}
+	free(home);
+	return (error);
+}
+
+void	cd_builtins(t_data *data, char **arg)
+{
+	int		error;
 
 	if (arg[1])
 	{
@@ -78,12 +101,10 @@ void	cd_builtins(t_data *data, char **arg)
 		}
 	}
 	error = -1;
-	home = getvalue(data->env, "HOME");
-	if (home != NULL && (arg[1] == NULL || !ft_strcmp(arg[1], "~")))
-		error = chdir(home);
+	if (arg[1] == NULL || arg[1][0] == '~')
+		error = home_mana(arg[1], data);
 	else
 		error = chdir(arg[1]);
-	free(home);
 	if (error < 0)
 		puterror_cd(arg[1], ERRDIR);
 	else

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/19 17:01:04 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:11:10 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,6 @@ int	get_replace_var(t_cmd *cmd, char *new_cmd, char **env, char **tmp)
 		*tmp = NULL;
 		add_units(cmd, split);
 		skip = var_len(new_cmd);
-		free(var);
 	}
 	else
 	{
@@ -144,6 +143,7 @@ int	get_replace_var(t_cmd *cmd, char *new_cmd, char **env, char **tmp)
 		if (is_quote(0, 1) == EMPTY_QUOTE && !var)
 			skip += skip_set(new_cmd + skip, " ");
 	}
+	free(var);
 	return (skip);
 }
 
@@ -181,7 +181,7 @@ void	get_cmd(t_cmd *cmd, char *new_cmd, char **env)
 	if (tmp)
 		add_unit(cmd, &tmp);
 	free(tmp);
-	}
+}
 
 
 

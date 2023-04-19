@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:58:41 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/18 16:54:26 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/19 16:56:41 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 		{
 			if (access(cmd->arg[0], X_OK) == 0)
 				launch_cmd_pipe(data, cmd, pos);
+			close_pipe(data, cmd, pos);
 			ft_print_error_cmd(cmd->arg[0], err_path, data);
 		}
 		else
+		{
+			close_pipe(data, cmd, pos);
 			ft_print_error_cmd("''", err_path, data);
-		free_struct(&data->cmd);
-		ft_double_free(data->env);
-		free(exitcode());
-		exit (1);
+		}
 	}
 	init_signals(CHILD);
 }
