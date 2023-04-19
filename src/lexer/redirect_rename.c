@@ -6,10 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/17 19:25:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:00:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../../include/utils.h"
 #include "../../include/lexer.h"
 
 char	*str_addchar(char *str, char c)

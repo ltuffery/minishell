@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 14:49:18 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:56:48 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,8 @@ char		*getvalue(char **env, char *var);
 void		set_code(int code, t_boolean is_set_by_signal);
 void		set_if_sig_false(int code);
 t_exitcode	*exitcode(void);
+int			is_chevron(char c);
+int			skip_set(char *str, char *set);
+int			is_quote(char str, int get);
 
 #endif

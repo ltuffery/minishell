@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/18 17:35:44 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/19 17:01:04 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/lexer.h"
+#include "../../include/utils.h"
 
 static int	skip_redirect(char *cmd, int pos)
 {

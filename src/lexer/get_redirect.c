@@ -6,11 +6,11 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 14:18:47 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/19 17:00:05 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/lexer.h"
+#include "../../include/utils.h"
 
 static void	add_file(t_cmd *add, t_file *file)
 {
