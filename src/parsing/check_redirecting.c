@@ -6,14 +6,14 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:12:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/06 16:23:41 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:55:54 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/minishell.h"
 #include "../../libft/libft.h"
-#include <stddef.h>
-#include <stdio.h>
+#include "../../include/minishell.h"
+#include "../../include/utils.h"
+#include <stdlib.h>
 
 static t_boolean	print_error(char *error)
 {
@@ -29,35 +29,30 @@ static t_boolean	print_error(char *error)
 	return (TRUE);
 }
 
-static int	count_rdct(t_boolean save)
+static t_boolean	chevron_manager(char c, char lc, t_boolean reset)
 {
-	static int	nbr;
+	static char	token;
+	static int	token_find;
+	t_boolean	ret;
 
-	if (save == TRUE)
-		nbr++;
-	return (nbr);
-}
-
-static t_boolean	check_char(char c, t_boolean *rdct_find)
-{
-	static t_boolean	ret;
-	static t_boolean	space_find;
-
-	if (c == '<' || c == '>')
+	ret = FALSE;
+	if (token == '\0')
+		token = c;
+	token_find++;
+	if ((!is_chevron(c) && c != '|') || reset)
 	{
-		count_rdct(TRUE);
-		if (space_find == TRUE)
-			ret = print_error("< or >");
-		else if (count_rdct(FALSE) == 3)
-			ret = print_error("< or >");
-		*rdct_find = TRUE;
+		token = '\0';
+		token_find = 0;
+		return (ret);
 	}
-	else if (c == '|' && *rdct_find == TRUE)
+	if (token_find > 2)
+		ret = print_error("<<< or >>>");
+	else if (c == '|')
 		ret = print_error("|");
-	else if (c != ' ' && c != '\t')
-		*rdct_find = FALSE;
-	else if (c == ' ' && c == '\t' && *rdct_find == TRUE)
-		space_find = TRUE;
+	else if (c != token)
+		ret = print_error("< or >");
+	else if (lc == '\0')
+		ret = print_error("newline");
 	return (ret);
 }
 
@@ -65,21 +60,16 @@ int	check_redirecting(char *prompt)
 {
 	size_t		i;
 	t_boolean	ret;
-	t_boolean	rdct_find;
 
 	i = 0;
-	rdct_find = FALSE;
 	while (prompt[i] != '\0')
 	{
-		ret = check_char(prompt[i], &rdct_find);
-		if (ret != FALSE)
+		if (prompt[i + 1] != '\0')
+			ret = chevron_manager(prompt[i], prompt[i + 1], FALSE);
+		if (ret)
 			break ;
 		i++;
 	}
-	if (rdct_find == TRUE && ret == FALSE)
-	{
-		print_error("newline");
-		return (1);
-	}
+	chevron_manager('\0', '\0', TRUE);
 	return (ret);
 }
