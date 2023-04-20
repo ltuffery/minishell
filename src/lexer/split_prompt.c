@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 12:44:17 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/29 18:18:14 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/20 15:48:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_cmd	*add_cmd(t_data *data, char *new_cmd)
 	add->file = NULL;
 	get_redirect(add, new_cmd);
 	add->arg = NULL;
-	get_cmd(add, new_cmd, data->env);
+	tokens_manager(add, new_cmd, data->env);
 	free(new_cmd);
 	if (data->cmd)
 	{

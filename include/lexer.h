@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/19 16:56:38 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:47:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	lexer_handler(t_data *data, char *prompt);
 t_cmd	*cut_prompt(t_data *data, char *prompt);
 void	get_redirect(t_cmd *add, char *new_cmd);
 void	files_handler(t_data *data);
-void	get_cmd(t_cmd *cmd, char *new_cmd, char **env);
+void	tokens_manager(t_cmd *cmd, char *new_cmd, char **env);
 
 // utils
 char	*str_addchar(char *str, char c);
