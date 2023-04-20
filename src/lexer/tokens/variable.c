@@ -3,67 +3,119 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
+/*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/20 16:30:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 20:22:10 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/lexer.h"
 #include "../../../include/utils.h"
 
-static void	add_units(t_cmd *cmd, char **adds)
-{
-	int	i;
+// static void	add_units(t_cmd *cmd, char **adds)
+// {
+// 	int	i;
 
-	i = 0;
-	while (adds[i] != NULL)
-	{
-		cmd->arg = ft_strappend(adds[i], cmd->arg);
-		i++;
-	}
-	ft_double_free(adds);
-}
+// 	i = 0;
+// 	while (adds[i] != NULL)
+// 	{
+// 		cmd->arg = ft_strappend(adds[i], cmd->arg);
+// 		i++;
+// 	}
+// 	ft_double_free(adds);
+// }
 
-static int	insert_var(char *cmd, char *add, char **tmp)
-{
-	int	i;
+// static int	insert_var(char *cmd, char *add, char **tmp)
+// {
+// 	int	i;
 
-	i = var_len(cmd);
-	if (!add)
-		return (i);
-	if (!*tmp)
-	{
-		*tmp = malloc(1);
-		*tmp[0] = 0;
-	}
-	*tmp = ft_strjoin(*tmp, add);
-	return (i);
-}
+// 	i = var_len(cmd);
+// 	if (!add)
+// 		return (i);
+// 	if (!*tmp)
+// 	{
+// 		*tmp = malloc(1);
+// 		*tmp[0] = 0;
+// 	}
+// 	*tmp = ft_strjoin(*tmp, add);
+// 	return (i);
+// }
 
-int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
+// int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
+// {
+// 	char	*var;
+// 	char	*tmp_split;
+// 	char	**split;
+// 	int		skip;
+
+// 	skip = 0;
+// 	var = var_value(line, env);
+// 	if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
+// 	{
+// 		split = ft_split(var, ' ');
+// 		tmp_split = split[0];
+// 		if (*tmp && split[0])
+// 		{
+// 			split[0] = ft_strjoin(*tmp, split[0]);
+// 			free(tmp_split);
+// 		}
+// 		*tmp = NULL;
+// 		add_units(cmd, split);
+// 		skip = var_len(line);
+// 	}
+// 	else
+// 	{
+// 		skip = insert_var(line, var, tmp);
+// 		if (is_quote(0, 1) == EMPTY_QUOTE && var == NULL)
+// 			skip += skip_set(line + skip, " ");
+// 	}
+// 	free(var);
+// 	return (skip);
+// }
+
+static char	*add_variable(char *line, char *new_cmd, char **env)
 {
 	char	*var;
-	char	**split;
-	int		skip;
-
-	skip = 0;
-	var = var_value(line, env);
+	char	*out;
+	
+	var = var_value(new_cmd, env);
+	if (!line)
+	{
+		line = malloc(1);
+		line[0] = 0;
+	}
 	if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
-	{
-		split = ft_split(var, ' ');
-		free (*tmp);
-		*tmp = NULL;
-		add_units(cmd, split);
-		skip = var_len(line);
-	}
+		out = ft_strjoin(line, var);
 	else
-	{
-		skip = insert_var(line, var, tmp);
-		if (is_quote(0, 1) == EMPTY_QUOTE && var == NULL)
-			skip += skip_set(line + skip, " ");
-	}
+		out = ft_strjoin(line, var);
 	free(var);
-	return (skip);
+	return (out);
+}
+
+char	*replace_variable(t_data *data, char *new_cmd)
+{
+	char	*line;
+	int		i;
+	
+	i = 0;
+	line = NULL;
+	if (!new_cmd)
+		return (NULL);
+	while (new_cmd[i])
+	{
+		is_quote(new_cmd[i], 0);
+		if (new_cmd[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
+		{
+			line = add_variable(line, new_cmd + i, data->env);
+			i += var_len(new_cmd) + 1;
+		}
+		else
+		{
+			line = add_c(line, new_cmd[i]);
+			i++;
+		}
+	}
+	free(new_cmd);
+	return (line);
 }

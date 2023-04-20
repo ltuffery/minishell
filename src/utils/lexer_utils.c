@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:22:52 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:25:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 19:53:34 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ int	skip_set(char *str, char *set)
 
 	i = 0;
 	count = 0;
+	if (!str)
+		return (0);
 	while (str[i])
 	{
 		j = 0;

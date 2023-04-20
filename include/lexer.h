@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:30:39 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 18:44:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,14 @@ void	tokens_manager(t_cmd *cmd, char *new_cmd, char **env);
 
 // utils
 char	*str_addchar(char *str, char c);
+char	*add_c(char *str, char c);
 
 // vars
 char	*var_value(char *line, char **env);
 int		is_ambiguous(char *val);
 size_t	var_len(char *var);
 int		variable(t_cmd *cmd, char *line, char **env, char **tmp);
+char	*replace_variable(t_data *data, char *new_cmd);
 
 char	*wildcard_handler(char *str);
 

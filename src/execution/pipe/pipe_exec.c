@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:58:41 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/19 16:56:41 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/20 20:27:58 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ static void	launch_builtins(t_data *data, t_cmd *cmd)
 	else if (!strcmp_strict(cmd->arg[0], "env"))
 		env_builtins(data->env);
 	else if (!strcmp_strict(cmd->arg[0], "exit"))
-		exit_builtins(data);
+		exit_builtins(data, cmd->arg);
 	else if (!strcmp_strict(cmd->arg[0], "export"))
 		export_builtins(cmd->arg, data);
 	else if (!strcmp_strict(cmd->arg[0], "pwd"))

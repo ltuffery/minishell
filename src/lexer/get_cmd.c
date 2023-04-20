@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:49:59 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/20 19:57:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,12 @@ char	*add_c(char *str, char c)
 
 void	tokens_manager(t_cmd *cmd, char *line, char **env)
 {
+	(void)env;
 	char	*buffer;
 	int		i;
 
+	if (!line)
+		return ;
 	i = skip_set(line, " \t");
 	buffer = NULL;
 	while (line[i] != '\0')
@@ -59,13 +62,13 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 			i++;
 		else if (is_chevron(line[i]) && !is_quote(0, 1))
 			i = skip_redirect(line, i);
-		else if (line[i] == ' ' && !is_quote(0, 1))
+		else if ((line[i] == ' ' || line[i] == '\t') && !is_quote(0, 1))
 		{
 			add_unit(cmd, &buffer);
 			i += skip_set(line + i, " \t");
 		}
-		else if (line[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
-			i += variable(cmd, line + i, env, &buffer);
+		// else if (line[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
+		// 	i += variable(cmd, line + i, env, &buffer);
 		else
 			buffer = add_c(buffer, line[i++]);
 	}
