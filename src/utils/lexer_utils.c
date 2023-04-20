@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:22:52 by njegat            #+#    #+#             */
-/*   Updated: 2023/03/28 18:57:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:25:22 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,17 @@ int	is_quote(char str, int get)
 		return (1);
 	}
 	return (0);
+}
+
+int	skip_redirect(char *cmd, int pos)
+{
+	while (is_chevron(cmd[pos]))
+		pos++;
+	while (cmd[pos] == ' ')
+		pos++;
+	while (cmd[pos] != ' ' && cmd[pos])
+		pos++;
+	while (cmd[pos] == ' ')
+		pos++;
+	return (pos);
 }
