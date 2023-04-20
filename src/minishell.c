@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 15:56:51 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:49:08 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,9 @@ static void	call_promt(char *line, t_data *data)
 
 char	*get_prompt(t_data *data)
 {
-	char	*out;
-	char	*tmp;
+	char		*out;
+	char		*tmp;
+	t_exitcode	*code;
 
 	out = malloc(1);
 	out[0] = 0;
@@ -128,7 +129,13 @@ char	*get_prompt(t_data *data)
 	else
 		out = ft_strjoin(out, "unnamed");
 	free(tmp);
-	out = ft_strjoin(out, "\001\e[3;32m\002)-[\001\e[0m\002");
+	out = ft_strjoin(out, "\001\e[3;32m\002)-\001\e[3;31m\002[");
+	code = exitcode();
+	tmp = ft_itoa(code->code);
+	if (tmp)
+		out = ft_strjoin(out, tmp);
+	free(tmp);
+	out = ft_strjoin(out, "]\001\e[3;32m\002-[\001\e[0m\002");
 	tmp = getvalue(data->env, "PWD");
 	if (tmp != NULL)
 		out = ft_strjoin(out, tmp);
