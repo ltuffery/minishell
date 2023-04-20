@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/19 17:06:49 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/04/20 16:31:10 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = src/minishell.c \
 		src/lexer/get_redirect.c \
 		src/lexer/interpreter_var.c \
 		src/lexer/redirect_rename.c \
+		src/lexer/tokens/variable.c \
 		src/lexer/get_cmd.c \
 		src/utils/lexer_utils.c \
 		src/utils/free_struct.c \
