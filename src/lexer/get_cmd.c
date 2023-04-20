@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/19 17:11:10 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:48:05 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static int	insert_var(char *cmd, char *add, char **tmp)
 		*tmp[0] = 0;
 	}
 	*tmp = ft_strjoin(*tmp, add);
-	free(add);
 	return (i);
 }
 
