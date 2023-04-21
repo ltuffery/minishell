@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 19:57:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:42:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,33 +25,33 @@ char	*add_c(char *str, char c)
 	char	*out;
 	int		i;
 
-	if (!str)
+	if (str == NULL)
 	{
 		out = malloc(sizeof(char) * 2);
 		out[0] = c;
-		out[1] = 0;
+		out[1] = '\0';
 		return (out);
 	}
 	else
 		out = malloc(sizeof(char) * ft_strlen(str) + 3);
-	if (!out)
+	if (out == NULL)
 		return (NULL);
 	ft_strlcpy(out, str, ft_strlen(str) + 1);
 	i = 0;
 	while (out[i])
 		i++;
 	out[i] = c;
-	out[i + 1] = 0;
+	out[i + 1] = '\0';
 	free(str);
 	return (out);
 }
 
 void	tokens_manager(t_cmd *cmd, char *line, char **env)
 {
-	(void)env;
 	char	*buffer;
 	int		i;
 
+	(void)env;
 	if (!line)
 		return ;
 	i = skip_set(line, " \t");

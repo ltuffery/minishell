@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/20 20:22:10 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:37:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static char	*add_variable(char *line, char *new_cmd, char **env)
 {
 	char	*var;
 	char	*out;
-	
+
 	var = var_value(new_cmd, env);
 	if (!line)
 	{
@@ -97,7 +97,7 @@ char	*replace_variable(t_data *data, char *new_cmd)
 {
 	char	*line;
 	int		i;
-	
+
 	i = 0;
 	line = NULL;
 	if (!new_cmd)

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/19 14:57:51 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:37:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static int	home_mana(char	*arg, t_data *data)
 {
 	int		error;
 	char	*home;
-	
+
 	error = 0;
 	home = getvalue(data->env, "HOME");
 	if (!home)
