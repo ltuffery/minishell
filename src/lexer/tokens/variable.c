@@ -6,23 +6,25 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/21 16:54:46 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 18:13:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/lexer.h"
 #include "../../../include/utils.h"
 
-static void	add_units(t_cmd *cmd, char **adds)
+static void	add_units(t_cmd *cmd, char **adds, char **tmp)
 {
 	int	i;
 
 	i = 0;
 	while (adds[i] != NULL)
 	{
-		cmd->arg = ft_strappend(adds[i], cmd->arg);
+		if (adds[i + 1] != NULL)
+			cmd->arg = ft_strappend(adds[i], cmd->arg);
 		i++;
 	}
+	*tmp = ft_strdup(adds[i - 1]);
 	ft_double_free(adds);
 }
 
@@ -61,7 +63,7 @@ int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
 			free(tmp_split);
 		}
 		*tmp = NULL;
-		add_units(cmd, split);
+		add_units(cmd, split, tmp);
 		skip = var_len(line);
 	}
 	else
