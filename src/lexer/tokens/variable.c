@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/21 18:13:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:50:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,26 +44,32 @@ static int	insert_var(char *cmd, char *add, char **tmp)
 	return (i);
 }
 
+static void	split_var(t_cmd *cmd, char *var, char **tmp)
+{
+	char	**split;
+	char	*tmp_split;
+
+	split = ft_split(var, ' ');
+	tmp_split = split[0];
+	if (*tmp && split[0])
+	{
+		split[0] = ft_strjoin(*tmp, split[0]);
+		free(tmp_split);
+	}
+	*tmp = NULL;
+	add_units(cmd, split, tmp);
+}
+
 int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
 {
 	char	*var;
-	char	*tmp_split;
-	char	**split;
 	int		skip;
 
 	skip = 0;
 	var = var_value(line, env);
 	if (is_quote(0, 1) == EMPTY_QUOTE && is_ambiguous(var))
 	{
-		split = ft_split(var, ' ');
-		tmp_split = split[0];
-		if (*tmp && split[0])
-		{
-			split[0] = ft_strjoin(*tmp, split[0]);
-			free(tmp_split);
-		}
-		*tmp = NULL;
-		add_units(cmd, split, tmp);
+		split_var(cmd, var, tmp);
 		skip = var_len(line);
 	}
 	else

@@ -6,33 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/19 17:00:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:53:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
 #include "../../include/lexer.h"
-
-char	*str_addchar(char *str, char c)
-{
-	size_t	i;
-	size_t	str_len;
-	char	*new_str;
-
-	i = 0;
-	str_len = ft_strlen(str);
-	new_str = ft_calloc(str_len + 2, sizeof(char));
-	if (new_str == NULL)
-		return (NULL);
-	while (str[i] != '\0')
-	{
-		new_str[i] = str[i];
-		i++;
-	}
-	new_str[i] = c;
-	free(str);
-	return (new_str);
-}
 
 static void	get_value_var(t_file *file, int i, char **new_name, char **env)
 {

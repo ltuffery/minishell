@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:55:40 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 18:46:26 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,38 +21,6 @@
 #include <readline/readline.h>
 #include <stdlib.h>
 #include <limits.h>
-
-/*!------------------------ Fonction de Debug --------------------------!*/
-void	print_struct(t_cmd *cmd)
-{
-	t_cmd	*tmp;
-	tmp = cmd;
-	while (tmp)
-	{
-		printf("\nData:------------------------\n");
-		__builtin_dump_struct(tmp, &printf);
-		int i = 0;
-		printf("\nCmdx:------------------------\n");
-		if (tmp->arg)
-		{
-			while (tmp->arg[i])
-			{
-				printf("%s - ", tmp->arg[i]);
-				i++;
-			}
-		}
-		printf("\n");
-		while (tmp->file)
-		{
-			printf("\nFile:--------%p--------\n", tmp->file);
-			__builtin_dump_struct(tmp->file, &printf);
-			tmp->file = tmp->file->next;
-		}
-		tmp = tmp->next;
-		printf("\n---------------------------------------------\n\n");
-	}
-}
-/*!------------------------------ End ----------------------------------!*/
 
 static void	create_env(t_data *data)
 {
@@ -90,7 +58,6 @@ static void	input_handler(char *line, t_data *data)
 	}
 	else
 		set_code(2, FALSE);
-	//print_struct(data->cmd); // --> Debug - remove for push
 	free_struct(&data->cmd);
 	data->cmd = NULL;
 }

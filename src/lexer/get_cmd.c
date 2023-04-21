@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 16:56:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 18:54:20 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 	char	*buffer;
 	int		i;
 
-	(void)env;
-	if (!line)
-		return ;
 	i = skip_set(line, " \t");
 	buffer = NULL;
 	while (line[i] != '\0')
