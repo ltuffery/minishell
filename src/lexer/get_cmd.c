@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 16:54:09 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 16:56:56 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,24 +25,19 @@ char	*add_c(char *str, char c)
 	char	*out;
 	int		i;
 
-	if (str == NULL)
-	{
-		out = malloc(sizeof(char) * 2);
-		out[0] = c;
-		out[1] = '\0';
-		return (out);
-	}
-	else
-		out = malloc(sizeof(char) * ft_strlen(str) + 3);
+	i = 0;
+	out = ft_calloc(ft_strlen(str) + 2, sizeof(char));
 	if (out == NULL)
 		return (NULL);
-	ft_strlcpy(out, str, ft_strlen(str) + 1);
-	i = 0;
+	if (str != NULL)
+	{
+		ft_strlcpy(out, str, ft_strlen(str) + 1);
+		free(str);
+	}
 	while (out[i])
 		i++;
 	out[i] = c;
 	out[i + 1] = '\0';
-	free(str);
 	return (out);
 }
 
