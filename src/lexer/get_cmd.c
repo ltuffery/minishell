@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 16:42:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:54:09 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 			add_unit(cmd, &buffer);
 			i += skip_set(line + i, " \t");
 		}
-		// else if (line[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
-		// 	i += variable(cmd, line + i, env, &buffer);
+		else if (line[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE)
+			i += variable(cmd, line + i, env, &buffer);
 		else
 			buffer = add_c(buffer, line[i++]);
 	}
