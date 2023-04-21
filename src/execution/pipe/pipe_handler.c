@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 13:15:47 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/21 23:25:35 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,18 @@
 
 static int	launch_handler(t_data *data, t_cmd *cmd, int pos)
 {
-	int	error;
+	int error;
 
 	error = select_pipe(data, cmd, pos);
-	if (is_builtins(cmd) == TRUE && !error)
-		exec_pipe_builtins(data, cmd, pos);
-	else if (!error)
-		exec_pipe(data, cmd, pos);
-	else
-		perror ("minishoul: pipe");
+	if (cmd->arg)
+	{
+		if (is_builtins(cmd) == TRUE && !error)
+			exec_pipe_builtins(data, cmd, pos);
+		else if (!error)
+			exec_pipe(data, cmd, pos);
+		else
+			perror("minishoul: pipe");
+	}
 	return (error);
 }
 
@@ -64,8 +67,12 @@ int	pipe_handler(t_data *data)
 	if (error)
 		return (ERR_FILE);
 	last_child = exec_all(data);
-	waitpid(last_child, &exit_status, 0);
-	set_if_sig_false(WEXITSTATUS(exit_status));
+	set_code(0,FALSE);
+	if (last_child > -1)
+	{
+		waitpid(last_child, &exit_status, 0);
+		set_if_sig_false(WEXITSTATUS(exit_status));
+	}
 	while (waitpid(-1, NULL, 0) > 0)
 		continue ;
 	init_signals(PARENT);
