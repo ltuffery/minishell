@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/21 18:53:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:59:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*final_name(t_file *file, char **env)
 			i += var_len(&file->name[i]) - 1;
 		}
 		else if (!is_quote(file->name[i], 0))
-			new_name = str_addchar(new_name, file->name[i]);
+			new_name = add_c(new_name, file->name[i]);
 		i++;
 	}
 	free(file->name);
