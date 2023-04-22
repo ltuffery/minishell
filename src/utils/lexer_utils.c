@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:22:52 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 19:47:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 20:45:03 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,4 +91,25 @@ int	skip_redirect(char *cmd, int pos)
 	while (cmd[pos] == ' ')
 		pos++;
 	return (pos);
+}
+
+char	*add_c(char *str, char c)
+{
+	char	*out;
+	int		i;
+
+	i = 0;
+	out = ft_calloc(ft_strlen(str) + 2, sizeof(char));
+	if (out == NULL)
+		return (NULL);
+	if (str != NULL)
+	{
+		ft_strlcpy(out, str, ft_strlen(str) + 1);
+		free(str);
+	}
+	while (out[i])
+		i++;
+	out[i] = c;
+	out[i + 1] = '\0';
+	return (out);
 }

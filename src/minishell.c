@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 23:20:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 22:15:07 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	create_env(t_data *data)
 		perror("error cwd");
 	tmp = malloc(1);
 	tmp[0] = 0;
-	tmp = ft_strjoin(tmp, "PATH=");
+	tmp = ft_strjoin(tmp, "PWD=");
 	tmp = ft_strjoin(tmp, cwd);
 	data->env = ft_strappend(tmp, data->env);
 }

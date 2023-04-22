@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 22:50:52 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 20:44:58 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,27 +18,6 @@ static void	add_unit(t_cmd *cmd, char **add)
 	cmd->arg = ft_strappend(*add, cmd->arg);
 	free (*add);
 	*add = NULL;
-}
-
-char	*add_c(char *str, char c)
-{
-	char	*out;
-	int		i;
-
-	i = 0;
-	out = ft_calloc(ft_strlen(str) + 2, sizeof(char));
-	if (out == NULL)
-		return (NULL);
-	if (str != NULL)
-	{
-		ft_strlcpy(out, str, ft_strlen(str) + 1);
-		free(str);
-	}
-	while (out[i])
-		i++;
-	out[i] = c;
-	out[i + 1] = '\0';
-	return (out);
 }
 
 void	tokens_manager(t_cmd *cmd, char *line, char **env)

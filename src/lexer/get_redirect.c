@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 20:18:32 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 20:59:23 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	get_type(file, new_cmd, ps);
 	while (new_cmd[*ps] == ' ')
 		(*ps)++;
+	tmp = NULL;
 	i = 0;
 	quotes = 0;
 	while (((new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])) || quotes)
@@ -74,20 +75,9 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	{
 		if (new_cmd[*ps + i] == '\'' || new_cmd[*ps + i] == '"')
 			quotes = !quotes;
+		tmp = add_c(tmp, new_cmd[*ps + i]);
 		i++;
 	}
-	tmp = malloc((i + 1) * sizeof(char));
-	i = 0;
-	quotes = 0;
-	while (((new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])) || quotes)
-		&& new_cmd[*ps + i])
-	{
-		if (new_cmd[*ps + i] == '\'' || new_cmd[*ps + i] == '"')
-			quotes = !quotes;
-		tmp[i] = new_cmd[*ps + i];
-		i++;
-	}
-	tmp[i] = 0;
 	file->name = tmp;
 	add_file(add, file);
 }

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:25:34 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:46:19 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,6 @@ int			is_chevron(char c);
 int			skip_set(char *str, char *set);
 int			is_quote(char str, int get);
 int			skip_redirect(char *cmd, int pos);
+char		*add_c(char *str, char c);
 
 #endif

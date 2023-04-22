@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/22 14:47:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:55:30 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ static void	set_name_by_var(t_file *file, size_t i, char **new_name, char **env)
 	if (is_quote(0, 1) == EMPTY_QUOTE)
 		file->ambiguous = is_ambiguous(value);
 	*new_name = ft_strjoin(*new_name, value);
+	free(value);
 	if (*new_name == NULL)
 		return ;
 	while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
