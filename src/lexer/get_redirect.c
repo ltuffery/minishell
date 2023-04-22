@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/19 17:00:05 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/22 20:18:32 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	int		i;
 	char	*tmp;
 	t_file	*file;
+	int		quotes;
 
 	file = malloc(sizeof(t_file));
 	init_file(file);
@@ -67,14 +68,22 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	while (new_cmd[*ps] == ' ')
 		(*ps)++;
 	i = 0;
-	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])
-		&& new_cmd[*ps + i])
-		i++;
-	tmp = malloc((i + 1) * sizeof(char));
-	i = 0;
-	while (new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])
+	quotes = 0;
+	while (((new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])) || quotes)
 		&& new_cmd[*ps + i])
 	{
+		if (new_cmd[*ps + i] == '\'' || new_cmd[*ps + i] == '"')
+			quotes = !quotes;
+		i++;
+	}
+	tmp = malloc((i + 1) * sizeof(char));
+	i = 0;
+	quotes = 0;
+	while (((new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])) || quotes)
+		&& new_cmd[*ps + i])
+	{
+		if (new_cmd[*ps + i] == '\'' || new_cmd[*ps + i] == '"')
+			quotes = !quotes;
 		tmp[i] = new_cmd[*ps + i];
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 13:22:52 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 19:53:34 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 19:47:43 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,19 @@ int	is_quote(char str, int get)
 
 int	skip_redirect(char *cmd, int pos)
 {
+	int	quotes;
+
+	quotes = is_quote(0, 1);
 	while (is_chevron(cmd[pos]))
 		pos++;
 	while (cmd[pos] == ' ')
 		pos++;
-	while (cmd[pos] != ' ' && cmd[pos])
+	while ((cmd[pos] != ' ' || quotes) && cmd[pos])
+	{
+		if (cmd[pos] == '\'' || cmd[pos] == '"')
+			quotes = !quotes;
 		pos++;
+	}
 	while (cmd[pos] == ' ')
 		pos++;
 	return (pos);
