@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 14:04:44 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/22 14:53:21 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	open_heredoc(t_data *data)
 				if (tmp_file->ambiguous == TRUE)
 				{
 					ft_print_error_ambiguous();
-					set_code(1, TRUE);
 					return (1);
 				}
 				tmp_file->fd = heredoc_handler(tmp_file->name);
@@ -53,7 +52,6 @@ int	open_heredoc(t_data *data)
 				if (tmp_file->fd == -1)
 				{
 					perror("minishoull: here_doc");
-					set_code(1, TRUE);
 					return (1);
 				}
 			}

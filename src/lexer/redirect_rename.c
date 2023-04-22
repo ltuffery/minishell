@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/21 18:59:33 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/22 14:47:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,34 @@ static void	get_value_var(t_file *file, int i, char **new_name, char **env)
 	*new_name = ft_strjoin(*new_name, value);
 }
 
+static void	set_name_by_var(t_file *file, size_t i, char **new_name, char **env)
+{
+	char	*value;
+
+	value = var_value(&file->name[i], env);
+	if (value == NULL)
+	{
+		file->ambiguous = TRUE;
+		free(*new_name);
+		free(file->name);
+		return ;
+	}
+	if (is_quote(0, 1) == EMPTY_QUOTE)
+		file->ambiguous = is_ambiguous(value);
+	*new_name = ft_strjoin(*new_name, value);
+	if (*new_name == NULL)
+		return ;
+	while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
+		i++;
+	get_value_var(file, i, new_name, env);
+}
+
 static char	*final_name(t_file *file, char **env)
 {
 	size_t	i;
-	size_t	name_len;
 	char	*new_name;
-	char	*value;
 
 	i = 0;
-	name_len = ft_strlen(file->name);
 	new_name = ft_calloc(sizeof(char), 1);
 	if (new_name == NULL)
 		return (NULL);
@@ -42,22 +61,7 @@ static char	*final_name(t_file *file, char **env)
 		if (file->name[i] == '$' && is_quote(0, 1) != SIMPLE_QUOTE
 			&& file->type != HERE_DOC)
 		{
-			value = var_value(&file->name[i], env);
-			if (value == NULL)
-			{
-				file->ambiguous = TRUE;
-				free(new_name);
-				free(file->name);
-				return (NULL);
-			}
-			if (is_quote(0, 1) == EMPTY_QUOTE)
-				file->ambiguous = is_ambiguous(value);
-			new_name = ft_strjoin(new_name, value);
-			if (new_name == NULL)
-				return (NULL);
-			while (ft_isalnum(file->name[i + 1]) || file->name[i + 1] == '_')
-				i++;
-			get_value_var(file, i, &new_name, env);
+			set_name_by_var(file, i, &new_name, env);
 			i += var_len(&file->name[i]) - 1;
 		}
 		else if (!is_quote(file->name[i], 0))
