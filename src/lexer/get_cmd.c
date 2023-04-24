@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 16:52:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:35:06 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@ static void	add_unit(t_cmd *cmd, char **add)
 	cmd->arg = ft_strappend(*add, cmd->arg);
 	free (*add);
 	*add = NULL;
+}
+
+static int	quotes(char c)
+{
+	if (c == '\'' || c == '"')
+		return (1);
+	return (0);
 }
 
 void	tokens_manager(t_cmd *cmd, char *line, char **env)
@@ -43,6 +50,7 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 		else
 			buffer = add_c(buffer, line[i++]);
 	}
-	add_unit(cmd, &buffer);
+	if (buffer != NULL || (buffer == NULL && quotes(line[i - 1])))
+		add_unit(cmd, &buffer);
 	free(buffer);
 }
