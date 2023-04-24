@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/24 20:10:25 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:14:06 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	modif_var(char *line, t_data *data)
 		if (value == NULL || ft_strchr(line, '=') != NULL)
 			data->env[i] = var_replace(line, data->env[i]);
 		if (value != NULL)
-		 	free(value);
+			free(value);
 	}
 	else
 		data->env[i] = var_append(line, data->env[i]);
