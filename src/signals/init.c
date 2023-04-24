@@ -6,7 +6,7 @@
 /*   By: ltuffery <ltuffery@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 15:36:49 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/07 16:39:55 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:56:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static void	listen(int sig, siginfo_t *info, void *unused)
 	(void)unused;
 	if (sig == SIGINT)
 	{
+		set_code(130, TRUE);
 		write(2, "\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
