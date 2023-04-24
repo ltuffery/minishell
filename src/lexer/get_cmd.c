@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 20:44:58 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:52:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,7 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 	while (line[i] != '\0')
 	{
 		if (is_quote(line[i], 0))
-		{
 			i++;
-			if (!line[i])
-				add_unit(cmd, &buffer);
-		}
 		else if (is_chevron(line[i]) && !is_quote(0, 1))
 			i = skip_redirect(line, i);
 		else if ((line[i] == ' ' || line[i] == '\t') && !is_quote(0, 1))
@@ -47,7 +43,6 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 		else
 			buffer = add_c(buffer, line[i++]);
 	}
-	if (buffer != NULL)
-		add_unit(cmd, &buffer);
+	add_unit(cmd, &buffer);
 	free(buffer);
 }

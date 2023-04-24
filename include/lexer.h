@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 18:54:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 22:11:35 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:44:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,5 @@ int		is_ambiguous(char *val);
 size_t	var_len(char *var);
 int		variable(t_cmd *cmd, char *line, char **env, char **tmp);
 char	*replace_variable(t_data *data, char *new_cmd);
-
-char	*wildcard_handler(char *str);
 
 #endif

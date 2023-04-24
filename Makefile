@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/20 16:31:10 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/04/24 17:08:37 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,7 @@ SRC = src/minishell.c \
 		src/execution/pipe/select_pipe.c \
 		src/execution/pipe/pipe_utils.c \
 		src/execution/pipe/pipe_dup_handler.c \
-		src/signals/init.c \
-		src/lexer/wildcard.c
+		src/signals/init.c
 
 BSRC = 
 

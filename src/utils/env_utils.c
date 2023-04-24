@@ -6,14 +6,24 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 17:04:16 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 16:26:11 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:58:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/utils.h"
 
-//Récupère le nom de variable dans une line contenant
-//VAR ou VAR=VALUE ou VAR+=...
+void	cpy_env(char **env, t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+	{
+		data->env = ft_strappend(env[i], data->env);
+		i++;
+	}
+}
+
 char	*getvar(char *line)
 {
 	int		i;
@@ -35,8 +45,6 @@ char	*getvar(char *line)
 	return (var);
 }
 
-//savoir si une var est égal a celle de l'env.
-//var_chr = VAR et var_env = VAR=value
 int	var_is_equal(char *var_chr, char *var_env)
 {
 	int	i;
@@ -55,7 +63,6 @@ int	var_is_equal(char *var_chr, char *var_env)
 	return (1);
 }
 
-//Récupère la valeur d'une variable dans un env donné
 char	*getvalue(char **env, char *var)
 {
 	int		i;

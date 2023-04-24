@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 22:15:07 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:58:35 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,18 +34,6 @@ static void	create_env(t_data *data)
 	tmp = ft_strjoin(tmp, "PWD=");
 	tmp = ft_strjoin(tmp, cwd);
 	data->env = ft_strappend(tmp, data->env);
-}
-
-static void	cpy_env(char **env, t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while (env[i])
-	{
-		data->env = ft_strappend(env[i], data->env);
-		i++;
-	}
 }
 
 static void	input_handler(char *line, t_data *data)
@@ -83,9 +71,8 @@ static void	call_promt(char *line, t_data *data)
 
 char	*get_prompt(t_data *data)
 {
-	char		*out;
-	char		*tmp;
-	t_exitcode	*code;
+	char	*out;
+	char	*tmp;
 
 	out = malloc(1);
 	out[0] = 0;
@@ -96,13 +83,7 @@ char	*get_prompt(t_data *data)
 	else
 		out = ft_strjoin(out, "unnamed");
 	free(tmp);
-	out = ft_strjoin(out, "\001\e[3;32m\002)-\001\e[3;31m\002[");
-	code = exitcode();
-	tmp = ft_itoa(code->code);
-	if (tmp)
-		out = ft_strjoin(out, tmp);
-	free(tmp);
-	out = ft_strjoin(out, "]\001\e[3;32m\002-[\001\e[0m\002");
+	out = ft_strjoin(out, "\001\e[3;32m\002)-[\001\e[0m\002");
 	tmp = getvalue(data->env, "PWD");
 	if (tmp != NULL)
 		out = ft_strjoin(out, tmp);

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 16:52:30 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 20:59:23 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 16:46:03 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ static void	get_file(t_cmd *add, char *new_cmd, int *ps)
 	tmp = NULL;
 	i = 0;
 	quotes = 0;
-	while (((new_cmd[*ps + i] != ' ' && !is_chevron(new_cmd[*ps + i])) || quotes)
-		&& new_cmd[*ps + i])
+	while (((new_cmd[*ps + i] != ' ' && \
+				!is_chevron(new_cmd[*ps + i])) || quotes) && new_cmd[*ps + i])
 	{
 		if (new_cmd[*ps + i] == '\'' || new_cmd[*ps + i] == '"')
 			quotes = !quotes;

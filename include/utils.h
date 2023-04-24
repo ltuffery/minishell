@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 20:46:19 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 17:08:27 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include "minishell.h"
 
 void		free_struct(t_cmd **cmd);
+void		cpy_env(char **env, t_data *data);
 char		*getvar(char *line);
 int			var_is_equal(char *var_chr, char *var_env);
 char		*getvalue(char **env, char *var);

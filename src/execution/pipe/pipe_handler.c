@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 14:53:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:53:39 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 static int	launch_handler(t_data *data, t_cmd *cmd, int pos)
 {
-	int error;
+	int	error;
 
 	error = select_pipe(data, cmd, pos);
 	if (cmd->arg)
@@ -70,7 +70,7 @@ int	pipe_handler(t_data *data)
 		return (ERR_FILE);
 	}
 	last_child = exec_all(data);
-	set_code(0,FALSE);
+	set_code(0, FALSE);
 	if (last_child > -1)
 	{
 		waitpid(last_child, &exit_status, 0);

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/22 14:53:21 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:07:40 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ int	open_heredoc(t_data *data)
 	t_file	*tmp_file;
 
 	tmp_cmd = data->cmd;
-	while (tmp_cmd)
+	while (tmp_cmd != NULL)
 	{
 		tmp_file = tmp_cmd->file;
-		while (tmp_file)
+		while (tmp_file != NULL)
 		{
 			if (tmp_file->type == HERE_DOC)
 			{
