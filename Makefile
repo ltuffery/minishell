@@ -76,7 +76,6 @@ $(NAME): $(OBJ)
 	@echo "\033[4;32m--- executable created ---\n\033[0m"
 
 all: $(NAME)
-		src/utils/utils.c \
 
 bonus: $(BOBJ)
 	@make -s -C $(LINK_LIB)
