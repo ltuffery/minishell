@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 16:58:35 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:25:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ static void	call_promt(char *line, t_data *data)
 	{
 		input_handler(line, data);
 		add_history(line);
+		exitcode()->write_by_signale = FALSE;
 	}
 }
 

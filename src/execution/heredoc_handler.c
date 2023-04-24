@@ -6,16 +6,19 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/13 12:39:52 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/24 20:24:13 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
+#include "../../include/utils.h"
 
 static void	heredoc_fd(int fd, char *limiter)
 {
 	char	*str;
 
+	if (exitcode()->write_by_signale == TRUE)
+		return ;
 	str = ft_get_line(0);
 	while (1)
 	{
