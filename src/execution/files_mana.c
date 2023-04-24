@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:35:33 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 17:07:40 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:03:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	open_heredoc(t_data *data)
 {
 	t_cmd	*tmp_cmd;
 	t_file	*tmp_file;
+	int		call;
 
 	tmp_cmd = data->cmd;
 	while (tmp_cmd != NULL)
@@ -42,18 +43,12 @@ int	open_heredoc(t_data *data)
 		{
 			if (tmp_file->type == HERE_DOC)
 			{
-				if (tmp_file->ambiguous == TRUE)
-				{
-					ft_print_error_ambiguous();
+				call = heredoc_manager_call(tmp_file);
+				if (call == 1)
 					return (1);
-				}
-				tmp_file->fd = heredoc_handler(tmp_file->name);
-				tmp_cmd->fd_infile = tmp_file->fd;
-				if (tmp_file->fd == -1)
-				{
-					perror("minishoull: here_doc");
+				tmp_cmd->fd_infile = call;
+				if (call == -1)
 					return (1);
-				}
 			}
 			tmp_file = tmp_file->next;
 		}

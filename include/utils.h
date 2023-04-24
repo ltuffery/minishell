@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/24 16:23:11 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 17:08:27 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:00:18 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,6 @@ int			skip_set(char *str, char *set);
 int			is_quote(char str, int get);
 int			skip_redirect(char *cmd, int pos);
 char		*add_c(char *str, char c);
+int			heredoc_manager_call(t_file *file);
 
 #endif

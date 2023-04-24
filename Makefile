@@ -6,7 +6,7 @@
 #    By: njegat <njegat@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/02/08 10:20:47 by njegat            #+#    #+#              #
-#    Updated: 2023/04/24 17:26:45 by ltuffery         ###   ########.fr        #
+#    Updated: 2023/04/24 19:07:21 by ltuffery         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC = src/minishell.c \
 		src/utils/free_struct.c \
 		src/utils/env_utils.c \
 		src/utils/exitcode_utils.c \
+		src/utils/heredoc_utils.c \
 		src/builtins/export.c \
 		src/builtins/export/export_parsing.c \
 		src/builtins/export/export_print.c \
@@ -76,7 +77,6 @@ $(NAME): $(OBJ)
 	@echo "\033[4;32m--- executable created ---\n\033[0m"
 
 all: $(NAME)
-		src/utils/utils.c \
 
 bonus: $(BOBJ)
 	@make -s -C $(LINK_LIB)
