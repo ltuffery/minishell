@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/11 15:19:05 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/24 20:10:25 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ char	*var_append(char *line, char *var_env)
 void	modif_var(char *line, t_data *data)
 {
 	char	*var;
+	char	*value;
 	int		i;
 
 	var = getvar(line);
@@ -69,7 +70,13 @@ void	modif_var(char *line, t_data *data)
 	while (!var_is_equal(var, data->env[i]))
 		i++;
 	if (!remove_plus(line))
-		data->env[i] = var_replace(line, data->env[i]);
+	{
+		value = getvalue(data->env, var);
+		if (value == NULL || ft_strchr(line, '=') != NULL)
+			data->env[i] = var_replace(line, data->env[i]);
+		if (value != NULL)
+		 	free(value);
+	}
 	else
 		data->env[i] = var_append(line, data->env[i]);
 	free(var);
