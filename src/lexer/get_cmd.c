@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 19:35:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:16:34 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,6 @@ static void	add_unit(t_cmd *cmd, char **add)
 	*add = NULL;
 }
 
-static int	quotes(char c)
-{
-	if (c == '\'' || c == '"')
-		return (1);
-	return (0);
-}
-
 void	tokens_manager(t_cmd *cmd, char *line, char **env)
 {
 	char	*buffer;
@@ -37,7 +30,11 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 	while (line[i] != '\0')
 	{
 		if (is_quote(line[i], 0))
+		{
 			i++;
+			if (line[i] == '\0')
+				add_unit(cmd, &buffer);
+		}
 		else if (is_chevron(line[i]) && !is_quote(0, 1))
 			i = skip_redirect(line, i);
 		else if ((line[i] == ' ' || line[i] == '\t') && !is_quote(0, 1))
@@ -50,7 +47,7 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 		else
 			buffer = add_c(buffer, line[i++]);
 	}
-	if (buffer != NULL || (buffer == NULL && quotes(line[i - 1])))
+	if (buffer != NULL)
 		add_unit(cmd, &buffer);
 	free(buffer);
 }
