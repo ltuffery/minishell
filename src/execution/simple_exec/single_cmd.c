@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/20 20:27:23 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 06:56:50 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ static void	exec_cmd_single(t_data *data)
 
 	error_path = get_cmd_path(data, data->cmd);
 	err_file = open_heredoc(data);
+	if (exitcode()->write_by_signale == TRUE)
+		return ;
 	if (!err_file)
 		err_file = open_files(data->cmd);
 	if (!err_file)
@@ -97,6 +99,8 @@ static void	exec_builtins_handler(t_data *data)
 	int	err_file;
 
 	err_file = open_heredoc(data);
+	if (exitcode()->write_by_signale == TRUE)
+		return ;
 	if (!err_file)
 		err_file = open_files(data->cmd);
 	if (!err_file)
@@ -118,6 +122,8 @@ void	single_cmd(t_data *data)
 	if (!data->cmd->arg)
 	{
 		open_heredoc(data);
+		if (exitcode()->write_by_signale == TRUE)
+			return ;
 		open_files(data->cmd);
 		close_files(data->cmd);
 		return ;

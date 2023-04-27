@@ -6,11 +6,12 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:05:34 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/04 21:40:56 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 05:00:51 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
+#include "../../include/utils.h"
 
 static int	check_nb_pipe(char *prompt)
 {
@@ -25,6 +26,7 @@ static int	check_nb_pipe(char *prompt)
 	d_quote = 0;
 	while (prompt[i])
 	{
+		i += skip_set(prompt + i, " \t");
 		if (prompt[i] == '"' && (s_quote % 2) == 0)
 			d_quote++;
 		if (prompt[i] == '\'' && (d_quote % 2) == 0)
@@ -45,7 +47,7 @@ static int	around_pipe(char *prompt)
 {
 	char	*tmp;
 
-	tmp = ft_strtrim(prompt, " ");
+	tmp = ft_strtrim(prompt, " \t");
 	if (!tmp)
 		return (0);
 	if (!tmp[0])

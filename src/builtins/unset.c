@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:09:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/11 19:39:00 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 06:04:22 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,10 +51,13 @@ void	unset_builtins(t_data *data, char **arg)
 		tmp_env = data->env;
 		if (!unset_parsing(arg[i]))
 		{
-			while (tmp_env[j])
+			while (tmp_env[j] != NULL)
 			{
 				if (var_is_equal(arg[i], tmp_env[j]) == TRUE)
+				{
 					data->env = str_delete(data->env, tmp_env[j]);
+					break ;
+				}
 				j++;
 			}
 		}

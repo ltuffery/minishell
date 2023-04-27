@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 16:53:39 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 06:57:21 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ int	pipe_handler(t_data *data)
 	pid_t	last_child;
 
 	error = open_heredoc(data);
+	if (exitcode()->write_by_signale == TRUE)
+		return (1);
 	if (error)
 	{
 		set_code(1, TRUE);

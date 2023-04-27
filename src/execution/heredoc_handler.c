@@ -6,27 +6,32 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 20:24:13 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 06:51:13 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/execute.h"
 #include "../../include/utils.h"
+#include "../../libft/libft.h"
 
 static void	heredoc_fd(int fd, char *limiter)
 {
 	char	*str;
+	char	*stop_word;
 
 	if (exitcode()->write_by_signale == TRUE)
 		return ;
+	stop_word = NULL;
+	stop_word = ft_strdup(limiter);
+	stop_word = add_c(stop_word, '\n');
 	str = ft_get_line(0);
 	while (1)
 	{
 		if (!str)
 			break ;
-		if (!ft_strncmp(str, limiter, ft_strlen(limiter)))
+		if (!ft_strncmp(str, stop_word, ft_strlen(stop_word)))
 		{
-			if (!ft_strncmp(str, limiter, ft_strlen(str) - 1))
+			if (!ft_strncmp(str, stop_word, ft_strlen(str) - 1))
 				break ;
 		}
 		ft_putstr_fd(str, fd);
@@ -34,6 +39,7 @@ static void	heredoc_fd(int fd, char *limiter)
 		str = ft_get_line(0);
 	}
 	free(str);
+	free(stop_word);
 }
 
 static char	*str_random(void)
