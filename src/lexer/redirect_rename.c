@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 18:20:22 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/22 20:55:30 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 08:52:10 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static void	set_name_by_var(t_file *file, size_t i, char **new_name, char **env)
 	if (value == NULL)
 	{
 		file->ambiguous = TRUE;
-		free(*new_name);
-		free(file->name);
 		return ;
 	}
 	if (is_quote(0, 1) == EMPTY_QUOTE)

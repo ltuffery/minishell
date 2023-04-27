@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/21 18:50:03 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 08:43:41 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
 	{
 		skip = insert_var(line, var, tmp);
 		if (is_quote(0, 1) == EMPTY_QUOTE && var == NULL)
-			skip += skip_set(line + skip, " ");
+			skip += skip_set(line + skip, " \t");
 	}
 	free(var);
 	return (skip);
