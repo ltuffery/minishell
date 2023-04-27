@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/03/29 19:44:54 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 16:03:16 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static t_boolean	is_flag(const char *str)
 	return (TRUE);
 }
 
-void	echo_builtins(char **argv)
+int	echo_builtins(char **argv)
 {
 	int			i;
 	t_boolean	has_flag;
@@ -50,4 +50,5 @@ void	echo_builtins(char **argv)
 	}
 	if (has_flag == FALSE)
 		printf("\n");
+	return (0);
 }

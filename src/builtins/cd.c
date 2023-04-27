@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 07:46:20 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 15:56:56 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ static int	home_mana(char	*arg, t_data *data)
 	return (error);
 }
 
-void	cd_builtins(t_data *data, char **arg)
+int	cd_builtins(t_data *data, char **arg)
 {
 	int		error;
 
@@ -97,7 +97,7 @@ void	cd_builtins(t_data *data, char **arg)
 		if (arg[2])
 		{
 			ft_putendl_fd("minishoul: cd: too many arguments", 2);
-			return ;
+			return (1);
 		}
 	}
 	error = -1;
@@ -109,4 +109,5 @@ void	cd_builtins(t_data *data, char **arg)
 		puterror_cd(arg[1], ERRDIR);
 	else
 		pwd_change(data);
+	return (0);
 }

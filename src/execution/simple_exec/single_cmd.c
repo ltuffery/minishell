@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 06:56:50 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 16:05:53 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,15 @@ static void	exec_cmd_single(t_data *data)
 
 static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 {
+	int	status;
+
+	status = 0;
 	if (!strcmp_strict(data->cmd->arg[0], "cd"))
-		cd_builtins(data, data->cmd->arg);
+		status = cd_builtins(data, data->cmd->arg);
 	else if (!strcmp_strict(data->cmd->arg[0], "echo"))
-		echo_builtins(data->cmd->arg);
+		status = echo_builtins(data->cmd->arg);
 	else if (!strcmp_strict(data->cmd->arg[0], "env"))
-		env_builtins(data->env);
+		status = env_builtins(data->env);
 	else if (!strcmp_strict(data->cmd->arg[0], "exit"))
 	{
 		close_files(data->cmd);
@@ -84,12 +87,12 @@ static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 		exit_builtins(data, data->cmd->arg);
 	}
 	else if (!strcmp_strict(data->cmd->arg[0], "export"))
-		export_builtins(data->cmd->arg, data);
+		status = export_builtins(data->cmd->arg, data);
 	else if (!strcmp_strict(data->cmd->arg[0], "pwd"))
-		pwd_builtins();
+		status = pwd_builtins();
 	else if (!strcmp_strict(data->cmd->arg[0], "unset"))
-		unset_builtins(data, data->cmd->arg);
-	set_code(0, FALSE);
+		status = unset_builtins(data, data->cmd->arg);
+	set_code(status, FALSE);
 }
 
 static void	exec_builtins_handler(t_data *data)

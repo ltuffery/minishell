@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:09:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 06:04:22 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 16:05:23 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static void	unset_print_error(char *str)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
-void	unset_builtins(t_data *data, char **arg)
+int	unset_builtins(t_data *data, char **arg)
 {
 	char	**tmp_env;
 	int		i;
@@ -65,4 +65,5 @@ void	unset_builtins(t_data *data, char **arg)
 			unset_print_error(arg[i]);
 		i++;
 	}
+	return (0);
 }

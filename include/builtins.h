@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/20 20:26:29 by njegat           ###   ########.fr       */
+/*   Updated: 2023/04/27 16:04:24 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,15 @@
 # include "minishell.h"
 # include <stddef.h>
 
-void	echo_builtins(char **argv);
-void	cd_builtins(t_data *data, char **arg);
-void	env_builtins(char **env);
+int		echo_builtins(char **argv);
+int		cd_builtins(t_data *data, char **arg);
+int		env_builtins(char **env);
 void	exit_builtins(t_data *data, char **args);
-void	unset_builtins(t_data *data, char **arg);
-void	pwd_builtins(void);
+int		unset_builtins(t_data *data, char **arg);
+int		pwd_builtins(void);
+int		export_builtins(char **cmd, t_data *data);
+
 // Export
-void	export_builtins(char **cmd, t_data *data);
 int		existing_var(char *line, char **env);
 int		remove_plus(char *line);
 char	**arr_cpy(char **arr);

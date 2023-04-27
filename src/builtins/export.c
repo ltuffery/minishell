@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/24 20:14:06 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 16:04:51 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	arg_handler(char **cmd, t_data *data)
 	}
 }
 
-void	export_builtins(char **cmd, t_data *data)
+int	export_builtins(char **cmd, t_data *data)
 {
 	char	**tmp;
 
@@ -114,4 +114,5 @@ void	export_builtins(char **cmd, t_data *data)
 	}
 	else
 		arg_handler(cmd, data);
+	return (0);
 }
