@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 16:04:32 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:26:02 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,36 @@
 #include "../../libft/libft.h"
 #include <stdio.h>
 
+static int check_is_superior_max(char *code, int is_neg)
+{
+	if (code[0] <= '9' &&
+			code[1] <= '2' &&
+			code[2] <= '2' &&
+			code[3] <= '3' &&
+			code[4] <= '3' &&
+			code[5] <= '7' &&
+			code[6] <= '2' &&
+			code[7] <= '0' &&
+			code[8] <= '3' &&
+			code[9] <= '6' &&
+			code[10] <= '8' &&
+			code[11] <= '5' &&
+			code[12] <= '4' &&
+			code[13] <= '7' &&
+			code[14] <= '7' &&
+			code[15] <= '5' &&
+			code[16] <= '8' &&
+			code[17] <= '0')
+	{
+		if ((is_neg && code[18] <= '8') || (!is_neg && code[18] <= '7'))
+			return (0);
+	}
+	return (1);
+}
+
 static void	change_code(char *code)
 {
-	unsigned long long	status;
+	long long	status;
 
 	status = ft_atoll(code);
 	set_code(status % 256, FALSE);
@@ -32,15 +59,21 @@ static int	check_args(char **args)
 		return (0);
 	if (args[2] != NULL)
 		return (-1);
+	if (args[1][0] == '-' && ft_isdigit(args[1][1]))
+		i++;
 	if (args[1] != NULL)
 	{
+		if (ft_strlen(args[1]) > 18)
+			return (1);
+		else if (check_is_superior_max(&args[1][i], i))
+			return (1);
+		change_code(&args[1][i]);
 		while (args[1][i] != '\0')
 		{
 			if (!ft_isdigit(args[1][i]))
 				return (1);
 			i++;
 		}
-		change_code(args[1]);
 	}
 	return (0);
 }
