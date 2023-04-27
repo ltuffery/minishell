@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/18 14:37:04 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/27 08:23:05 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ char	*var_value(char *line, char **env)
 	if (ft_isdigit(ret[has_dollar]))
 		value = ft_strdup(&ret[has_dollar + 1]);
 	else if (quotes(line, has_dollar))
+	{
+		free(ret);
 		return (NULL);
+	}
 	else if (len == 1 && has_dollar == 1)
 		value = ft_strdup("$");
 	else if (line[has_dollar] == '?')
