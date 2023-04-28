@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 17:26:02 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:46:48 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	check_args(char **args)
 		i++;
 	if (args[1] != NULL)
 	{
-		if (ft_strlen(args[1]) > 18)
+		if (ft_strlen(args[1]) > 19)
 			return (1);
 		else if (check_is_superior_max(&args[1][i], i))
 			return (1);
