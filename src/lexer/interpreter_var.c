@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/27 12:22:38 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 08:23:05 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/02 16:16:17 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,38 @@ int	is_ambiguous(char *val)
 	return (0);
 }
 
-char	*var_value(char *line, char **env)
+static char	*get_content(char **env, char *line, size_t len, char *ret)
 {
-	t_boolean	has_dollar;
-	size_t		len;
-	char		*ret;
 	char		*value;
+	t_boolean	has_dollar;
 
-	value = NULL;
 	has_dollar = line[0] == '$';
-	ret = ft_strdup(&line[0]);
-	if (ret == NULL)
-		return (NULL);
-	len = var_len(ret);
-	ret[len] = '\0';
 	if (ft_isdigit(ret[has_dollar]))
 		value = ft_strdup(&ret[has_dollar + 1]);
 	else if (quotes(line, has_dollar))
-	{
-		free(ret);
 		return (NULL);
-	}
 	else if (len == 1 && has_dollar == 1)
 		value = ft_strdup("$");
 	else if (line[has_dollar] == '?')
 		value = ft_itoa(exitcode()->code);
 	else
 		value = getvalue(env, &ret[has_dollar]);
+	return (value);
+}
+
+char	*var_value(char *line, char **env)
+{
+	size_t		len;
+	char		*ret;
+	char		*value;
+
+	value = NULL;
+	ret = ft_strdup(&line[0]);
+	if (ret == NULL)
+		return (NULL);
+	len = var_len(ret);
+	ret[len] = '\0';
+	value = get_content(env, line, len, ret);
 	free(ret);
 	return (value);
 }
