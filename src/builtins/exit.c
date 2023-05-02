@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/28 19:02:59 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/02 15:59:48 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../libft/libft.h"
 #include <stdio.h>
 
-static int check_is_superior_max(char *code, int is_neg)
+static int	check_is_superior_max(char *code, int is_neg)
 {
 	if (code[0] <= '9' && \
 			code[1] <= '2' && \
