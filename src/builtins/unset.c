@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 09:09:26 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 16:05:23 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:08:47 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,29 +38,33 @@ static void	unset_print_error(char *str)
 	ft_putstr_fd("': not a valid identifier\n", 2);
 }
 
+static void	delete_var(t_data *data, char **env, char *arg)
+{
+	int	j;
+
+	j = 0;
+	while (env[j] != NULL)
+	{
+		if (var_is_equal(arg, env[j]) == TRUE)
+		{
+			data->env = str_delete(data->env, env[j]);
+			break ;
+		}
+		j++;
+	}
+}
+
 int	unset_builtins(t_data *data, char **arg)
 {
 	char	**tmp_env;
 	int		i;
-	int		j;
 
 	i = 1;
 	while (arg[i])
 	{
-		j = 0;
 		tmp_env = data->env;
 		if (!unset_parsing(arg[i]))
-		{
-			while (tmp_env[j] != NULL)
-			{
-				if (var_is_equal(arg[i], tmp_env[j]) == TRUE)
-				{
-					data->env = str_delete(data->env, tmp_env[j]);
-					break ;
-				}
-				j++;
-			}
-		}
+			delete_var(data, tmp_env, arg[i]);
 		else
 			unset_print_error(arg[i]);
 		i++;
