@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/22 12:59:47 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/02 16:32:14 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:48:01 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ static void	add_unit(t_cmd *cmd, char **add)
 	*add = NULL;
 }
 
+static void	quotes(t_cmd *cmd, char *line, int *i, char **buffer)
+{
+	if (is_quote(line[*i], 0))
+	{
+		(*i)++;
+		if (line[*i] == '\0')
+			add_unit(cmd, buffer);
+	}
+}
+
 void	tokens_manager(t_cmd *cmd, char *line, char **env)
 {
 	char	*buffer;
@@ -29,13 +39,8 @@ void	tokens_manager(t_cmd *cmd, char *line, char **env)
 	buffer = NULL;
 	while (line[i] != '\0')
 	{
-		if (is_quote(line[i], 0))
-		{
-			i++;
-			if (line[i] == '\0')
-				add_unit(cmd, &buffer);
-		}
-		else if (is_chevron(line[i]) && !is_quote(0, 1))
+		quotes(cmd, line, &i, &buffer);
+		if (is_chevron(line[i]) && !is_quote(0, 1))
 			i = skip_redirect(line, i);
 		else if ((line[i] == ' ' || line[i] == '\t') && !is_quote(0, 1))
 		{
