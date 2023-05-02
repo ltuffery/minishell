@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:05:34 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/02 16:19:18 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/02 17:20:43 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ static int	check_nb_pipe(char *prompt)
 			return (pipe);
 		if (prompt[i] != '|')
 			pipe = 0;
+		if (prompt[i] == '\0')
+			break ;
 		i++;
 	}
 	return (pipe);
