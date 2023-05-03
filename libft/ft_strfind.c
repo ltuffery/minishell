@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/13 15:54:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/12 16:11:20 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 15:22:01 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_strfind(const char *s, int c)
 	while (i >= 0)
 	{
 		if (s[i] == search)
-			return (i);
+			return (1);
 		i--;
 	}
 	return (0);

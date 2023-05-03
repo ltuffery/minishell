@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 06:57:21 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 15:50:31 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,11 @@ int	pipe_handler(t_data *data)
 	last_child = exec_all(data);
 	set_code(0, FALSE);
 	if (last_child > -1)
-	{
 		waitpid(last_child, &exit_status, 0);
-		set_if_sig_false(WEXITSTATUS(exit_status));
-	}
 	while (waitpid(-1, NULL, 0) > 0)
 		continue ;
+	if (WIFSIGNALED(exit_status) == FALSE)
+		set_code(WEXITSTATUS(exit_status), FALSE);
 	init_signals(PARENT);
 	return (0);
 }
