@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/03 18:18:36 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 19:13:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 #include "../../libft/libft.h"
 #include <stdio.h>
 
-static int	check_is_superior_max(char *code, int is_neg)
+static int	check_max(char *code, int is_neg)
 {
 	if (code[0] <= '9' && \
 			code[1] <= '2' && \
@@ -50,6 +50,20 @@ static void	change_code(char *code)
 	set_code(status % 256, FALSE);
 }
 
+static int	check_has_alpha(char *code)
+{
+	int	i;
+
+	i = 0;
+	while (code[i] != '\0')
+	{
+		if (!ft_isdigit(code[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 static int	check_args(char **args)
 {
 	size_t	i;
@@ -63,17 +77,16 @@ static int	check_args(char **args)
 		i++;
 	if (args[1] != NULL)
 	{
-		if (ft_strlen(args[1]) > 19)
+		if (ft_strlen(args[1]) > 19 + i)
 			return (1);
-		else if (check_is_superior_max(&args[1][i], i))
-			return (1);
-		change_code(&args[1][i]);
-		while (args[1][i] != '\0')
+		else if (ft_strlen(args[1]) == 19 + i)
 		{
-			if (!ft_isdigit(args[1][i]))
+			if (check_max(&args[1][i], i))
 				return (1);
-			i++;
 		}
+		change_code(args[1]);
+		if (check_has_alpha(&args[1][i]))
+			return (1);
 	}
 	return (0);
 }
