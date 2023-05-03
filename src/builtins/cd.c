@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 15:56:56 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:05:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	pwd_change(t_data *data)
 	ft_double_free(export);
 }
 
-static void	puterror_cd(char *arg, int err)
+static int	puterror_cd(char *arg, int err)
 {
 	if (err == MANY_ARG)
 		ft_putstr_fd("minishoul: cd: too many arguments\n", 2);
@@ -62,6 +62,7 @@ static void	puterror_cd(char *arg, int err)
 		ft_putstr_fd("minishoul: cd: ", 2);
 		perror(arg);
 	}
+	return (1);
 }
 
 static int	home_mana(char	*arg, t_data *data)
@@ -73,8 +74,8 @@ static int	home_mana(char	*arg, t_data *data)
 	home = getvalue(data->env, "HOME");
 	if (!home)
 	{
-		puterror_cd("HOME", NSET);
-		return (0);
+		error = puterror_cd("HOME", NSET);
+		return (error);
 	}
 	if (!arg)
 		error = chdir(home);
@@ -106,8 +107,8 @@ int	cd_builtins(t_data *data, char **arg)
 	else
 		error = chdir(arg[1]);
 	if (error < 0)
-		puterror_cd(arg[1], ERRDIR);
+		error = puterror_cd(arg[1], ERRDIR);
 	else
 		pwd_change(data);
-	return (0);
+	return (error);
 }

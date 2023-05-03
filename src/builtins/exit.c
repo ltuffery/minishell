@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/02 15:59:48 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:18:36 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int	check_args(char **args)
 	return (0);
 }
 
-void	exit_builtins(t_data *data, char **args)
+int	exit_builtins(t_data *data, char **args)
 {
 	int	code;
 	int	check;
@@ -87,9 +87,8 @@ void	exit_builtins(t_data *data, char **args)
 	ft_putendl_fd("exit", 1);
 	if (check == -1)
 	{
-		set_code(1, FALSE);
 		ft_putendl_fd("minishoul: exit: too many arguments", 2);
-		return ;
+		return (1);
 	}
 	else if (check == 1)
 	{

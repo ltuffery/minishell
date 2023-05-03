@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:50:00 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 16:04:24 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 18:17:44 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 int		echo_builtins(char **argv);
 int		cd_builtins(t_data *data, char **arg);
 int		env_builtins(char **env);
-void	exit_builtins(t_data *data, char **args);
+int		exit_builtins(t_data *data, char **args);
 int		unset_builtins(t_data *data, char **arg);
 int		pwd_builtins(void);
 int		export_builtins(char **cmd, t_data *data);

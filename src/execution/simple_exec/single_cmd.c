@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/03 16:21:32 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 18:16:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static void	exec_builtins(t_data *data, int tmp_in, int tmp_out)
 		close_files(data->cmd);
 		close(tmp_in);
 		close(tmp_out);
-		exit_builtins(data, data->cmd->arg);
+		status = exit_builtins(data, data->cmd->arg);
 	}
 	else if (!strcmp_strict(data->cmd->arg[0], "export"))
 		status = export_builtins(data->cmd->arg, data);

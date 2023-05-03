@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 12:23:30 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/03 17:59:57 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 18:10:47 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,13 @@ void	modif_var(char *line, t_data *data)
 	free(var);
 }
 
-void	arg_handler(char **cmd, t_data *data)
+int	arg_handler(char **cmd, t_data *data)
 {
 	int	i;
+	int	error;
 
 	i = 1;
+	error = 0;
 	while (cmd[i])
 	{
 		if (!parsing_var(cmd[i]))
@@ -100,20 +102,25 @@ void	arg_handler(char **cmd, t_data *data)
 			else
 				modif_var(cmd[i], data);
 		}
+		else
+			error = 1;
 		i++;
 	}
+	return (error);
 }
 
 int	export_builtins(char **cmd, t_data *data)
 {
 	char	**tmp;
+	int		error;
 
+	error = 0;
 	if (ft_count(cmd) == 1)
 	{
 		tmp = arr_cpy(data->env);
 		print_by_order(tmp);
 	}
 	else
-		arg_handler(cmd, data);
-	return (0);
+		error = arg_handler(cmd, data);
+	return (error);
 }
