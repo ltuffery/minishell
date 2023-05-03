@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/21 22:34:43 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/03 16:20:18 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void	ft_print_error_cmd(char *cmd, int error_path, t_data *data)
 		free_struct(&data->cmd);
 		ft_double_free(data->env);
 		free(exitcode());
-		exit(1);
+		exit(126);
 	}
 	else
 	{

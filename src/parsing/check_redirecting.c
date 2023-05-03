@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 19:12:23 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/02 17:14:18 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:24:30 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ static int	chevron_manager(char *prompt, t_boolean *error)
 	i += skip_set(prompt + i, " \t");
 	str[0] = prompt[i];
 	str[1] = 0;
-	if (prompt[i] == '<' || prompt[i] == '>' || prompt[i] == '|')
-		*error = print_error(str);
-	else if (!prompt[i])
-		*error = print_error("newline");
 	if (prompt[0] == '<' && prompt[1] == '>')
 		*error = print_error(">");
 	else if (prompt[0] == '>' && prompt[1] == '<')
 		*error = print_error("<");
+	else if (prompt[i] == '<' || prompt[i] == '>' || prompt[i] == '|')
+		*error = print_error(str);
+	else if (!prompt[i])
+		*error = print_error("newline");
 	return (i);
 }
 

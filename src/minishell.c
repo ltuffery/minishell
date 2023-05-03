@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 10:13:10 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/24 20:25:56 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:36:20 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		prompt = get_prompt(&data);
 		line = readline(prompt);
+		exitcode()->write_by_signale = FALSE;
 		free(prompt);
 		call_promt(line, &data);
 	}

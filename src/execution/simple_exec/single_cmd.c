@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 16:05:53 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:21:32 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "../../../include/signals.h"
 #include <signal.h>
 #include <stdlib.h>
+#include <errno.h>
 
 static void	launch_cmd(t_data *data, int error_path)
 {
@@ -31,7 +32,9 @@ static void	launch_cmd(t_data *data, int error_path)
 				free_struct(&data->cmd);
 				ft_double_free(data->env);
 				free(exitcode());
-				exit (1);
+				if (errno == EACCES)
+					exit(126);
+				exit(1);
 			}
 		}
 		ft_print_error_cmd(data->cmd->arg[0], error_path, data);

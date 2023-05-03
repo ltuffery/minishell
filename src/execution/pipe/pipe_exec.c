@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:58:41 by njegat            #+#    #+#             */
-/*   Updated: 2023/04/27 16:08:38 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:22:32 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include "../../../include/builtins.h"
 #include "../../../include/signals.h"
 #include "../../../include/utils.h"
+#include <errno.h>
 
 static void	launch_cmd_pipe(t_data *data, t_cmd *cmd, int pos)
 {
@@ -29,7 +30,9 @@ static void	launch_cmd_pipe(t_data *data, t_cmd *cmd, int pos)
 		free_struct(&data->cmd);
 		ft_double_free(data->env);
 		free(exitcode());
-		exit (1);
+		if (errno == EACCES)
+			exit(126);
+		exit(1);
 	}
 }
 
