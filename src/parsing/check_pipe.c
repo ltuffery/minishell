@@ -6,12 +6,25 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:05:34 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/02 17:20:43 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/04 12:30:11 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/parsing.h"
 #include "../../include/utils.h"
+
+static int	next_check_nb_pipe(char c, int *pipe, int d_quote, int s_quote)
+{
+	if (c == '|' && !(d_quote % 2) && !(s_quote % 2))
+		(*pipe)++;
+	if (c != '|' && *pipe > 1)
+		return (*pipe);
+	if (c != '|')
+		*pipe = 0;
+	if (c == '\0')
+		return (1);
+	return (0);
+}
 
 static int	check_nb_pipe(char *prompt)
 {
@@ -19,26 +32,22 @@ static int	check_nb_pipe(char *prompt)
 	int	pipe;
 	int	s_quote;
 	int	d_quote;
+	int	ret;
 
 	i = 0;
 	pipe = 0;
 	s_quote = 0;
 	d_quote = 0;
-	while (prompt[i])
+	while (prompt[i] != '\0')
 	{
 		i += skip_set(prompt + i, " \t");
 		if (prompt[i] == '"' && (s_quote % 2) == 0)
 			d_quote++;
 		if (prompt[i] == '\'' && (d_quote % 2) == 0)
 			s_quote++;
-		if (prompt[i] == '|' && !(d_quote % 2) && !(s_quote % 2))
-			pipe++;
-		if (prompt[i] != '|' && pipe > 1)
+		ret = next_check_nb_pipe(prompt[i], &pipe, d_quote, s_quote);
+		if (ret >= 1)
 			return (pipe);
-		if (prompt[i] != '|')
-			pipe = 0;
-		if (prompt[i] == '\0')
-			break ;
 		i++;
 	}
 	return (pipe);
