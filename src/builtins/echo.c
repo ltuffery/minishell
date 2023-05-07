@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 16:03:16 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:30:22 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,18 +28,32 @@ static t_boolean	is_flag(const char *str)
 	return (TRUE);
 }
 
+static int	skip_flags(char **argv)
+{
+	int	i;
+
+	i = 1;
+	while (argv[i] != NULL)
+	{
+		if (!is_flag(argv[i]))
+			break ;
+		i++;
+	}
+	return (i - 1);
+}
+
 int	echo_builtins(char **argv)
 {
 	int			i;
 	t_boolean	has_flag;
 
-	i = 2;
+	i = 1;
 	has_flag = FALSE;
+	i += skip_flags(argv);
+	if (i > 1)
+		has_flag = TRUE;
 	if (argv[1] != NULL)
 	{
-		has_flag = is_flag(argv[1]);
-		if (has_flag == FALSE)
-			i = 1;
 		while (argv[i] != NULL)
 		{
 			printf("%s", argv[i]);
