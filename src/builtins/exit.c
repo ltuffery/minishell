@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/03 19:13:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/07 17:38:40 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static int	check_max(char *code, int is_neg)
 			code[14] <= '7' && \
 			code[15] <= '5' && \
 			code[16] <= '8' && \
-			code[17] <= '0')
+			code[17] <= '0' && \
+			((is_neg && code[18] <= '8') || (!is_neg && code[18] <= '7')))
 	{
-		if ((is_neg && code[18] <= '8') || (!is_neg && code[18] <= '7'))
-			return (0);
+		return (0);
 	}
 	return (1);
 }
@@ -71,8 +71,6 @@ static int	check_args(char **args)
 	i = 0;
 	if (args[1] == NULL)
 		return (0);
-	if (args[2] != NULL)
-		return (-1);
 	if (args[1][0] == '-' && ft_isdigit(args[1][1]))
 		i++;
 	if (args[1] != NULL)
@@ -88,6 +86,8 @@ static int	check_args(char **args)
 		if (check_has_alpha(&args[1][i]))
 			return (1);
 	}
+	if (args[2] != NULL)
+		return (-1);
 	return (0);
 }
 
