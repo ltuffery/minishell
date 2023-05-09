@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/03 18:05:47 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/09 07:51:11 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,16 @@
 #define NSET 2
 #define ERRDIR 3
 
-void	pwd_change(t_data *data)
+static void	pwd_change(t_data *data)
 {
 	char	**export;
 	char	*tmp;
 	char	pwd[PATH_MAX];
 
-	export = NULL;
-	export = ft_strappend("export", export);
-	export = ft_strappend("OLDPWD=", export);
 	tmp = getvalue(data->env, "PWD");
-	export[1] = ft_strjoin(export[1], tmp);
+	if (!tmp)
+		return ;
 	free(tmp);
-	if (export[1])
-		export_builtins(export, data);
-	ft_double_free(export);
 	export = NULL;
 	export = ft_strappend("export", export);
 	export = ft_strappend("PWD=", export);
@@ -45,6 +40,33 @@ void	pwd_change(t_data *data)
 		export_builtins(export, data);
 	}
 	ft_double_free(export);
+}
+
+static void	oldpwd_change(t_data *data)
+{
+	char		**export;
+	char		*tmp;
+	static char	pwd_save[PATH_MAX];
+
+	export = NULL;
+	export = ft_strappend("export", export);
+	export = ft_strappend("OLDPWD=", export);
+	tmp = getvalue(data->env, "PWD");
+	if (tmp)
+		pwd_save[0] = 0;
+	if (tmp)
+		export[1] = ft_strjoin(export[1], tmp);
+	else if (pwd_save[0])
+		export[1] = ft_strjoin(export[1], pwd_save);
+	if (export[1])
+		export_builtins(export, data);
+	if (!tmp)
+	{
+		if (getcwd(pwd_save, sizeof(pwd_save)) == NULL)
+			perror("error pwd");
+	}
+	ft_double_free(export);
+	free(tmp);
 }
 
 static int	puterror_cd(char *arg, int err)
@@ -104,11 +126,16 @@ int	cd_builtins(t_data *data, char **arg)
 	error = -1;
 	if (arg[1] == NULL || arg[1][0] == '~')
 		error = home_mana(arg[1], data);
+	if (error > 0)
+		return (1);
 	else
 		error = chdir(arg[1]);
 	if (error < 0)
 		error = puterror_cd(arg[1], ERRDIR);
 	else
+	{
 		pwd_change(data);
+		oldpwd_change(data);
+	}
 	return (error);
 }
