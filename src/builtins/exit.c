@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/10 15:54:15 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:59:17 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static int	check_max(char *code, int is_neg)
 		}
 		i++;
 	}
+	free(limit);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/09 07:51:11 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:49:18 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,12 +126,12 @@ int	cd_builtins(t_data *data, char **arg)
 	error = -1;
 	if (arg[1] == NULL || arg[1][0] == '~')
 		error = home_mana(arg[1], data);
-	if (error > 0)
-		return (1);
 	else
 		error = chdir(arg[1]);
 	if (error < 0)
 		error = puterror_cd(arg[1], ERRDIR);
+	if (error != 0)
+		return (1);
 	else
 	{
 		pwd_change(data);
