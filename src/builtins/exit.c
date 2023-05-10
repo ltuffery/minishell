@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:06:35 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/10 14:45:29 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/10 15:54:15 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ static int	check_max(char *code, int is_neg)
 		if (code[i] < limit[i])
 			has_diff = TRUE;
 		else if (code[i] > limit[i] && has_diff == FALSE)
+		{
+			free(limit);
 			return (1);
+		}
 		i++;
 	}
 	return (0);
