@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 15:26:09 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/10 15:49:18 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:56:33 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,8 +134,8 @@ int	cd_builtins(t_data *data, char **arg)
 		return (1);
 	else
 	{
-		pwd_change(data);
 		oldpwd_change(data);
+		pwd_change(data);
 	}
 	return (error);
 }
