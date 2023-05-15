@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 14:41:24 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/07 17:30:22 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/15 16:44:07 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static t_boolean	is_flag(const char *str)
 
 	i = 1;
 	if (str[0] != '-')
+		return (FALSE);
+	if (str[1] != 'n')
 		return (FALSE);
 	while (str[i] != '\0')
 	{
