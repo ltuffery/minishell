@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/04/27 08:43:41 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/15 16:53:57 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static void	add_units(t_cmd *cmd, char **adds, char **tmp)
 
 static int	insert_var(char *cmd, char *add, char **tmp)
 {
-	int	i;
+	int		i;
+	char	*trim;
 
 	i = var_len(cmd);
 	if (!add)
@@ -40,7 +41,14 @@ static int	insert_var(char *cmd, char *add, char **tmp)
 		*tmp = malloc(1);
 		*tmp[0] = 0;
 	}
-	*tmp = ft_strjoin(*tmp, add);
+	if (is_quote(0, 1) == EMPTY_QUOTE)
+	{
+		trim = ft_strtrim(add, " \t");
+		*tmp = ft_strjoin(*tmp, trim);
+		free(trim);
+	}
+	else
+		*tmp = ft_strjoin(*tmp, add);
 	return (i);
 }
 
