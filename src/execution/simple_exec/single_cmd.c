@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/03 18:16:47 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/16 07:38:12 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	launch_cmd(t_data *data, int error_path)
 {
 	if (data->cmd->arg[0])
 	{
-		if (access(data->cmd->arg[0], X_OK) == 0)
+		if (access(data->cmd->arg[0], X_OK) == 0 && error_path >= 0)
 		{
 			simple_dup_handler(data->cmd);
 			close_files(data->cmd);

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/11 22:25:50 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/16 07:27:41 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,9 @@ int	heredoc_handler(char *limiter)
 		heredoc_fd(fd, limiter);
 		close(fd);
 	}
-	if (exitcode()->write_by_signale == TRUE)
-	{
-		free(rand_name);
-		return (0);
-	}
-	fd = open(rand_name, O_RDONLY, 0644);
+	fd = 0;
+	if (exitcode()->write_by_signale == FALSE)
+		fd = open(rand_name, O_RDONLY, 0644);
 	unlink(rand_name);
 	free(rand_name);
 	return (fd);
