@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 20:57:37 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/03 15:50:31 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/11 22:46:29 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,15 @@
 #include "../../../include/signals.h"
 #include "../../../include/utils.h"
 
-static int	launch_handler(t_data *data, t_cmd *cmd, int pos)
+static void	launch_handler(t_data *data, t_cmd *cmd, int pos)
 {
-	int	error;
-
-	error = select_pipe(data, cmd, pos);
 	if (cmd->arg)
 	{
-		if (is_builtins(cmd) == TRUE && !error)
+		if (is_builtins(cmd) == TRUE)
 			exec_pipe_builtins(data, cmd, pos);
-		else if (!error)
-			exec_pipe(data, cmd, pos);
 		else
-			perror("minishoul: pipe");
+			exec_pipe(data, cmd, pos);
 	}
-	return (error);
 }
 
 pid_t	exec_all(t_data *data)
@@ -43,7 +37,10 @@ pid_t	exec_all(t_data *data)
 	last_child = -1;
 	while (cmd)
 	{
-		error = open_files(cmd);
+		error = select_pipe(data, cmd, pos);
+		if (error)
+			perror("minishoul: pipe");
+		error += open_files(cmd);
 		if (!error)
 		{
 			launch_handler(data, cmd, pos);
