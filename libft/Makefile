@@ -48,7 +48,7 @@ HEADER = libft.h
 
 OBJ = $(SRC:%.c=%.o)
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 
 all: $(NAME)
 
