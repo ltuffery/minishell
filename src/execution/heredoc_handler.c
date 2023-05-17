@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 21:58:24 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/16 07:27:41 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 15:54:02 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static void	heredoc_fd(int fd, char *limiter)
 	stop_word = NULL;
 	stop_word = ft_strdup(limiter);
 	stop_word = add_c(stop_word, '\n');
-	str = ft_get_line(0);
 	while (1)
 	{
+		ft_putstr_fd("here> ", 1);
+		str = ft_get_line(0);
 		if (!str)
 			break ;
 		if (!ft_strncmp(str, stop_word, ft_strlen(stop_word)))
@@ -36,7 +37,6 @@ static void	heredoc_fd(int fd, char *limiter)
 		}
 		ft_putstr_fd(str, fd);
 		free(str);
-		str = ft_get_line(0);
 	}
 	free(str);
 	free(stop_word);
