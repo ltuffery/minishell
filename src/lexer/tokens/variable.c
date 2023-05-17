@@ -6,12 +6,28 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/15 16:53:57 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/17 12:48:48 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../../include/lexer.h"
 #include "../../../include/utils.h"
+
+static void	space_split(t_cmd *cmd, char *var, char **tmp, char *trim)
+{
+	size_t	len;
+
+	len = ft_strlen(var);
+	if (var[0] == ' ')
+	{
+		cmd->arg = ft_strappend(*tmp, cmd->arg);
+		*tmp = 0;
+	}
+	if (var[len - 1] == ' ')
+		cmd->arg = ft_strappend(trim, cmd->arg);
+	else
+		*tmp = ft_strdup(trim);
+}
 
 static void	add_units(t_cmd *cmd, char **adds, char **tmp)
 {
@@ -28,23 +44,25 @@ static void	add_units(t_cmd *cmd, char **adds, char **tmp)
 	ft_double_free(adds);
 }
 
-static int	insert_var(char *cmd, char *add, char **tmp)
+static int	insert_var(t_cmd *cmd, char *line, char *add, char **tmp)
 {
 	int		i;
 	char	*trim;
+	size_t	len;
 
-	i = var_len(cmd);
+	len = ft_strlen(add);
+	i = var_len(line);
 	if (!add)
 		return (i);
 	if (!*tmp)
-	{
-		*tmp = malloc(1);
-		*tmp[0] = 0;
-	}
+		*tmp = ft_calloc(1, 1);
 	if (is_quote(0, 1) == EMPTY_QUOTE)
 	{
 		trim = ft_strtrim(add, " \t");
-		*tmp = ft_strjoin(*tmp, trim);
+		if (add[0] == ' ' || add[len] == ' ')
+			space_split(cmd, add, tmp, trim);
+		else
+			*tmp = ft_strjoin(*tmp, trim);
 		free(trim);
 	}
 	else
@@ -54,8 +72,8 @@ static int	insert_var(char *cmd, char *add, char **tmp)
 
 static void	split_var(t_cmd *cmd, char *var, char **tmp)
 {
-	char	**split;
-	char	*tmp_split;
+	char		**split;
+	char		*tmp_split;
 
 	split = ft_split(var, ' ');
 	tmp_split = split[0];
@@ -82,7 +100,7 @@ int	variable(t_cmd *cmd, char *line, char **env, char **tmp)
 	}
 	else
 	{
-		skip = insert_var(line, var, tmp);
+		skip = insert_var(cmd, line, var, tmp);
 		if (is_quote(0, 1) == EMPTY_QUOTE && var == NULL)
 			skip += skip_set(line + skip, " \t");
 	}
