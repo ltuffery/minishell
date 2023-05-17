@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/09 07:03:59 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 16:20:54 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	ft_print_error_cmd(char *cmd, int error_path, t_data *data)
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": No such file or directory", 2);
-		close_files(data->cmd);
+		close_all_files(data);
 		free_struct(&data->cmd);
 		ft_double_free(data->env);
 		free(exitcode());
@@ -67,7 +67,7 @@ void	ft_print_error_cmd(char *cmd, int error_path, t_data *data)
 		ft_putstr_fd("minishoul: ", 2);
 		ft_putstr_fd(cmd, 2);
 		ft_putendl_fd(": command not found", 2);
-		close_files(data->cmd);
+		close_all_files(data);
 		free_struct(&data->cmd);
 		ft_double_free(data->env);
 		free(exitcode());

@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:58:41 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/17 12:34:23 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 16:33:48 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,9 @@ static void	launch_builtins(t_data *data, t_cmd *cmd)
 
 void	exec_pipe_builtins(t_data *data, t_cmd *cmd, int pos)
 {
+	int	exit_code;
+
+	exit_code = 0;
 	cmd->child = fork();
 	if (cmd->child == 0)
 	{
@@ -94,7 +97,8 @@ void	exec_pipe_builtins(t_data *data, t_cmd *cmd, int pos)
 		launch_builtins(data, cmd);
 		free_struct(&data->cmd);
 		ft_double_free(data->env);
+		exit_code = exitcode()->code;
 		free(exitcode());
-		exit(1);
+		exit(exit_code);
 	}
 }
