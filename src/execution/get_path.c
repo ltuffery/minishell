@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 18:28:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/16 07:39:38 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 13:03:38 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,21 @@ static char	**get_path(char **env)
 	return (output);
 }
 
+static int	check_error(t_cmd *cmd)
+{
+	if (!cmd->arg[0][0])
+		return (1);
+	if (ft_strfind(cmd->arg[0], '/') && access(cmd->arg[0], X_OK) == 0)
+		return (1);
+	return (0);
+}
+
 int	get_cmd_path(t_data *data, t_cmd *cmd)
 {
 	char	**path;
 	int		i;
 
-	if (!cmd->arg[0][0])
-		return (0);
-	if (ft_strfind(cmd->arg[0], '/') && access(cmd->arg[0], X_OK) == 0)
+	if (check_error(cmd))
 		return (0);
 	path = get_path(data->env);
 	if (!path)
