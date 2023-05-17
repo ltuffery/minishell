@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:21:44 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/17 16:20:54 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 16:47:16 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,5 @@ void	ft_print_error_file(char *file)
 void	ft_print_error_ambiguous(void)
 {
 	ft_putendl_fd("minishoul: ambiguous redirect", 2);
+	set_code(1, TRUE);
 }
