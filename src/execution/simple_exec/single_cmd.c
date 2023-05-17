@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 15:15:28 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/16 07:38:12 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 16:39:19 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,12 +115,12 @@ static void	exec_builtins_handler(t_data *data)
 		tmp_in = dup(0);
 		simple_dup_handler(data->cmd);
 		exec_builtins(data, tmp_in, tmp_out);
-		close_files(data->cmd);
 		dup2(tmp_out, 1);
 		dup2(tmp_in, 0);
 		close(tmp_out);
 		close(tmp_in);
 	}
+	close_files(data->cmd);
 }
 
 void	single_cmd(t_data *data)
