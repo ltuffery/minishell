@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 16:26:39 by ltuffery          #+#    #+#             */
-/*   Updated: 2023/05/17 12:48:48 by ltuffery         ###   ########.fr       */
+/*   Updated: 2023/05/17 15:21:41 by ltuffery         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,19 @@ static void	space_split(t_cmd *cmd, char *var, char **tmp, char *trim)
 	size_t	len;
 
 	len = ft_strlen(var);
-	if (var[0] == ' ')
+	if (var[0] == ' ' && *tmp[0] != '\0')
 	{
 		cmd->arg = ft_strappend(*tmp, cmd->arg);
-		*tmp = 0;
+		free(*tmp);
+		*tmp = NULL;
 	}
 	if (var[len - 1] == ' ')
 		cmd->arg = ft_strappend(trim, cmd->arg);
 	else
+	{
+		free(*tmp);
 		*tmp = ft_strdup(trim);
+	}
 }
 
 static void	add_units(t_cmd *cmd, char **adds, char **tmp)
