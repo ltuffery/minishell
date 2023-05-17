@@ -6,7 +6,7 @@
 /*   By: njegat <njegat@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 12:58:41 by njegat            #+#    #+#             */
-/*   Updated: 2023/05/17 12:03:49 by njegat           ###   ########.fr       */
+/*   Updated: 2023/05/17 12:34:23 by njegat           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	exec_pipe(t_data *data, t_cmd *cmd, int pos)
 		init_signals(DEFAULT);
 		if (cmd->arg[0])
 		{
-			if (access(data->cmd->arg[0], X_OK) == 0 && err_path >= 0)
+			if (access(cmd->arg[0], X_OK) == 0 && err_path >= 0)
 				launch_cmd_pipe(data, cmd, pos);
 			close_pipe(data, cmd, pos);
 			ft_print_error_cmd(cmd->arg[0], err_path, data);
